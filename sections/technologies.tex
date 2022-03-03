@@ -5,10 +5,41 @@ Als Plattform bietet Angular etliche Services und Features an, dazu gehören nic
 sondern auch eine built-in Geschwindigkeits- und Performanceoptimierung. Auch für Unternehmen, mit sehr hohen Nutzerzahlen
 ist Angular ein gern gewähltes Tool. Ein großer Vorteil von Angular ist zudem, dass Angular unter eine Open-Source Lizenz veröffentlicht
 ist und somit nicht von dem Angular-Google Team sondern auf von der Community betreut und erweitert wird.
-Angular verfolgt bei der Implementierung das Konzept von der Model-View-Controller Architektur.
+Angular verfolgt bei der Implementierung das Konzept vom Model-View-Controller Desgin Pattern.
 
-Angular zu verwenden ist eine Anforderung von der Betreuer Firma triply GmbH. Angular wird bereits für alle Frontend Projekte verwendet,
+Angular zu verwenden ist eine Anforderung von der Betreuer Firma triply GmbH, es wird bereits für alle Frontend Projekte verwendet,
 deshalb auch für dieses.
+
+\subsubsection{Model-View-Controller Design Pattern}
+\setauthor{Jonas Dorfinger}
+Dieses Pattern wird oft für die Entwicklung von User Interfaces verwendet,
+dabei wird die Logik in drei verschiedenen Elementen (Files) aufgeteilt. Das wird
+gemacht um interne Abbildungen und Referenzen von Daten beziehungsweise Informationen
+in einer Art und Weise aufzuteilen, wie der diese dem Nutzer angezeigt oder vom 
+Nutzer akzeptiert werden. In Angular ergebn alle drei Files eine gemeinsame Component
+
+\paragraph{Model}
+Das Model File ist das Herzstück der Component, es beinhaltet alle Daten
+Strukturen und den Aufbau, dabei werden direkt Daten, Logik und Regeln
+der Component festgelegt und verwaltet.
+
+\paragraph{View}
+Die View beinhaltet alle Details zur Darstellungen der Daten und Informationen.
+Es kann mehrere Views für die gleiche Information geben, zum Beispiel ein
+Balkendiagram für den Manager oder eine Tabelle für die Buchhaltung.
+
+\paragraph{Controller}
+Der Controller 
+Accepts input and converts it to commands for the model or view.
+
+
+% https://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/ besucht am 02.03.2022
+% https://martinfowler.com/eaaDev/uiArchs.html besucht am 02.03.2022
+% Image Resource: https://commons.wikimedia.org/wiki/File:MVC-Process.svg vom 02.03.2022
+
+
+\subsubsection{Model}
+\setauthor{Jonas Dorfinger}
 
 \subsection{Alternativen für Angular}
 \setauthor{Jonas Dorfinger}
