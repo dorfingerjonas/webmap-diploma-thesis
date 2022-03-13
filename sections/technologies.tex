@@ -75,9 +75,37 @@ Um die GeoDaten im Browser darstellen zu können, wird eine Map benötigt. Es gi
 \subsection{Jekyll}
 \subsection{Scully}
 
-\section{CI/CD Pipeline}
+\section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
+Nach dem Download des generierten Projekts sollte die Möglichkeit bestehen,
+kleine Änderungen daran vorzunehmen und es dann schnell und einfach auf einen
+Server zu deployen. Der Server ist dabei entweder eine Linux Virtual Machine
+oder eine \textit{Firebase Hosting} Instanz.
+Dazu gab es mehrere Ansätze: Ist das Projekt ein Git-Repository, kann eine
+Automatisierungssoftware, wie Jenkins oder GitHub Actions verwendet werden,
+die bei jedem \textit{Push}-Event das Projekt buildet und auf den Server
+deployed. Die zweite Möglichkeit ist ein Node.js-Skript, das im Projekt
+enthalten ist und von der Kommandozeile aus ausgeführt wird.
 \subsection{Jenkins}
+Jenkins ist ein Open-Source Automatisierungsserver. Das Projekt wird in
+Java entwickelt und kann mit Hilfe von Plugins an spezifische Anforderungen
+angepasst werden.
+Der Server wird vor Allem zur Automatisierung von Aufgaben, wie das Builden,
+Testen und Deployen von Softwareprojekten genutzt.
+Jenkins muss selbst gehosted werden. Dazu wird ein offizielles Docker Image
+im Docker Hub bereitgestellt.
+Die Konfiguration einer Pipeline wird in einem \textit{Jenkinsfile} vorgenommen,
+das sich im Git-Repository befindet.
+Um die Dateien zur Virtual Machine zu senden, wurde das Plugin \textit{Publish Over SSH}
+verwendet. Für das Deployen zu \textit{Firebase Hosting} steht kein Plugin zur
+Verfügung. Stattdessen wurde auf die \textit{Firebase CLI} zurückgegriffen.
+
+% https://wiki.eclipse.org/Jenkins#About_Jenkins, 13.3.
+% https://github.com/jenkinsci/jenkins, 13.3.
+% https://hub.docker.com/r/jenkins/jenkins, 13.3.
+% https://www.jenkins.io/doc/book/pipeline/jenkinsfile/, 13.3.
+% https://www.jenkins.io/doc/pipeline/steps/publish-over-ssh/, 13.3.
+% https://firebase.google.com/docs/cli/, 13.3.
 \subsection{GitHub Actions}
 
 \section{Backend}
