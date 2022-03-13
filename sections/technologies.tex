@@ -112,6 +112,22 @@ musste, bevor es automatisch deployed werden konnte.
 % https://www.jenkins.io/doc/pipeline/steps/publish-over-ssh/, 13.3.
 % https://firebase.google.com/docs/cli/, 13.3.
 \subsection{GitHub Actions}
+GitHub Actions ist eine Automatisierungssoftware, die von GitHub zur Verfügung
+gestellt wird. Im Gegensatz zu Jenkins werden die Server dabei von GitHub gehosted.
+Die Konfiguration von sogenannten Actions wird in \textit{YAML}-Dateien im
+Repository vorgenommen.
+Auch in GitHub Actions können Plugins verwendet werden, um verschiedenste Aufgaben
+zu automatisieren.
+Sowohl für das Deployen auf eine Virtual Machine, als auch zu \textit{Firebase Hosting}
+stehen Plugins zur Verfügung, was die Konfiguration einfacher als bei Jenkins macht.
+Wie auch bei einer Jenkins Pipeline muss für jedes Projekt jedoch auch beim
+Ansatz mit GitHub Actions ein GitHub Repository erstellt werden.
+
+% TODO: Secrets
+
+% https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions, 13.3.
+% https://github.com/easingthemes/ssh-deploy, 13.3.
+% https://github.com/FirebaseExtended/action-hosting-deploy, 13.3.
 
 \section{Backend}
 \setauthor{Sebastian Scholl}
