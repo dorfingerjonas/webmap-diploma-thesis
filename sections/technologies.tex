@@ -1,97 +1,237 @@
-\section{Frontend Framework Angular}
+\section{Versionierung}
 \setauthor{Jonas Dorfinger}
-Angular ist eine von Google entwickelte Entwicklungsplattform um Frontends zu implementieren.
-Als Plattform bietet Angular etliche Services und Features an, dazu gehören nicht nur die der Cross-Platform Support,
-sondern auch eine built-in Geschwindigkeits- und Performanceoptimierung. Auch für Unternehmen, mit sehr hohen Nutzerzahlen
-ist Angular ein gern gewähltes Tool. Ein großer Vorteil von Angular ist zudem, dass Angular unter eine Open-Source Lizenz veröffentlicht
-ist und somit nicht von dem Angular-Google Team sondern auf von der Community betreut und erweitert wird.
-Angular verfolgt bei der Implementierung das Konzept vom Model-View-Controller Desgin Pattern.
+Der Begriff Versionierung beschreibt im Allgemeinen einen Prozess welcher zur Dokumentation von Änderungen an Dokumenten oder Dateien stattfindet.
+Nach jeder Änderung wird im System eine aktuelle Version abgespeichert und mit einer eindeutigen Versionsnummer versehen.
+Die Versionsnummer wird meist automatisch durch das Versionierungstool vergeben.
+Zusätzlich wird auch gespeichert, wer welche Einträge wann und wo gemacht hat, so werden Änderungen transparent mitprotokolliert.
+Eine der wichtigsten Vorteile einer Versionierung ist jedoch die Funktion, dass man alte Ständ von Dateien wiederherstellen kann.
+Eine Versionsverwaltungssoftware kann auch die gleichzeitigen Zugriffe auf eine Datei von mehrere Personen koordinieren.
+Versionierung ist nicht nur in der Softwareentwicklungs Branche Standard, sondern auch in etlichen weiteren Bereichen stark
+verbreitet.
 
-Angular zu verwenden ist eine Anforderung von der Betreuer Firma triply GmbH, es wird bereits für alle Frontend Projekte verwendet,
-deshalb auch für dieses.
-
-\subsubsection{Model-View-Controller Design Pattern}
+\subsection{automatische vs. manuelle Versionierung}
 \setauthor{Jonas Dorfinger}
-Dieses Pattern wird oft für die Entwicklung von User Interfaces verwendet,
-dabei wird die Logik in drei verschiedenen Elementen (Files) aufgeteilt. Das wird
-gemacht um interne Abbildungen und Referenzen von Daten beziehungsweise Informationen
-in einer Art und Weise aufzuteilen, wie der diese dem Nutzer angezeigt oder vom 
-Nutzer akzeptiert werden. In Angular ergebn alle drei Files eine gemeinsame Component
+Wenn während dem Schreiben einer Arbeit Sicherheitskopien anlegt und diese mit zum Beispiel "arbeit-neu",
+"arbeit-fertig" oder "arbeit-fertig2" benennt werden, dann ist das nichts anderes als eine manuelle Versionierung, weil auch hier
+eine eindeutige Versionsnummer für jede Datei vergeben wurde.
+Das birgt aber auch große Risiken, da eine manuelle Versionierung viel Zeit und Disziplin erfordert und immer die Gefahr
+besteht, dass man eine wichtige Version überschreibt.
+Die meisten Probleme werden von der automatischen Versionierung gelöst.
+Bei dieser Variante werden automatisch, wenn man einen Stand als "fertig" markiert, diese mit einer Versionsnummer versehen
+und im Archiv schreibgeschützt abgelegt.
+Dadurch hat man die Risiken der manuellen Versionierung auf ein Minimum reduziert~\cite{versionierung}.
 
-\paragraph{Model}
-Das Model File ist das Herzstück der Component, es beinhaltet alle Daten
-Strukturen und den Aufbau, dabei werden direkt Daten, Logik und Regeln
-der Component festgelegt und verwaltet.
-
-\paragraph{View}
-Die View beinhaltet alle Details zur Darstellungen der Daten und Informationen.
-Es kann mehrere Views für die gleiche Information geben, zum Beispiel ein
-Balkendiagram für den Manager oder eine Tabelle für die Buchhaltung.
-
-\paragraph{Controller}
-Der Controller 
-Accepts input and converts it to commands for the model or view.
-
-
-% https://blog.iandavis.com/2008/12/what-are-the-benefits-of-mvc/ besucht am 02.03.2022
-% https://martinfowler.com/eaaDev/uiArchs.html besucht am 02.03.2022
-% Image Resource: https://commons.wikimedia.org/wiki/File:MVC-Process.svg vom 02.03.2022
-
-
-\subsubsection{Model}
+\subsection{git}
 \setauthor{Jonas Dorfinger}
+git ist \emph{das} Versionierungssystem in der Softwareentwicklung.
+Es wurde designt um kleine aber auch extrem große und komplexe Projekte effizient zu verwalten.
+Grundsätzlich als CLI (Command Line Interface) konzeptioniert, gibt es mittlerweile auch etliche Grafische Implementierungen,
+um git interaktiver und intuitiver zu gestalten.
+Laut einer Umfrage von Stackoverflow nutzen mehr als 87\% der Entwickler weltweit git~\cite{stackoverflow-git-survey}.
 
-\subsection{Alternativen für Angular}
+\subsubsection{Der git Workflow}
+Der git Workflow beschreibt die effizienteste Arbeitsweise mit git.
+Dabei gibt es vier Stufen zwischen denen mit verschiedenen Konsolen Befehlen gewechselt werden kann.
+
+\paragraph{1. Remote Repository}
+Das Remote Repository befindet sich auf einem externen Server (zum Beispiel Github Server~\ref{subsec:github}).
+Mit einem einfache \emph{git clone} Befehl in der Konsole, kann man das Repository klonen und somit ein lokales Repository erstellen.
+Auf dieses Archiv können mehrere Personen zugreifen und so gemeinsam an einem Projekt arbeiten.
+
+\paragraph{2. Lokales Repository}
+Das Lokale Repository ist eine Kopie der Version im Remote Repository, mit dem Unterschied, dass die lokalen Änderungen in
+diesem Repository gesammelt werden und erst durch den Befehl \emph{git push} wieder zurück ins Remote Repository gelangen.
+
+\paragraph{3. Staging Area}
+In der Staging Area sind alle lokal modifizierten Files, welche für den nächsten Commit auserwählt sind, gesammelt.
+Durch den Befehl \emph{git commit -m <message>} gelangen ausgewählte Änderungen in des lokale Repository.
+Ein Commit repräsentiert dabei eine Version des Programmes, welche mit einer eindeutigen Nummer im System gespeichert wird.
+
+\paragraph{4. Working Directory}
+Im Working Directory wird tatsächlich programmiert, alle Änderungen der Files werden hier durchgeführt.
+Mit dem Befehl \emph{git add <filename>} können einzelne Files gezielt in die Staging Area verschoben werden um diese
+dann anschließend ins lokale Repository zu committen.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pics/git-workflow}
+    \caption{git workflow~\cite{git-workflow}}
+    \label{fig:git-workflow}
+\end{figure}
+
+\cite{git-workflow}
+
+\subsection{Semantische Versionierung}
+Eine semantische Versionsnummer besteht aus drei Teilen:
+
+\begin{center}
+    \centering{MAJOR.MINOR.PATCH}
+\end{center}
+
+Und sollen nach Änderungen in der entsprechenden Kategorie in einser Schritten erhöht werden.
+
+\textbf{MAJOR}
+Wenn API Änderungen durchgeführt werden, welche die API mit der Vorgängerversion inkompatibel machen
+\linebreak
+
+\textbf{MINOR}
+Wenn Funktionalität hinzugefügt wird, welche mit älteren Versionen noch kompatibel sind
+\linebreak
+
+\textbf{PATCH}
+Wenn kleine Bug fixes durchgeführt werden, welche auch mit älteren Versionen kompatibel sind
+\linebreak
+
+Zusätzlich können auch labels für \emph{pre-release} oder \emph{build metadata} angegeben werden:
+
+\begin{center}
+    \centering{MAJOR.MINOR.PATCH format}
+\end{center}
+
+\cite{semantische-versionierung}
+
+\subsection{GitHub}\label{subsec:github}
+GitHub Inc. ist ein amerikanisches gewinnorientiertes Softwareunternehmen, welches git Repositories in der Cloud anbietet,
+also das Remote Repository.
+Dadurch können Privatpersonen aber auch große Unternehmen und Konzerne ganz leicht git als Versionierungstool verwenden.
+Durch viele Features von GitHub wird das arbeiten mit git so stark erleichtert, dass auch Anfänger bereits sehr profesionell
+mit git arbeiten und lernen können.
+Normalerweise verwendet man git mit der Kommandozeile des jeweiligen Betriebssystemes, was hohes technisches Verständnis voraussetzt.
+Man kann einen kostenlosen Account erstellen und gratis Repositories anlegen und verwenden,
+deshalb ist Github in der Open-Source Community sehr stark verbreitet.
+Doch mittlerweile kann diese Software mehr als "nur" Projekte zu versionieren.
+Es gibt project-tracking-tools (GitHub Projects, Issues, Milestones, Labels, etc.), Pipelines für Continues Integration and Delivery,
+gratis Website Hosting und noch vieles mehr~\cite{github-features}.
+
+Es gibt aber auch andere Programme welche zu GitHub gehören, zum einen ist es \emph{Atom}, ein kostenloser und Open-Source Editor für Entwickler.
+Weiters gibt es zum Beispiel auch \emph{Electron}, das ist ebenfalls ein Open-Source JavaScript Framework um Web-Anwendungen zu Desktopanwendungen zu machen.
+
+Unternehmen können kostenpflichtige Organisationen anlegen, um alle Repositories einer Firma gesammelt an einem Ort zu verwalten.
+Dazu gibt es wieder etliche Features welche die Sicherheit, Rollen und vieles mehr betreffen.
+
+Seit 2018 gehört GitHub zu Microsoft, welche für die Übernahme \$7,5 Milliarden US-Dollar auf den Tisch gelegt haben~\cite{microsoft-acquires-github}.
+
+
+\section{Projektkoordination}
 \setauthor{Jonas Dorfinger}
+Da Triply über eine GitHub Organisation verfügt, ist es naheliegend, dass für webmap ein eigenes Repository angelegt wird.
 
-\subsubsection{React}
-\setauthor{Jonas Dorfinger}
-ReactJS ist die größte Konkurrenz von Angular, mit einem vielfachen an Marktanteilen.
-ReactJS ist eine JavaScript Bibliothek von Facebook. Im Gegensatz zu Angular, wird der DOM weg abstrahiert was ein einfacheres 
-Programmiermodel und bessere Performance ermöglicht. Ein Alleinstellungsmerkmal ist dazu auch noch, dass React Server-Side Rendering 
-unterstützt.
+Um Übersicht über den Projektverlauf zu behalten, ist die Entscheidung aufgrund von internen Vereinbarungen von triply sowie die
+Erfahrung des Teams auf GitHub Projects gefallen.
+Man kann ein Project Board ganz einfach über die GitHub Website erstellen und dabei auswählen, ob eine Vorlage ausgewählt werden soll.
 
-\subsubsection{Vue}
-\setauthor{Jonas Dorfinger}
-VueJS ist kaum verbreitet, und hat als größten Nachteil, dass es nur von einer Person regelmäßig erweitert und betreut wird, das kann man anhand der Contributer Activity von dem 
+Es gibt folgende Templates zur Auswahl: ~\cite{github-create-project}
 
-% https://angular.io/guide/what-is-angular besucht am 09.02.2022
-% https://angular.io/features besucht am 09.02.2022
-% https://github.com/vuejs/core/graphs/contributors besucht am 09.02.2022
+\paragraph{None}
+Es wird ein völlig leeres Project Board erstellt, alle Spalten und Einstellungen müssen manuell gemacht werden.
 
-Alle 3 Frameworks werden von den den größten IDEs unterstützt.
+\paragraph{Basic Kanban}
+Ein Project Board mit den Spalten \emph{To do}, \emph{In progress} und \emph{Done} wird erstellt.
+
+\paragraph{Automated Kanban}
+Es wird ein Basic Kanban Board erstellt, mit der zusätzlichen Funktion von eingebauten Triggern, welche automatisch Issues
+und Pull Requests zwischen den Spalten hin und her schieben.
+
+\paragraph{Automated Kanban with Reviews}
+Das Template \emph{Automated Kanban with Reviews} erweitert das Automated Kanban Template um 2 weitere Spalten und einen Trigger
+, für die Pull Request Reviews.
+
+\paragraph{Bug triage}
+Dieses Template wird verwendet, um Bugs zu priorisieren und diese geordnet anzusehen, dabei gibt es folgende Spalten:
+
+\begin{itemize}
+    \item To do
+    \item High priority
+    \item Low priority
+    \item Closed
+\end{itemize}
+
+\subsection{Issues}
+Issues haben die Möglichkeit, die anstehende Arbeit zu dokumentieren und planen.
+
+\cite{github-issues}
+
+\subsection{Automatisierung}
+Durch die Verwendung spezieller Keywords in Commit messages oder in einem Kommentar bei einem Issue, kann der Zustand dieses
+Issues verändert werden.
+Dies geht einher mit der Automatisierung von Project Boards.
+
+\textbf{Keywords:}
+
+\begin{itemize}
+    \item close
+    \item closes
+    \item closed
+    \item fix
+    \item fixes
+    \item fixed
+    \item resolve
+    \item resolves
+    \item resolved
+\end{itemize}
+
+\textbf{Verwendung}
+
+\begin{center}
+    \centering{<Keyword> <Issue Nummer> <Commit Message>}
+\end{center}
+
+\section{Frontend Framework/Library}
+\label{sec:frontend-framework/library}
+\input{sections/frontend-framework-library}
+
 
 \section{Map Frameworks}
 \setauthor{Jonas Dorfinger}
-Um die GeoDaten im Browser darstellen zu können, wird eine Map benötigt. Es gibt dafür drei weit verbreitete Frameworks, MapBox, Leaflet und Google Maps.
+%Um die GeoDaten im Browser darstellen zu können, wird eine Map benötigt.
+%Es gibt dafür drei weit verbreitete Frameworks,
+%MapBox, Leaflet und Google Maps.
 
 \subsection{Mapbox}
+%Mapbox ist ein OpenSource
+
 \subsection{Leaflet}
+
 \subsection{Google Maps}
+
 
 \section{Static Site Generators}
 \setauthor{Sebastian Scholl}
+
 \subsection{Next.js}
+
 \subsection{Jekyll}
+
 \subsection{Scully}
+
 
 \section{CI/CD Pipeline}
 \setauthor{Sebastian Scholl}
+
 \subsection{Jenkins}
+
 \subsection{GitHub Actions}
+
 
 \section{Backend}
 \setauthor{Sebastian Scholl}
+
 \subsection{JavaScript}
+
 \subsection{Typescript}
+
 
 \section{Webserver}
 \setauthor{Sebastian Scholl}
 
+
 \section{Reverse Proxy}
 \setauthor{Sebastian Scholl}
 
+
 \section{Containerization}
 \setauthor{Sebastian Scholl}
+
 \subsection{Docker}
+
 \subsection{Docker Compose}
