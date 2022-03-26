@@ -62,6 +62,7 @@ dann anschließend ins lokale Repository zu committen.
 \cite{git-workflow}
 
 \subsection{Semantische Versionierung}
+\label{subsec:semantic-versioning}
 Eine semantische Versionsnummer besteht aus drei Teilen:
 
 \begin{center}
@@ -308,6 +309,10 @@ Folgende Ergebnisse wurden bei dem Versuch erhalten:
         \textbf{fast device}     & 1,2s             & 3,9s            & 3,23s
     \end{tabular}\label{tab:map-framework-table}
 \end{table}
+
+Aufgrund der oben genannten Vor- und Nachteilen, sowie persönlichen Erfahrungen der Entwickler und nach Absprache mit der
+Betreuerfirma ist die Wahl schlussendlich auf Leaflet in Kombination mit einer Mapbox Tile-layer gefallen.
+Tile-layers bestimmen die Darstellung der Karte an sich und werden von externen Servern direkt für den aktuell zu sehenden Bereich angefordert.
 
 \cleardoublepage
 
