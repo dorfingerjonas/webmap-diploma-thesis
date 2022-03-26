@@ -66,13 +66,13 @@ Ein Alleinstellungsmerkmal ist dazu auch noch, dass React Server-Side Rendering 
 Für SPAs, also Single Page Applications ist es empfehlenswert sich für React zu entscheiden, durch das Wiederverwenden der
 Komponenten kann man in kurzer Zeit gute und interaktive User Interfaces entwickeln.
 
-\begin{figure}
+\begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.15]{pics/angular-react-vue-npm-chart}
     \caption{wöchentliche Downloads~\cite{angular-react-vue-stats}}
     \label{fig:angular-react-vue-chart}
 \end{figure}
-\begin{figure}
+\begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.5]{pics/angular-react-vue-npm-stats}
     \caption{Direkter Vergleich der Frameworks~\cite{angular-react-vue-stats}}
@@ -124,7 +124,7 @@ VueJS kann in beiden, TypeScript und JavaScript geschrieben werden.
     \item Stabilitätsprobleme bei großen Projekten
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.8]{pics/vue_contributions}
     \caption{Vue.js Core Repository Commits im Zeitraum 16. September 2018 - 9. Februar 2022~\cite{VueJSContribution}}
@@ -249,15 +249,164 @@ Deshalb tritt beim zweiten Aufruf ein Error auf, weil ein String nicht als Numme
 
 \subsubsection{Wie funktioniert Angular?}
 \setauthor{Jonas Dorfinger}
+\emph{Ivy} ist die neue Compilation und Rendering Pipeline für Angular.
+Seit der Angular Version 9 wird standardmäßig die neue Pipeline verwendet und ersetzt damit die Alter Pipeline,
+welche unter dem Namen \emph{View Engine} bekannt ist.
+
+Da \emph{Ivy} nicht nur eine Rendering Engine, sondern auch eine Compile Engine ist, öffnen sich ganz neue Türen was die
+Optimierung für und über das gesamte Framework angeht.
+
+Anstatt Template Daten zu generieren, diese in einen Interpreter zu geben, der wiederrum entscheidet, welche Operationen
+ausgeführt werden, wird direkt eine Sammlung an \emph{Template Instructions} generiert.
+Die \emph{Template Instructions} beinhalten die Logik, welche Components instanziiert, DOM Nodes erstellt und Change Detection in Echtzeit ausführt.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=.4]{pics/ivy-pipeline}
+    \caption{Ivy Pipeline}
+    \label{fig:ivy-pipeline}
+\end{figure}
+
+\paragraph{Incremental DOM}
+Jede Component wird in eine eigene Sammlung an Instructions compiled, diese erstellen DOM Trees und aktualisieren die
+Daten an Ort und Stelle, wenn diese sich ändern.
+Zum Erstellen des \emph{Document Object Models} gibt es drei verschieden Funktionen:
+
+\begin{itemize}
+    \item \emph{elementStart} (opening tag)
+    \item \emph{text} (inner html)
+    \item \emph{elementEnd} (closing tag)
+\end{itemize}
+
+Beim Aktualisieren des DOMs wird nicht automatisch jedes Mal ein komplett neuer Tree erstellt, sondern es werden alle
+Nodes verglichen und nur jene verändert, welche auch tatsächlich verändert wurden.
+Das spart nicht nur Arbeitsspeicher, sondern auch Zeit.
+
+Der Grund warum Incremental DOM verwendet sind die Ziele welche erreicht werden möchten.
+Der Fokus liegt auf einer besseren Performance von Web-Applikationen auf Mobilen Endgeräten (Handys, Tablets).
+Um dies zu erreichen, ist es erforderlich zwei Dinge zu optimieren, \emph{bundle size} und \emph{memory footprint}.
+
+
+\paragraph{Shakable Tree}
+Bei Verwendung der Incremental DOM Strategie wird nicht die Component interpretiert, sondern jede Component verweist auf
+verschiedene Instructions.
+Wenn kein Verweis auf eine Instruction zu finden ist, dann wird dieser Teil nicht verwendet und ist somit überflüssig.
+Durch die Vorteile von Incremental DOM ist dies bereits zur Compile Zeit bekannt, weshalb alle nicht benützten Instructions
+vom bundle entfernt, was wiederrum die \emph{bundle size} beträchtlich verringern kann.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=.6]{pics/shakable-tree}
+    \caption{Skakable Tree}
+    \label{fig:shakable-tree}
+\end{figure}
+
+\cite{rendering-engine-ivy, incremental-dom}
+
+\cleardoublepage
 
 \subsubsection{Angular Material}
 \setauthor{Jonas Dorfinger}
+Angular Material ist eine Component-Library von Angular, diese beinhaltet stylistisch aufeinander abgestimmte Elemente.
+Diese Komponenten können ganz einfach importiert werden, durch das Responsive Design der Inhalte, eignen sich diese sehr gut
+für die Umsetzung einer Web-Oberfläche, da nicht viel Zeit für das Design verloren geht, sondern der Fokus voll und ganz
+auf die Funktionalität gelegt werden kann.
+
+Angular Material kann jederzeit über einen Konsolenbefehl zu einem Angular Projekt hinzugefügt werden:
+\begin{center}
+    \centering{ng add @angular/material}
+\end{center}
+
+Bei der Installation kann man bereits vordefinierte Themes von Angular auswählen, zur Auswahl stehen insgesamt 4 verschiedene,
+zwei Dark- und zwei Lighttheme Varianten~\cite{angular-material-predefined-themes}:
+
+\begin{itemize}
+    \item Deep Purple \& Amber (Light)
+    \item Indigo \& Pink (Light)
+    \item Pink \& Blue-grey (Dark)
+    \item Purple \& Green (Dark)
+\end{itemize}
+
+Weiters hat man die Möglichkeit eigene Themes zu erstellen.
+Mithilfe von Custom Themes können die von Angular bereitgestellten Komponenten für jedes Projekt individuell eingefärbt werden.
+Um das zu erreichen, wählt man beim Installieren die fünfte Auswahlmöglichkeit \emph{Custom} aus.
+Dies erstellt, den dafür benötigten Code in dem \emph{styles.scss} File.
+Man kann sich über diverse Internet Seiten Farbpaletten generieren lassen, diese werden benötigt, um ein eigenes Theme zu gestalten.
+Ein Angular Theme hat genau "drei" verschieden Farben, wobei es eher Farbpaletten sind.
+
+\paragraph{primary-palette}
+Die Primary Palette legt die Hauptfarbe fest, welche in fast allen Komponenten standardmäßig verwendet wird.
+Man kann allerdings auch bei den meisten Komponenten individuell als Parameter angeben, welche der drei Paletten verwendet werden soll.
+
+\paragraph{accent-palette}
+Die Accent Palette definiert eine Akzentfarbe, welche einen hohen Kontrast zur Hauptfarbe haben soll, um bestimmte Elemente
+besser hervorheben zu können.
+
+\paragraph{warn-palette}
+Die Warn Palette besteht meist aus einem Rot, welcher für Fehlermeldungen verwendet wird.
+
+\linebreak
+\linebreak
+\linebreak
+
+Eine Farbpalette besteht aus einer Basisfarbe und mehrere abstufungen dieser Farbe, um auch hier unterschiedliche Töne für
+Hervorhebungen zu haben.
+
+Ein Beispiel einer Farbpalette für eine primary-palette:
+
+\begin{lstlisting}[label={lst:custom-primary-color-palette}]{style.scss}
+$primary-palette: (
+  50 : #e2f3f4,
+  100 : #b8e2e4,
+  200 : #88ced2,
+  300 : #58babf,
+  400 : #35acb2,
+  500 : #119da4,
+  600 : #0f959c,
+  700 : #0c8b92,
+  800 : #0a8189,
+  900 : #056f78,
+  A100 : #a7f7ff,
+  A200 : #74f3ff,
+  A400 : #41efff,
+  A700 : #27ecff,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #ffffff,
+    600 : #ffffff,
+    700 : #ffffff,
+    800 : #ffffff,
+    900 : #ffffff,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+);
+\end{lstlisting}
+
+Insgesamt hat man die Auswahl aus 36 verschiedenen Komponenten~\cite{angular-material-component-overview,angular-material-description,angular-material-with-angular}.
+
+Die Komponenten werden ganz einfach über einen Custom HTML Tag eingebunden.
 
 \subsubsection{triply Material Library}
 \setauthor{Jonas Dorfinger}
 Triply hat in den letzten Monaten einige eigene Angular Komponenten erstellt und in einer internen Bibliothek
 gesammelt, vor allem auf diese Inhalte wurde zurückgegriffen, um zum Beispiel einen Slider oder einen true/false Switch
 zu verwenden.
+Der Unterschied zu Angular Material liegt darin, dass die Firmeninterne Library aus Files besteht, welche in das Projekt
+kopiert werden, vereinfach gesagt, man verwendet dabei Custom-Components.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=1]{pics/triply-material-library}
+    \caption{Triply Slider und Triply Switch}
+    \label{fig:triply-material-library}
+\end{figure}
 
 \subsubsection{Model-View-Controller Design Pattern}
 \setauthor{Jonas Dorfinger}
@@ -290,7 +439,7 @@ Dabei werden die Daten mittels Getter-Funktionen aus dem Model geladen und so ve
 anzeigen kann.
 Wenn Änderungen der Daten durch die gemacht werden, speichert der Controller diese Änderung mittels Setter-Funktionen im Model.
 
-\begin{figure}
+\begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.1]{pics/mvc_design_pattern}
     \caption{Model-View-Controller-Pattern}
