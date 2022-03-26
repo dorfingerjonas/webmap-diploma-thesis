@@ -52,7 +52,7 @@ Im Working Directory wird tatsächlich programmiert, alle Änderungen der Files 
 Mit dem Befehl \emph{git add <filename>} können einzelne Files gezielt in die Staging Area verschoben werden um diese
 dann anschließend ins lokale Repository zu committen.
 
-\begin{figure}
+\begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.4]{pics/git-workflow}
     \caption{git workflow~\cite{git-workflow}}
@@ -176,6 +176,9 @@ Dies geht einher mit der Automatisierung von Project Boards.
     \centering{<Keyword> <Issue Nummer> <Commit Message>}
 \end{center}
 
+\cite{github-issue-automation}
+
+
 \section{Frontend Framework/Library}
 \label{sec:frontend-framework/library}
 \input{sections/frontend-framework-library}
@@ -183,21 +186,140 @@ Dies geht einher mit der Automatisierung von Project Boards.
 
 \section{Map Frameworks}
 \setauthor{Jonas Dorfinger}
-%Um die GeoDaten im Browser darstellen zu können, wird eine Map benötigt.
-%Es gibt dafür drei weit verbreitete Frameworks,
-%MapBox, Leaflet und Google Maps.
+Geo-Daten sind sehr komplexe Daten, welche nur sehr schwer und mit viel Erfahrung ohne Visualisierung interpretiert werden können.
+Um solche Daten visualiseren zu können werden Map Frameworks benötigt, diese können auf digitalen Karten, die Koordinaten
+grafisch darstellen, doch auch interaktive Darstellungen sind möglich.
+Drei der bekanntesten Frameworks sind:
+
+\begin{itemize}
+    \item Mapbox
+    \item Leaflet
+    \item Google Maps
+\end{itemize}
 
 \subsection{Mapbox}
-%Mapbox ist ein OpenSource
+Mapbox ist ein amerikanisches Unternehmen, welches sich auf Custom-Maps spezialisiert und die Nische stark vergrößert hat.
+Dabei geht es um die Darstellung von Geo-Daten auf digitalen Kartensystemen und deren Individualisierung.
+Weiters ist Mapbox Contributor zum OpenStreetMap (OSM) Projekt, das ist eine Geo-Datenbank mit Kartendaten und Informationen
+für den gesamten Globus.
+Große Konzerne wie Amazon, Facebook oder Snapchat setzen auf OpenStreetMap für ihre eigenen Angebote und Services den Kunden gegenüber.
+Unternehmen wie Tesla, mit einer eigenen Navigationssoftware verwenden die OSM-Datenbank ebenfalls für ihre eigenen Zwecke~\cite{osm-customers-1, osm-customers-2}.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.25]{pics/austria-mapbox}
+    \caption{Österreich mit Bundesländern in Mapbox}
+    \label{fig:austria-mapbox}
+\end{figure}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item OpenSource (bis Version 2.0.0)~\cite{mapbox-open-source}
+    \item Gutes Handling von großen Datensätzen
+    \item Individualisierbar
+    \item Gute Unterstützung von komplexen Strukturen
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Ausbaufähige Dokumentation
+    \item Kein ausgereifter Angular Wrapper
+\end{itemize}
 
 \subsection{Leaflet}
+Leaflet ist das laut eigenen Angaben die führende Open-Source JavaScript Library, wenn mobile und interaktive Karten gefordert sind.
+Durch die sehr gute API Dokumentation können ganz leicht Geo-Daten auf Karten dargestellt und interaktive Elemente eingebaut werden.
+Der Fokus liegt dabei auf den Grundfunktionalitäten, das beinhaltet auch eine Performance Optimierung für fast alle Geräte und Plattformen.
+Dank einer leichten Anbindungsmöglichkeit für Plugins, gibt es etliche davon im Internet, die man einfach verwenden kann,
+um die Funktionalitäten zu erweitern.
+Leaflet wird auch von den ganz großen verwendet: GitHub, Pinterest, Facebook, European Commission, The Washington Post und noch viele mehr.
+~\cite{leaflet-doc}
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.4]{pics/austria-leaflet}
+    \caption{Österreich mit Bundesländern in Leaflet}
+    \label{fig:austria-leaflet}
+\end{figure}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Open-Source (keine Restriktion oder Terms of Service)
+    \item Hervorragende Dokumentation
+    \item Leichtgewichtig (39KB)
+    \item Plugin Support
+    \item Angular Wrapper
+    \item Bereits von triply in Verwendung
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Offizielle Dokumentation beinhaltet nur grundlegende Beispiele
+    \item Möglicherweise verwenden von GIS Programmen (zum Beispiel QGIS) notwendig, um Informationen aufzubereiten
+\end{itemize}
+
 \subsection{Google Maps}
+Google Maps ist der Kartendienst von Google und der Kartenprovider mit den meisten Daten, welche zur Verfügung stehen.
+OpenStreetMap ist vergleichsweise auf dem Globus nicht deckend, das liegt, jeder kann aber Daten oder Orte beisteuern.
+Google Maps hingegen, hat Daten bis in jede noch so kleine Straße, das ermöglicht eine sehr gute Informationslage.
+In Kombination mit Places API und der Maps images API kann niemand mit Google mithalten.
+Das liegt auch daran, dass Google mehr als Maps betreut und deshalb viel mehr Möglichkeiten als zum Beispiel OpenStreetMap hat.
+Der wohl größte Nachteil liegt an der kostenpflichtigen Nutzung ab einer gewissen Nutzerzahl.
+Ab 1000 Anfragen pro Monat ist Google Maps nicht mehr gratis und damit frei zu nutzen~\cite{google-maps-vs-osm}.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.2]{pics/austria-googlemaps}
+    \caption{Österreich mit Bundesländern in Google Maps}
+    \label{fig:austria-googlemaps}
+\end{figure}
+
+\paragraph{Vorteile}
+\begin{itemize}
+    \item Google Ökosystem
+    \item hohe Abdeckung des Globus
+    \item Angular Wrapper
+\end{itemize}
+
+\paragraph{Nachteile}
+\begin{itemize}
+    \item Kann kostenpflichtig werden
+    \item Terms of Use und Restriktionen
+    \item Google Logo immer sichtbar
+    \item Farbschema kann kaum verändert werden.
+\end{itemize}
+
+\cleardoublepage
+
+\subsection{Performance im Vergleich}
+Um eine Wahl auf ein bestimmtes Framework treffen zu können, wurden mithilfe der Chrome-Developer-Tools die Ladezeiten
+unter bestimmten Voraussetzungen der einzelnen Frameworks getestet.
+In diesen Tools gibt es die Möglichkeit zwischen einem schnellem (fast), einem mittel-schnellem (mid-tier) und einem
+langsamen (low-end) Gerät zu wählen.
+Dadurch änderten sich die Ladezeiten teils sehr drastisch.
+Folgende Ergebnisse wurden bei dem Versuch erhalten:
+
+\begin{table}[hbt!]
+    \centering
+    \begin{tabular}{llll}
+        & \textbf{Leaflet} & \textbf{Mapbox} & \textbf{Google Maps} \\
+        \textbf{low-end device}  & 132s             & 138s            & 192s                 \\
+        \textbf{mid-tier device} & 39,5s            & 41,69s          & 56,12s               \\
+        \textbf{fast device}     & 1,2s             & 3,9s            & 3,23s
+    \end{tabular}\label{tab:map-framework-table}
+\end{table}
+
+\cleardoublepage
 
 \section{Static Site Generators}
 \setauthor{Sebastian Scholl}
+
 \subsection{Next.js}
+
 \subsection{Jekyll}
+
 \subsection{Scully}
+
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
@@ -210,6 +332,7 @@ Automatisierungssoftware, wie Jenkins oder GitHub Actions verwendet werden,
 die bei jedem \textit{Push}-Event das Projekt buildet und auf den Server
 deployed. Die zweite Möglichkeit ist ein Node.js Skript, das im Projekt
 enthalten ist und von der Kommandozeile aus ausgeführt wird.
+
 \subsection{Jenkins}
 Jenkins ist ein Open-Source Automatisierungsserver. Das Projekt wird in
 Java entwickelt und kann mit Hilfe von Plugins an spezifische Anforderungen
@@ -235,6 +358,7 @@ musste, bevor es automatisch deployed werden konnte.
 % https://www.jenkins.io/doc/book/pipeline/jenkinsfile/, 13.3.
 % https://www.jenkins.io/doc/pipeline/steps/publish-over-ssh/, 13.3.
 % https://firebase.google.com/docs/cli/, 13.3.
+
 \subsection{GitHub Actions}
 GitHub Actions ist eine Automatisierungssoftware, die von GitHub zur Verfügung
 gestellt wird. Im Gegensatz zu Jenkins werden die Server dabei von GitHub gehosted.
@@ -253,18 +377,26 @@ Ansatz mit GitHub Actions ein GitHub Repository erstellt werden.
 % https://github.com/easingthemes/ssh-deploy, 13.3.
 % https://github.com/FirebaseExtended/action-hosting-deploy, 13.3.
 
+
 \section{Backend}
 \setauthor{Sebastian Scholl}
+
 \subsection{JavaScript}
+
 \subsection{Typescript}
+
 
 \section{Webserver}
 \setauthor{Sebastian Scholl}
 
+
 \section{Reverse Proxy}
 \setauthor{Sebastian Scholl}
 
+
 \section{Containerization}
 \setauthor{Sebastian Scholl}
+
 \subsection{Docker}
+
 \subsection{Docker Compose}
