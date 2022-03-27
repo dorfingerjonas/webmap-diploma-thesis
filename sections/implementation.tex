@@ -352,6 +352,13 @@ Eine Ausnahme bildet ein Objekt, bei dem im Schema keine \textit{properties} def
 In diesem Fall wird ein Textfeld angezeigt, in welches ein beliebiges JSON-Objekt eingegeben werden kann.
 Mittels \textit{FormControl} wird laufend überprüft, ob der eingegebene Wert ein valides JSON-Objekt ist.
 
+Dazu wird die in JavaScript standardmäßig vorhandene Funktion \textit{JSON.parse} verwendet.
+Diese Methode erhält einen beliebigen JSON-String als Parameter und gibt den Inhalt als JavaScript-Objekt zurück.
+Ist dieser String kein valider JSON-String, wird ein Error geworfen.
+
+Bei jeder Änderung im Textfeld wird also \textit{JSON.parse} mit dem Inhalt des Textfelds als Parameter aufgerufen.
+Wird dabei ein Error geworfen, ist der Inhalt kein valides JSON-Objekt.
+
 \subsection{Array Component}
 Ein Array Component listet alle Werte, die sich in diesem Array befinden, auf.
 Mit einem Button kann ein neuer Wert hinzugefügt werden.
@@ -360,6 +367,10 @@ Mit einem Button kann ein neuer Wert hinzugefügt werden.
 Bei einem File Component wird ein Button zum Uploaden von Files angezeigt.
 Ein \textit{FormControl} Objekt überprüft bei einem Upload, ob die Dateiendung mit den im Schema definierten
 Endungen übereinstimmt.
+In den Namen eines hochgeladenen Files wird der momentane UNIX-Timestamp eingefügt und es wird zwischengespeichert.
+Das hat den Vorteil, dass mehrere Files mit dem gleichen Namen hochgeladen werden können, ohne sich gegenseitig zu
+überschreiben.
+Um das Konfigurationsfile übersichtlich zu halten, werden die hochgeladenen Files darin nur mit ihrem Namen referenziert.
 
 \subsection{Number Component}
 Ein Number Component besteht aus einem einfachen Input-Feld, in das nur Zahlen eingegeben werden.
