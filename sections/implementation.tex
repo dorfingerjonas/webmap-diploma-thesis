@@ -104,7 +104,7 @@ Wird aktuell nicht angezeigt, kann aber durch Individualisierungen verwendet wer
 Jedes Element im Array, hat eine eigenen Map Ansicht, sowie eigene Daten, welche in der Sidebar angezeigt werden.
 
 \textbf{Title}
-ist der Name der Seite und wird groß hervorgehoben angezeigt.
+Der Title ist der Name der Seite und wird groß hervorgehoben angezeigt.
 
 \textbf{Subtitle}
 Der Subtitle beschreibt in wenigen Wörtern, etwas genauer worum es bei der ausgewählten Karte geht.
@@ -133,8 +133,9 @@ Mit dem Attribut \emph{dataSource} wird die zutreffende Data Source ausgewählt.
 Zusätzlich kann noch eine Einheit (\emph{unit}) und auch ein Name für den Filter angegeben werden.
 
 \subsubsection{Data Sources}
-Ist ein Array
-%TODO schreib den gack
+Ist ein Array welches mehrere Data Sources beinhalten kann.
+Jedes JSON-Objekt hat mehrere Attribute die eine Data Source beschreiben.
+Diese werden global definiert und können in jeder Page, auch mehrmals referenziert werden.
 
 \textbf{ID}
 Die ID wird benötigt, um eine Data Source referenzieren zu können, zum Beispiel bei der Erstellung von Pages.
@@ -168,16 +169,10 @@ Hierbei handelt es sich um ein Array, in dem individuelle Color Schemes gespeich
 Wichtig, dass auch hier jedes JSON-Objekt eine ID erhält, um das Scheme referenzieren zu können.
 Weiters befindet sich ein Array \emph{colors} in diesem Objekt, welches die HEX-Codes der Farben beinhaltet.
 
-\subsection{Sidebar}
-
-\subsection{Mapview}
-
-\subsection{Global Datasources}
-
-\subsection{Custom Color Schemes}
-
-\subsection{Navigation}
-
+\subsection{Frontend Architektur und Aufbau}
+Auf der linken Seite gibt, es eine Sidebar in der alle Informationen angezeigt werden, welche für die aktuell ausgewählte Seite relevant sind.
+Auf der rechten Seite, wird die Map dargestellt, auf dieser werden die Data Sources angezeigt, sowie die Map-Options angewandt.
+Die Services, verarbeiten und verteilen Daten zwischen den Components.
 
 \begin{figure}[hbt!]
     \centering
@@ -186,8 +181,107 @@ Weiters befindet sich ein Array \emph{colors} in diesem Objekt, welches die HEX-
     \label{fig:frontend-architecture}
 \end{figure}
 
+\cleardoublepage
+
+\subsection{Services}
+Services sind Angular ein spezielles Konstrukt zur Datenverarbeitung, der Hauptanwendungsfall ist der Austausch von Daten
+zwischen mehreren Components.
+Der große Vorteil dabei ist, diese Singletons sind, das bedeutet, es gibt genau eine Instanz für alle Komponenten, somit
+ist es möglich, dass alle auf die gleichen Daten zugreifen.
+
+\subsubsection{Config Service}
+Der Config Service liest, das Konfigurationsfile aus bietet diesen Inhalt an andere Components an.
+Über die App Component, wird die Konfiguration angefordert und weiterverarbeitet, so werden die Data Source Konfigurationsdaten
+und die Custom Color Schemes herausgefiltert und an den ~\ref{subsubsec:data-source-service} weitergegeben.
+
+\subsubsection{Data Source Service}
+\label{subsubsec:data-source-service}
+Das Ziel mit diesem Service ist es, einen globalen Pool an Data Sources zu erstellen, aus der jede Component jederzeit die
+benötigten Data Sources anfordern und referenzieren kann, somit muss jede Data Source nur einmal erstellt werden und kann endlose Male weiterverwendet werden.
+
+Jede Data Source besteht aus mehreren Layern, dadurch ist eine Data Source eine Leaflet \emph{LayerGroup}.
+Der Service erhält zu Beginn die Informationen aus dem Konfigurationsfile, zuerst werden die Geo-Daten ausgelesen und entsprechend verarbeitet.
+Es werden die verschiedenen Layer entsprechend der Daten erstellt und eingefärbt, wenn angegeben, wird hier auch der Tooltip zum Layer hinzugefügt.
+
+Es werden alle \emph{Geometry Types} laut der \emph{GeoJSON Specification (RFC 7946)}~\cite{rfc7946} unterstützt:
+
+\begin{itemize}
+    \item Point
+    \item LineString
+    \item Polygon
+    \item MultiPoint
+    \item MultiLineString
+    \item MultiPolygon
+    \item \emph{GeometryCollection} ist nicht offiziell im Standard inkludiert, wird aber auch unterstützt.
+    Diese Art von \emph{Geometry Types} kann mehrere andere \emph{Types} beinhalten.
+\end{itemize}
+
+\subsubsection{Menu Service}
+Um die Navigation zu erleichtern, kann man mit den Pfeiltasten zwischen den Pages wechseln, aber auch ein globales Menü
+steht zur Verfügung, um direkt zur gewünschten Page zu gelangen.
+Dabei hat man eine kurze Übersicht über alle Pages und mit einem Klick auf die entsprechende Seite gelangt man auch dorthin.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=.9]{pics/menu}
+    \caption{Menü zur Page Auswahl}
+    \label{fig:menu}
+\end{figure}
+
+\subsection{Custom Color Schemes}
+Color Schemes ermöglichen es, Bereiche auf Karten visuell besser darzustellen.
+Es werden standardmäßig die Schemes der CartoColor Library verwendet, welche exzellente Schemes für Karten bereitstellt.
+Ein Color Scheme besteht aus mehreren Farben, welche durch Abstufungen angeordnet sind (meistens von dunkel bis hell).
+Auch bei den Individuellen Schemes ist dies nicht anders, es werden ein eindeutiger Name vergeben und HEX-Codes zugeordnet.
+
+Der ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color Schemes importiert und verwendet werden, wenn so konfiguriert.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=.6]{pics/color-scheme-example}
+    \caption{Color Scheme Beispiel: Je heller die Farbe, desto länger dauert die Anreise mit dem Fahrrad in die Mitte}
+    \label{fig:color-scheme-example}
+\end{figure}
+
+\subsection{Sidebar}
+Die Sidebar auf der linken Seite bietet Platz, um Informationen anzuzeigen.
+Ganz oben ist der \emph{title} zu sehen, darunter der \emph{subtitle}, der zu sehende Textblock, ist die \emph{description},
+für welche für jeden Array Eintrag ein eigener Absatz erstellt wird.
+Am unterende Ende der Sidebar sind die Filter angeordnet, standardmäßig für jede Data Source wird ein Sichtbarkeits-Filter angelegt,
+mit diesem lässt sich die Data Source ein- oder ausblenden.
+Der zweite unterstütze Filter ist der "Slider", mit diesem kann man den Wertebereich der angezeigten Daten verändern,
+zum Beispiel, wenn man nur die Daten zwischen einer Anreise Dauer von 800 Sekunden bis 1000 Sekunden angezeigt haben möchte, kann man dies hier machen.
+Gelöst wird das ganze mit einem Value-Binding auf das Attribut, welches in der Konfiguration angegeben wird, auch
+die Skalierung des Slider wird automatisch berechnet.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=.7]{pics/sidebar}
+    \caption{Sidebar mit Beispiel Daten}
+    \label{fig:sidebar}
+\end{figure}
+
+\subsection{Map}
+In der Map werden alle Daten auf der Karte visualisiert.
+In den hochgeladenen Geo-JSON Files sind unzählige Koordinaten enthalten, welche Punkteweise auf der Karte dargestellt werden,
+je nach Art der Darstellung, werden anschließend Linien zwischen Punkten berechnet, welche auch Formen ergeben können.
+Die Arten dieser Visualisierungen sind im RFC 7946~\cite{rfc7946} Standard genau beschrieben, diese werden auch bei webmap angewandt.
+
+Durch den Data Source Service, gibt es bereits eine Sammlung an LayerGroups, welche nur noch angezeigt werden müssen,
+dass erhöht nicht nur die Performance, wenn die Page gewechselt wird, sondern macht die gesamte Applikation gut strukturiert.
+
+Wenn alle Components eingebunden sind, kann das Frontend so ausschauen:
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=.3]{pics/webmap-frontend}
+    \caption{Webmap Frontend}
+    \label{fig:webmap-frontend}
+\end{figure}
+
+
 \section{Generator Implementierung}
 \setauthor{Sebastian Scholl}
+
 \subsection{JSON Schema}
 Da der Generator dynamisch aufgebaut sein sollte und die Möglichkeit bestehen sollte, das Format der generierten
 Daten zu verändern, wurde sich dazu entschieden, den Generator aufgrund des JSON Schemas, das die Daten beschreibt,
@@ -219,8 +313,10 @@ Properties vom Typ "string" und "boolean" haben keine zusätzlichen Felder.
 
 Das Schema befindet sich im \textit{src/assets/schema.json} File des Generators.
 
+
 \section{Backend Implementierung}
 \setauthor{Sebastian Scholl}
+
 \subsection{Static Site Generators}
 Da JSON als Format für die Daten ausgewählt wurde, mussten keine Static Site Generators zum Generieren der
 Websites verwendet werden.
@@ -343,6 +439,7 @@ Das \textit{docker-compose.yml} File dazu sieht folgendermaßen aus:
 
 Das gesamte Backend kann somit mit dem Befehl \textit{docker-compose up -d} gestartet werden.
 
+
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
 Mit der Deployment Pipeline sollen Benutzern und Benutzerinnen die Möglichkeit geben das generierte Projekt schnell
@@ -406,10 +503,10 @@ Diese Befehle werden im \textit{package.json} File definiert:
 Das Firebase Skript führt folgende Schritte aus:
 
 \begin{itemize}
-  \item Installieren der Dependencies
-  \item Linten des Projekts
-  \item Builden des Projekts
-  \item Deployen mithilfe der Firebase CLI
+    \item Installieren der Dependencies
+    \item Linten des Projekts
+    \item Builden des Projekts
+    \item Deployen mithilfe der Firebase CLI
 \end{itemize}
 
 Um die jeweiligen Konsolenbefehle in Node.js aufzurufen wurde die Methode \textit{spawn} des Node-Packages
