@@ -512,9 +512,9 @@ Architektur umzusetzen.
 Daher laufen die beiden Teile in unterschiedlichen Docker Containern und werden mithilfe
 von Docker Compose orchestriert.
 
-% TODO: evtl. Dockerfiles
+Die Images dafür werden in \textit{Dockerfiles} definiert.
 
-Das \textit{docker-compose.yml} File dazu sieht folgendermaßen aus:
+Das \textit{docker-compose.yml} File sieht folgendermaßen aus:
 
 \begin{lstlisting}[numbers=left]
   version: '3.8'
@@ -544,6 +544,61 @@ Das \textit{docker-compose.yml} File dazu sieht folgendermaßen aus:
 
 Das gesamte Backend kann somit mit dem Befehl \textit{docker-compose up -d} gestartet werden.
 
+\subsubsection{Webserver Image}
+Das Image für den Webserver und Reverse Proxy macht sich sogenannte Multi-Stage-Builds zunutze.
+Dabei werden mehrere Base Images angegeben.
+Das kann beispielweise genutzt werden, um die Applikation in einem Base Image zu builden und in einem anderen
+zu starten.
+
+Im Fall des Webservers wird zuerst das \textit{node} Image verwendet, um den Generator zu kompilieren.
+Die entstehenden Files werden dann in das \textit{nginx} Image kopiert, wo sie vom Webserver bereitgestellt werden.
+
+Das \textit{Dockerfile} dazu sieht folgendermaßen aus:
+
+\begin{lstlisting}[numbers=left]
+FROM node:16-alpine AS builder
+WORKDIR /usr/src/app
+COPY client/package*.json ./
+RUN npm install
+COPY client/ ./
+RUN npm run lint \
+    && npm run build
+
+FROM nginx:1.21.1-alpine
+COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
+\end{lstlisting}
+
+\subsubsection{REST-API Image}
+Im Dockerfile der REST-API werden folgende Schritte ausgeführt:
+
+\begin{itemize}
+  \item Das Base Image \textit{node} wird verwendet
+  \item \textit{/usr/src/app} wird als das Directory festgelegt, in dem alle folgenden Befehle ausgeführt werden
+  \item \textit{package.json} und \textit{package-lock.json} werden in das Image kopiert
+  \item Dependencies werden mit \textit{npm install} installiert
+  \item Alle weiteren Files aus dem Directory, in dem sich das \textit{Dockerfile} befindet, werden in das Image kopiert
+  \item Das Projekt wird gelintet und gebuildet
+  \item \textit{npm start} wird als Befehl definiert, der beim Start eines Containers ausgeführt wird
+\end{itemize}
+
+Das entsprechende \textit{Dockerfile} sieht wie folgt aus:
+
+\begin{lstlisting}[numbers=left]
+FROM node:16-alpine
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run lint \
+    && npm run build
+
+CMD [ "npm", "start" ]
+\end{lstlisting}
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
@@ -622,7 +677,10 @@ Bevor zu Firebase deployed werden kann, muss der Benutzer oder die Benutzerin di
 Firebase Projekts eingeben.
 Dieses wird im \textit{.firebaserc} File gespeichert, das dann von der Firebase CLI ausgelesen wird.
 
-% TODO: evtl. Windows Linux Unterschiede
+Die Firebase CLI besteht aus einer ausführbaren Datei, die sich im \textit{node\_modules/.bin} Directory befindet.
+Der Name dieser Datei unterscheidet sich auf Windows jedoch von der auf anderen Betriebssystemen.
+Daher musste beim Aufrufen der CLI überprüft werden, auf welchem Betriebssystem das Skript ausgeführt wird.
+Diese Information stellt Node.js in der Variable \textit{process.platform} bereit.
 
 \subsubsection{SSH Skript}
 Das SSH Skript unterscheidet sich vom Firebase Skript nur im letzten Schritt.
