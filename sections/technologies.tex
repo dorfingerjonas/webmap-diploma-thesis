@@ -318,15 +318,34 @@ Tile-layers bestimmen die Darstellung der Karte an sich und werden von externen 
 
 \section{Static Site Generators}
 \setauthor{Sebastian Scholl}
+Um die Website zu generieren wurden verschiedene Static Site Generators analysiert.
+Dabei wurde darauf geachtet, ob diese sich eignen, aufgrund von Geodaten eine Seite zusammenzubauen.
 
 \subsection{Next.js}
+Next.js ist eines der beliebtesten Frameworks, um statische Websites zu generieren.
+Die Templates für diese Seiten werden jedoch in React geschrieben.
+Vorteile von Next.js sind die einfache Installation und Flexibilität des Frameworks~\cite{nextjs}.
 
- % TODO
- Next.js ist ein flexibles React Framework, das
 \subsection{Jekyll}
+Jekyll ist ein Static Site Generator, der in Ruby geschrieben ist~\cite{jekyll-ruby}.
+Im Gegensatz zu Next.js nutzt Jekyll kein JavaScript Framework, um die Templates zu erstellen, sondern setzt
+auf \textit{Liquid}~\cite{jekyll-liquid}.
+Es besteht zwar die Möglichkeit, es mit Angular zu verknüpfen.
+Da aber Liquid und Angular beide mit doppelten geschwungenen Klammern arbeiten, um auf Variablen zuzugreifen, muss
+dies in Angular geändert werden.
+Das ist zwar grundsätzlich möglich, kann aber eine Sicherheitslücke darstellen und es wird davon abgeraten~\cite{angular-interpolation}.
+
+Weiters wird Jekyll hauptsächlich für Blogs und Seite, die nur Text enthalten, verwendet.
+Dementsprechend wird wenig Funktionalität für Seiten mit anderem Inhalt bereitgestellt.
 
 \subsection{Scully}
+Scully ist ein Static Site Generator, der auf Angular aufbaut.
+Dabei liegt der Fokus jedoch auf serverseitigem Rendern und es werden keine weiteren Tools bereitgestellt, um auf
+den Aufbau der Seite Einfluss zu nehmen.
+Somit kann zwar die Zeit, die eine Seite braucht, um im Browser dargestellt zu werden, verringert werden, für das
+dynamische Generieren der Seite eignet sich Scully aber nicht.
 
+% TODO: evtl. kleine Community
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
@@ -498,9 +517,6 @@ In folgendem Step eines Workflows werden diese Secrets dann referenziert:
     REMOTE_USER: ${{ secrets.REMOTE_USER }}
     TARGET: ${{ secrets.REMOTE_TARGET }}
 \end{lstlisting}
-
-% https://github.com/easingthemes/ssh-deploy, 13.3.
-% https://github.com/FirebaseExtended/action-hosting-deploy, 13.3.
 
 \subsection{Node.js Skripts}
 Node.js~\ref{Node.js} Skripts haben den Vorteil gegenüber dem Ansatz mit einer Automatisierungssoftware,
