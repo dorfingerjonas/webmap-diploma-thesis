@@ -188,16 +188,28 @@ Weiters befindet sich ein Array \emph{colors} in diesem Objekt, welches die HEX-
 
 \section{Generator Implementierung}
 \setauthor{Sebastian Scholl}
+Der Generator soll dazu dienen, ein Konfigurationsfile bzw. ein Angular Projekt basierend auf diesem Konfigurationsfile
+schnell und einfach in einer Benutzeroberfläche zu erstellen.
+
 \subsection{JSON Schema}
 Da der Generator dynamisch aufgebaut sein sollte und die Möglichkeit bestehen sollte, das Format der generierten
-Daten zu verändern, wurde sich dazu entschieden, den Generator aufgrund des JSON Schemas, das die Daten beschreibt,
+Daten zu verändern, wurde sich dazu entschieden, den Generator aufgrund eines JSON Schemas, das die Daten beschreibt,
 aufzubauen.
 
 Das Format des Schemas wurde daher so angepasst, dass es die benötigten Daten möglichst genau beschreiben kann.
 
 Jede Property hat ein \textit{type} und \textit{description} Feld.
 \textit{type} ist erforderlich, während \textit{description} optional ist.
-Der Wert von \textit{type} kann "object", "array", "string", "number", "boolean" oder "file" sein.
+Der Wert von \textit{type} kann einer der folgenden Strings sein:
+
+\begin{itemize}
+  \item "object"
+  \item "array"
+  \item "string"
+  \item "number"
+  \item "boolean"
+  \item "file"
+\end{itemize}
 
 Ist die Property ein Object, hat es die Felder \textit{properties} und \textit{required}, die beide optional sind.
 \textit{properties} ist ein Object mit den Namen der Properties des zu beschreibenden Objects als Keys.
@@ -205,9 +217,9 @@ Der Wert ist dabei wiederrum eine Property.
 Werden keine Properties definiert, kann im Generator an dieser Stelle ein beliebiges JSON-Object eingegeben werden.
 \textit{required} ist ein Array mit den Namen der Properties, die erforderlich sind.
 
-Ist die Property ein Object, hat es zusätzlich das erforderliche \textit{items} Feld.
+Ist die Property ein Array, hat es zusätzlich das erforderliche \textit{items} Feld.
 Der Wert beschreibt die Properties, die sich in diesem Array befinden.
-Im Gegensatz zur offiziellen Definition des JSON-Schemas kann hier nur eine Property definiert werden.
+Im Gegensatz zur offiziellen Definition des JSON-Schemas kann hier nur \textit{eine} Property definiert werden.
 
 Properties vom Typ "number" können optional die Felder \textit{minimum} und \textit{maximum} enthalten.
 
@@ -217,15 +229,108 @@ Im Generator wird an dieser Stelle ein File-Upload angezeigt.
 
 Properties vom Typ "string" und "boolean" haben keine zusätzlichen Felder.
 
-Das Schema befindet sich im \textit{src/assets/schema.json} File des Generators.
+\section{Angular Projekt}
+Da sich reaktive Formulare einfach in Angular umsetzen lassen, wurde sich für dieses Framework entschieden.
+Ein weiterer Vorteil ist, dass damit der Generator und das Frontend beide in Angular umgesetzt sind, was die
+Wartung des gesamten Projekts erleichtert.
+
+Das Kernstück des Generators ist das \textit{src/assets/schema.json} File, in dem sich das Schema für das zu
+generierende Konfigurationsfile befindet.
+Aufgrund dessen werden Input-Felder generiert, in welchen Benutzer und Benutzerinnen die entsprechende
+Konfiguration eingeben können.
+
+Für jeden Typ, den eine Property haben kann wurde eine Angular-Komponente definiert.
+Weiters wurde mit sogenannten \textit{FormControl} Objekten der Inhalt der Input-Felder auf die im Schema definierten
+Kriterien überprüft.
+So kann man zu jeder Zeit einfach überprüfen, ob alle eingegebenen Werte valide sind.
+
+Beim Laden der Seite wird also für jede Property, die im Schema definiert ist, eine entsprechende Komponente generiert.
+Beim Klick auf einen Button werden dann alle Werte, die in die Komponenten eingegeben wurden, in ein entsprechendes
+JSON-Objekt gespeichert, welches dann als Konfigurationsdatei an das Backend gesendet wird.
+
+Um den Fokus auf die Funktionalität legen zu können, wurde für das Design \textit{Angular Material} verwendet.
+
+\subsection{Object Component}
+Ein Object Component dient lediglich zur Visualisierung, welche Properties zu welchem Objekt gehören.
+Die Funktionalität befindet sich hauptsächlich in den anderen Komponenten.
+
+Eine Ausnahme bildet ein Objekt, bei dem im Schema keine \textit{properties} definiert sind.
+In diesem Fall wird ein Textfeld angezeigt, in welches ein beliebiges JSON-Objekt eingegeben werden kann.
+Mittels \textit{FormControl} wird laufend überprüft, ob der eingegebene Wert ein valides JSON-Objekt ist.
+
+\subsection{Array Component}
+Ein Array Component listet alle Werte, die sich in diesem Array befinden, auf.
+Mit einem Button kann ein neuer Wert hinzugefügt werden.
+
+\subsection{File Component}
+Bei einem File Component wird ein Button zum Uploaden von Files angezeigt.
+Ein \textit{FormControl} Objekt überprüft bei einem Upload, ob die Dateiendung mit den im Schema definierten
+Endungen übereinstimmt.
+
+\subsection{Number Component}
+Ein Number Component besteht aus einem einfachen Input-Feld, in das nur Zahlen eingegeben werden.
+Dabei wird auch das im Schema definierte \textit{minimum} und \textit{maximum} überprüft.
+
+\subsection{String Component}
+Der String Component wird durch ein Input-Feld dargestellt, in das beliebige Zeichen eingegeben werden können.
+
+\subsection{Boolean Component}
+Der Boolean Component wurde mit einem Schieberegler realisiert, der zwei Zustände annehmen kann: \textit{true} und
+\textit{false}.
+
+\subsection{Generieren des Konfigurationsfiles}
+Mit einem Klick auf den Button \textit{Download config.json} kann die Konfigurationsdatei heruntergeladen werden.
+Klickt man auf \textit{Create project} wird diese Konfigurationsdatei, sowie alle weiteren hochgeladenen Dateien, an
+das Backend gesendet und man erhält das daraus generierte Projekt.
+
+\begin{lstlisting}[numbers=left]
+{
+  "title": "Example JSON Object",
+  "type": "object",
+  "properties": {
+    "string": {
+      "type": "string"
+    },
+    "number": {
+      "type": "number"
+    },
+    "boolean": {
+      "type": "boolean"
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "object": {
+      "type": "object",
+      "properties": {
+        "another string": {
+          "type": "string"
+        },
+        "another number": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
+\end{lstlisting}
+
+Folgende Seite wird aufgrund obigem JSON-Schema angezeigt:
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[scale=.6]{pics/generator}
+  \caption{Generator}
+\end{figure}
 
 \section{Backend Implementierung}
 \setauthor{Sebastian Scholl}
 \subsection{Static Site Generators}
-Da JSON als Format für die Daten ausgewählt wurde, mussten keine Static Site Generators zum Generieren der
-Websites verwendet werden.
-
-% TODO: evtl. weiter ausführen
+Da JSON als Format für die Daten ausgewählt wurde und Angular dieses zur Laufzeit einlesen kann, wurden
+keine Static Site Generators zum Generieren der Websites verwendet.
 
 \subsection{Aufbau}
 Das Backend besteht aus zwei Teilen, die verschiedene Aufgaben übernehmen:
@@ -306,7 +411,7 @@ Die Konfigurationsdatei dafür sieht folgendermaßen aus:
 \end{lstlisting}
 
 \subsection{Containerization}
-Da beide Teile des Backends verschiedene Aufgaben übernehmen lag es nahe, dieses mit der Microservice
+Da beide Teile des Backends verschiedene Aufgaben übernehmen lag es nahe, dieses in der Microservice
 Architektur umzusetzen.
 Daher laufen die beiden Teile in unterschiedlichen Docker Containern und werden mithilfe
 von Docker Compose orchestriert.
@@ -345,12 +450,12 @@ Das gesamte Backend kann somit mit dem Befehl \textit{docker-compose up -d} gest
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
-Mit der Deployment Pipeline sollen Benutzern und Benutzerinnen die Möglichkeit geben das generierte Projekt schnell
+Mit der Deployment Pipeline sollen Benutzern und Benutzerinnen die Möglichkeit haben, das generierte Projekt schnell
 und einfach zu deployen.
 Das Ziel des Deployments ist dabei entweder eine Linux Virtual Machine oder eine Firebase Hosting Instanz.
 
 \subsection{Jenkins}
-Um das Projekt mit Jenkins deployen zu können wurden zwei Files erstellt: \textit{Jenkinsfile.ssh} und
+Um das Projekt mit Jenkins deployen zu können, wurden zwei Files erstellt: \textit{Jenkinsfile.ssh} und
 \textit{Jenkinsfile.firebase}.
 Je nach Ziel des Deployments konnte eines der beiden beim Erstellen der Pipeline im Web-Interface von Jenkins
 angegeben werden.
@@ -413,7 +518,7 @@ Das Firebase Skript führt folgende Schritte aus:
 \end{itemize}
 
 Um die jeweiligen Konsolenbefehle in Node.js aufzurufen wurde die Methode \textit{spawn} des Node-Packages
-\textit{child_process} verwendet.
+\textit{child\_process} verwendet.
 Dieses wird standardmäßig mit Node.js mitgeliefert und benötigt daher keine zusätzliche Installation.
 
 Bevor zu Firebase deployed werden kann, muss der Benutzer oder die Benutzerin die Project ID des jeweiligen
