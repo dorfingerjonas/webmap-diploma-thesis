@@ -321,6 +321,8 @@ Tile-layers bestimmen die Darstellung der Karte an sich und werden von externen 
 
 \subsection{Next.js}
 
+ % TODO
+ Next.js ist ein flexibles React Framework, das
 \subsection{Jekyll}
 
 \subsection{Scully}
@@ -330,78 +332,500 @@ Tile-layers bestimmen die Darstellung der Karte an sich und werden von externen 
 \setauthor{Sebastian Scholl}
 Nach dem Download des generierten Projekts sollte die Möglichkeit bestehen,
 kleine Änderungen daran vorzunehmen und es dann schnell und einfach auf einen
-Server zu deployen. Der Server ist dabei entweder eine Linux Virtual Machine
-oder eine \textit{Firebase Hosting} Instanz.
+Server zu deployen.
+Der Server ist dabei entweder eine Linux Virtual Machine oder eine \textit{Firebase Hosting} Instanz.
+
 Dazu gab es mehrere Ansätze: Ist das Projekt ein Git-Repository, kann eine
 Automatisierungssoftware, wie Jenkins oder GitHub Actions verwendet werden,
 die bei jedem \textit{Push}-Event das Projekt buildet und auf den Server
-deployed. Die zweite Möglichkeit ist ein Node.js Skript, das im Projekt
-enthalten ist und von der Kommandozeile aus ausgeführt wird.
+deployed.
+ Die zweite Möglichkeit ist ein Node.js Skript, das im Projekt enthalten ist und von der Kommandozeile
+ aus ausgeführt wird.
+
+\subsection{SSH}
+Secure Shell (SSH) ist ein Protokoll, das genutzt wird, um eine sichere Verbindung zwischen einem
+Client und einem Server aufzubauen.
+ Authentifizierung, Befehle, Output und Dateiübertragung sind dabei verschlüsselt.
+ Das Protokoll wird typischerweise benutzt, um Befehle auf einem anderen Computer auszuführen und Dateien sicher
+ zu übertragen.
+ Dabei eignet es sich gut, um solche Prozesse zu automatisieren und wird daher oft in Continuous Integration und
+Continuous Deployment Pipelines verwendet.
+
+Das Protokoll arbeitet mit dem Client-Server-Modell.
+ Das heißt, dass die Verbindung von einem SSH Client zu einem SSH Server aufgebaut wird.
+ Mit einem Public Key wird die Identität des Servers sichergestellt.
+ Nach dem Verbindungsaufbau werden die übertragenen Daten symmetrisch verschlüsselt und mithilfe von
+ Hashing-Algorithmen wird die Integrität dieser Daten sichergestellt~\cite{ssh}.
+
+Dateiübertragung über SSH wird mithilfe des SSH File Transfer Protocols (SFTP) realisiert.
+
+\subsubsection{SSH Keys}
+Benutzer und Benutzerinnen können zwischen verschiedenen Formen der Authentifizierung wählen.
+Die beliebtesten Methoden sind Passwort-basierte Authentifizierung und Public Key Authentifizierung.
+Letztere wird vor allem bei automatisierten Prozessen eingesetzt.
+Dabei haben der Benutzer oder die Benutzerin ein kryptografisches Schlüsselpaar.
+Dieses besteht aus Public Key und Private Key.
+Der Public Key wird am Server hinterlegt und jeder mit einer Kopie des dazu passenden Private Keys kann
+auf diesen Server zugreifen~\cite{ssh-keys}.
+
+\subsection{Firebase Hosting}
+Firebase ist ein Backend-as-a-Service (BaaS), das von Google angeboten wird.
+ Es besteht aus verschiedenen Produkten, die Softwareentwicklern und Softwareentwicklerinnen das Entwickeln
+von Backends ermöglicht, ohne sich um Server kümmern zu müssen.
+ Beispiele für Produkte sind Firebase Authentication, das eine einfache Authentifizierung von Usern ermöglicht,
+Realtime Database, eine NoSQL Datenbank oder Firebase Hosting, das das Hosten von Webanwendungen,
+statischen Websites oder Microservices übernimmt~\cite{firebase}.
+
+Firebase Hosting ist für eine Verwendung von bis zu 10 GB Speicherplatz gratis~\cite{firebase-pricing}
+und stellt mit der Firebase CLI einen einfachen und schnellen Weg zur Verfügung, die gewünschten
+Dateien hochzuladen.
+Es eignet sich somit für das Hosten der generierten Websites. Weitere Vorteile sind, dass für jedes Firebase
+Hosting Projekt eine eigene Domain zur Verfügung gestellt
+wird und dass die Website auf das globale Content Delivery Network (CDN) verteilt wird, um
+die Ladegeschwindigkeiten zu erhöhen~\cite{firebase-hosting}.
 
 \subsection{Jenkins}
-Jenkins ist ein Open-Source Automatisierungsserver. Das Projekt wird in
-Java entwickelt und kann mit Hilfe von Plugins an spezifische Anforderungen
-angepasst werden.
-Der Server wird vor Allem zur Automatisierung von Aufgaben, wie das Builden,
+Jenkins ist ein Open-Source Automatisierungsserver.
+Das Projekt wird in Java entwickelt und kann mithilfe von Plugins an spezifische Anforderungen
+angepasst werden~\cite{jenkins-github}.
+
+Der Server wird vor allem zur Automatisierung von Aufgaben, wie das Builden,
 Testen und Deployen von Softwareprojekten genutzt.
-Jenkins muss selbst gehosted werden. Dazu wird ein offizielles Docker Image
-im Docker Hub bereitgestellt.
+Jenkins muss selbst gehosted werden.
+ Dazu wird ein offizielles Docker Image im Docker Hub bereitgestellt~\cite{jenkins-dockerhub}.
+
 Die Konfiguration einer Pipeline wird in einem \textit{Jenkinsfile} vorgenommen,
-das sich im Git-Repository befindet.
-Um die Dateien zur Virtual Machine zu senden, wurde das Plugin \textit{Publish Over SSH}
-verwendet. Für das Deployen zu \textit{Firebase Hosting} steht kein Plugin zur
-Verfügung. Stattdessen wurde auf die \textit{Firebase CLI} zurückgegriffen.
-Ein großer Nachteil von Jenkins war, dass für jedes Projekt erst ein GitHub
-Repository und eine neue Pipeline im Web-Interface von Jenkins erstellt werden
-musste, bevor es automatisch deployed werden konnte.
+das sich im Git-Repository des Projekts befindet.
+ Darin werden mehrere sogenannte Stages definiert, die dann nacheinander ausgeführt werden.
+ Jede Stage ist wiederrum in mehrere Steps gegliedert, die verschiedene Aufgaben übernehmen und auch in der
+definierten Reihenfolge ausgeführt werden.
 
-% TODO: SSH-Configuration und Firebase Token
+Eine Pipeline mit den Stages \textit{Build}, \textit{Test} und \textit{Deploy} würde
+zum Beispiel folgendermaßen aussehen: ~\cite{jenkins-jenkinsfile}
 
-% https://wiki.eclipse.org/Jenkins#About_Jenkins, 13.3.
-% https://github.com/jenkinsci/jenkins, 13.3.
-% https://hub.docker.com/r/jenkins/jenkins, 13.3.
-% https://www.jenkins.io/doc/book/pipeline/jenkinsfile/, 13.3.
-% https://www.jenkins.io/doc/pipeline/steps/publish-over-ssh/, 13.3.
-% https://firebase.google.com/docs/cli/, 13.3.
+\begin{lstlisting}[numbers=left]
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
+}
+\end{lstlisting}
 
 \subsection{GitHub Actions}
 GitHub Actions ist eine Automatisierungssoftware, die von GitHub zur Verfügung
-gestellt wird. Im Gegensatz zu Jenkins werden die Server dabei von GitHub gehosted.
-Die Konfiguration von sogenannten Actions wird in \textit{YAML}-Dateien im
-Repository vorgenommen.
-Auch in GitHub Actions können Plugins verwendet werden, um verschiedenste Aufgaben
-zu automatisieren.
-Sowohl für das Deployen auf eine Virtual Machine, als auch zu \textit{Firebase Hosting}
-stehen Plugins zur Verfügung, was die Konfiguration einfacher als bei Jenkins macht.
-Wie auch bei einer Jenkins Pipeline muss für jedes Projekt jedoch auch beim
-Ansatz mit GitHub Actions ein GitHub Repository erstellt werden.
+gestellt wird.
+Im Gegensatz zu Jenkins werden die Server dabei von GitHub gehostet.
+Die Konfiguration von sogenannten Workflows wird in \textit{YAML}-Dateien im
+\textit{.github/workflows} Directory eines Repositories vorgenommen.
 
-% TODO: Secrets
+GitHub Actions sind tief in das GitHub Ökosystem integriert und bieten viele Möglichkeiten,
+auf verschiedene Teile davon zuzugreifen.
+ Damit können Workflows erstellt werden, die nicht nur die Software builden, testen und deployen, sondern auch
+ zum Beispiel die Labels von Issues verändern.
 
-% https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions, 13.3.
+Ein Workflow enthält einen oder mehrere Jobs, die sequentiell oder parallel ausgeführt werden
+können.
+ Jeder Job läuft auf einer eigenen Virtuellen Maschine, auch Runner genannt und ist in
+verschiedene Actions unterteilt, die wiederrum mehrere Steps enthalten.
+ Dabei läuft
+auf den Runnern entweder Windows, Linux oder macOS als Betriebssystem.
+
+Ein Workflow, der bei jedem Push oder Pull Request auf den \textit{main} Branch die Steps
+\textit{Build}, \textit{Test} und \textit{Deploy} ausführt könnte beispielsweise folgendermaßen
+aussehen: ~\cite{github-actions}
+
+\begin{lstlisting}[numbers=left]
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: echo Building
+    - name: Test
+      run: echo Testing
+    - name: Deploy
+      run: echo Deploy
+\end{lstlisting}
+
+\subsubsection{Secrets}
+Secrets sind verschlüsselte Umgebungsvariablen, die für eine GitHub Organisation oder ein
+Repository erstellt werden.
+Darin können sensible Informationen, wie z.B. Passwörter oder Private Keys gespeichert werden.
+Diese Secrets sind dann in GitHub Actions Workflows verfügbar.
+GitHub stellt sicher, dass Secrets verschlüsselt werden, bevor sie die GitHub Server erreichen
+und verschlüsselt bleiben, bis sie in einem Workflow verwendet werden~\cite{github-secrets}.
+
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.5]{pics/secrets.png}
+    \caption{Repository secrets}
+\end{figure}
+
+In folgendem Step eines Workflows werden diese Secrets dann referenziert:
+
+\begin{lstlisting}[numbers=left]
+- name: Deploy to Server
+  uses: easingthemes/ssh-deploy@v2
+  env:
+    SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    SOURCE: static/
+    REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+    REMOTE_USER: ${{ secrets.REMOTE_USER }}
+    TARGET: ${{ secrets.REMOTE_TARGET }}
+\end{lstlisting}
+
 % https://github.com/easingthemes/ssh-deploy, 13.3.
 % https://github.com/FirebaseExtended/action-hosting-deploy, 13.3.
 
+\subsection{Node.js Skripts}
+Node.js~\ref{Node.js} Skripts haben den Vorteil gegenüber dem Ansatz mit einer Automatisierungssoftware,
+dass dafür kein GitHub Repository erstellt werden muss und nur die Kommandozeile benötigt wird.
+Da Node.js plattformunabhängig ist, können diese Skripts in sowohl auf Windows als auch auf
+Linux und macOS ausgeführt werden.
+
+ \section{JSON}
+ JavaScript Object Notation (JSON) ist ein Format zum Datenaustausch.
+ Es wurde entworfen, um für Menschen einfach zu lesen und zu schreiben zu sein.
+ Außerdem ist es auch für Maschinen einfach zu parsen oder zu generieren.
+ Das Format ist unabhängig von Programmiersprachen.
+
+ JSON baut auf zwei Strukturen auf:
+
+ \begin{itemize}
+     \item Object: Eine Sammlung an Key/Value Paaren.
+     In den meisten Programmiersprachen wird das als Object, Record, Struct
+     oder Dictionary umgesetzt.
+     \item Array: Eine geordnete Sammlung an Werten.
+     Diese Struktur wird als Array, Vector, List oder Sequence umgesetzt.
+ \end{itemize}
+
+ Ein Object ist ein ungeordnetes Set an Key/Value Paaren.
+ Es beginnt mit \textit{{} und endet mit \textit{}}.
+ Die darin enthaltenen Werte haben das Format \textit{key: value} und werden mit Beistrichen voneinander getrennt.
+ Der Key ist immer ein String und muss deshalb in Anführungszeichen stehen.
+
+ Ein Array ist eine geordnete Sammlung an Werten.
+ Es startet mit \textit{[} und wird mit \textit{]} beendet.
+ Die darin enthaltenen Werte werden wiederrum mit Beistrichen getrennt.
+
+ Werte können ein String sein, der in Anführungszeichen steht, eine Zahl, \textit{true}, \textit{false}, \textit{null}
+ oder wieder ein Object oder Array~\cite{json}.
+
+ Ein valides JSON-Object könnte also folgendermaßen aussehen:
+
+ \label{json-example}
+ \begin{lstlisting}[numbers=left]
+{
+  "string": "Hello World",
+  "number": 69,
+  "boolean": false,
+  "null": null,
+  "array": [
+    419,
+    420,
+    "421",
+    null
+  ]
+}
+ \end{lstlisting}
+
+ \subsection{JSON-Schema}
+Ein JSON Schema wird dazu verwendet, JSON Strukturen zu beschreiben und zu validieren.
+Damit kann beispielsweise eine Dokumentation für eine Schnittstelle, die über JSON kommuniziert, definiert werden.
+Diese Dokumentation ist dabei sowohl für Menschen, als auch für Maschinen einfach lesbar.
+Ein weiterer Einsatzbereich von JSON-Schemata ist das Validieren von Daten bei automatisierten Tests~\cite{json-schema}.
+
+ Ein JSON-Schema ist selbst wiederrum nur ein JSON-Object.
+ Dieses besitzt meistens einen \textit{title} und eine \textit{description}, die das definierte JSON beschreiben,
+ aber keine Auswirkung auf die Struktur haben.
+ Das \textit{type} Keyword definiert den Typ einer Property.
+ Dieser kann entweder "null", "boolean", "object", "array", "number", oder "string" sein.
+
+ Ist der Typ "object", muss dieses Object weiter beschrieben werden.
+ Dazu wird das \textit{properties} Keyword verwendet.
+ Der Wert davon ist ein Object mit den Properties des zu beschreibenden Object als Keys.
+ Die Werte dieser Keys sind wiederrum Objects, die die jeweilige Property beschreiben.
+ Dazu wird wieder das \textit{type} Keyword verwendet.
+ Mit dem \textit{description} Keyword kann man auch dieser Property wieder eine Beschreibung geben.
+
+ Eine Property vom Typ "array" beschreibt mit dem \textit{items} Keyword den Typ der Werte, die das Array enthält.
+
+ Für die meisten Typen gibt es noch zusätzliche Keywords, mit denen die Werte noch genauer beschrieben werden können.
+ Dazu zählen beispielsweise \textit{required} für Werte vom Typ "object", das ein Array der Namen der erforderlichen
+ Properties enthält oder \textit{maximum} und \textit{minimum} für Werte vom Typ "number" bzw. "integer".
+
+ Ein JSON-Schema für das JSON-Object aus dem vorherigen Kapitel~\ref{json-example} könnte beispielsweise
+ folgendermaßen aussehen:
+
+ \begin{lstlisting}[numbers=left]
+    {
+      "title": "Example JSON Object",
+      "description": "A JSON Object to demonstrate JSON Syntax",
+      "type": "object",
+      "properties": {
+        "string": {
+          "description": "Some string",
+          "type": "string"
+        },
+        "number": {
+          "description": "Some number",
+          "type": "integer",
+          "maximum": 100
+        },
+        "boolean": {
+          "description": "Some boolean",
+          "type": "boolean"
+        },
+        "null": {
+          "description": "Null",
+          "type": "null"
+        },
+        "array": {
+          "description": "Some array",
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "required": [ "string", "number", "array" ]
+    }
+ \end{lstlisting}
 
 \section{Backend}
 \setauthor{Sebastian Scholl}
+Das Backend von webmap erfüllt zwei Aufgaben:
 
-\subsection{JavaScript}
+\begin{itemize}
+    \item Das Hosten des Generators
+    \item Eine REST-API für das Generieren eines Angular-Projekts aufgrund der im Generator erstellten Konfiguration
+\end{itemize}
 
-\subsection{Typescript}
+Für das Hosting wurde nginx verwendet und die REST-API wurde in TypeScript implementiert.
 
+\subsection{TypeScript}
+Um webmap leicht warten zu können, wurde auch das Backend in TypeScript~\ref{TypeScript} geschrieben.
+ Damit wird nur eine Programmiersprache für das gesamte Projekt verwendet.
+ Ausgeführt wird das Backend in der Laufzeitumgebung Node.js.
+ Diese wurde entwickelt, um skalierbare Netzwerkanwendungen zu erstellen und eignet sich daher für
+ die REST-API~\cite{about-node-js}.
 
-\section{Webserver}
+\subsubsection{express.js}
+Die API wurde mit dem Node-Package \textit{express.js} entwickelt.
+ Express ist ein schnelles und minimalistisches Web Framework.
+ Die Kernfunktion liegt darin, schnelle und robuste APIs zu entwickeln~\cite{expressjs}.
+
+\subsubsection{node-tar}
+Zum Komprimieren des generierten Projekts wird das Node-Package \textit{node-tar} verwendet.
+ Das Package ahmt dabei den UNIX-Befehl \textit{tar} nach~\cite{node-tar}.
+
+Ein \textit{tar}-File oder \textit{tarball} ist ein Archiv von Filesystem-Einträgen wie Dateien, Directories oder
+Symbolic Links.
+ Diese können dann noch komprimiert werden, um ein \textit{.tar.gz}-File zu erhalten.
+ Tar wird hauptsächlich zur Distribution oder für Backups von mehreren Dateien verwendet~\cite{tar-manpage}.
+
+ \subsubsection{ESLint}
+ ESLint ist ein Open-Source Linting Tool für JavaScript und TypeScript.
+ Es wird verwendet, um geschriebenen Code zu analysieren, um Muster zu finden, von denen man weiß, dass sie
+ problematisch und anfällig für Bugs sind.
+ Weiters kann man damit einen bestimmten Code Style definieren, um den Code konsistent und lesbar zu machen.
+ Alle diese Aspekte werden als sogenannte Rules definiert.
+ Die Library stellt eine Menge an vorgefertigten Rules zur Verfügung, es können aber auch sehr einfach eigene
+ Rules erstellt werden~\cite{eslint}.
+
+\section{nginx}
 \setauthor{Sebastian Scholl}
+nginx ist ein Open-Source HTTP Server, Reverse Proxy Server, Mail Proxy Server und generischer TCP/UDP Proxy Server.
+Konfigurationen werden im \textit{/etc/nginx/nginx.conf} File durchgeführt.
+ Standardmäßig stellt der Webserver alle Dateien im \textit{/usr/share/nginx/html} Directory Clients zur
+ Verfügung~\cite{nginx}.
+ Auch für nginx steht ein offizielles Docker Image am Docker Hub zur Verfügung~\cite{nginx-dockerhub}.
 
+\subsubsection{Reverse Proxy}
+Ein Reverse Proxy Server wie nginx befindet sich typischerweise hinter einer Firewall in einem
+privaten Netzwerk und verteilt Requests von Clients auf die entsprechenden Backend Server.
+Damit erhält man eine weitere Abstraktionsschicht, um den Verkehr zwischen Clients und Servern zu
+verwalten und zu überwachen~\cite{nginx-proxy-server}.
 
-\section{Reverse Proxy}
-\setauthor{Sebastian Scholl}
+nginx kann mit folgendem \textit{nginx.conf} File als Proxy Server konfiguriert werden, der Requests zu \textit{/api}
+an einen anderen Server weiterleitet.
+Bei allen anderen Requests wird eine Datei aus dem \textit{/data} Directory als Response gesendet.
 
+\begin{lstlisting}[numbers=left]
+events {}
+
+http {
+  include mime.types;
+
+  server {
+    location /api {
+      proxy_pass http://localhost:4000/;
+    }
+
+    location / {
+      root /data;
+    }
+  }
+}
+\end{lstlisting}
 
 \section{Containerization}
 \setauthor{Sebastian Scholl}
-
 \subsection{Docker}
+ Docker ist eine Softwareplattform, die Benutzern und Benutzerinnen erlaubt, Applikationen schnell zu
+ Builden, Testen und Deployen.
+ Dabei wird die Software in standardisierte Pakete, die Container genannt werden, verpackt~\cite{docker-aws}.
+
+\subsubsection{Container}
+ Container sind abgeschlossene Systeme, die Software sowie die gesamte Infrastruktur, die diese Software
+ benötigt, um zu laufen, enthält.
+ Dazu gehören Libraries, sowie eine Laufzeitumgebung.
+ Die Idee von Containern erinnert an Virtuelle Maschinen.
+ Bei Containern wird jedoch das Betriebssystem virtualisiert, im Gegensatz zu Virtuellen Maschinen,
+ bei denen die Hardware virtualisiert wird.
+ Deshalb benötigt jede VM eine eigene Kopie eines Betriebssystemes, was mehrere GB an Speicherplatz beansprucht.
+ Container haben hingegen typischerweise eine Größe von weniger als 100 MB~\cite{docker-container}.
+
+ \begin{figure}[hbt!]
+     \centering
+     \includegraphics[scale=0.2]{pics/docker-vm.png}
+     \caption{Virtualisierung mit Virtuellen Maschinen}
+     % Source: https://www.docker.com/resources/what-container/, 25.03.
+ \end{figure}
+
+ \begin{figure}[hbt!]
+     \centering
+     \includegraphics[scale=0.2]{pics/docker-containerized.png}
+     \caption{Virtualisierung mit Containern}
+     % Source: https://www.docker.com/resources/what-container/, 25.03.
+ \end{figure}
+
+\subsubsection{Image}
+ Container werden aus sogenannten Images erstellt.
+ Diese Images erhalten alles, was ein Container benötigt, um zu laufen.
+ Dazu gehören das Filesystem mit allen Dependencies und Konfigurationen, Umgebungsvariablen
+ und einen Befehl, um die Software im Container zu starten.
+ Beim Start des Containers wird der Inhalt des Images kopiert und darin der Befehl ausgeführt, der die Software
+ startet.
+ Dafür wird der Docker CLI Befehl \textit{docker run [image name]} verwendet~\cite{docker-image}.
+
+ Images können entweder von einem Registry heruntergeladen oder selbst in einem sogenannten \textit{Dockerfile}
+ definiert werden.
+ Jedes \textit{Dockerfile} startet mit einem Base Image, auf dem aufgebaut wird.
+ Danach können zum Beispiel Files in das Image kopiert werden, aus denen dann eine Applikation gebuildet wird.
+ Zum Schluss benötigt ein \textit{Dockerfile} noch einen Befehl, der beim Start eines Containers ausgeführt wird.
+
+ Folgendes Dockerfile verwendet das Base Image \textit{ubuntu}.
+ Das gesamte Directory, in dem sich das \textit{Dockerfile} befindet, wird daraufhin in das \textit{/app} Directory
+ des Images kopiert.
+ Darin wird der \textit{make} Befehl ausgeführt, um die Applikation zu builden.
+ Als Befehl, der beim Start ausgeführt wird, wird \textit{python /app/app.py} definiert~\cite{dockerfile}.
+
+ \begin{lstlisting}[numbers=left]
+  FROM ubuntu:18.04
+  COPY . /app
+  RUN make /app
+  CMD python /app/app.py
+ \end{lstlisting}
+
+ \subsubsection{Persistierung}
+ Docker bietet zwei Wege an, um Daten, die in Containern generiert werden, zu persistieren.
+ Bind Mounts synchronisieren ein Directory im lokalen Filesystem mit einem Directory im Filesystem des Containers.
+ Diese Bind Mounts werden jedoch öfter dazu verwendet, um Daten von außerhalb in den Container zu kopieren.
+
+ Um Daten, die im Container generiert werden, zu persistieren werden meistens Volumes verwendet.
+ Volumes enthalten ein Directory des Containers und werden vollständig von Docker verwaltet.
+ Wird der Container gestoppt oder gelöscht, bleiben die Daten im Volume erhalten.
+
+ Volumes werden beim Erstellen des Containers konfiguriert.
+ Die Docker CLI stellt dafür die \textit{-v} bzw. \textit{--volume} Flag zur Verfügung~\cite{docker-volumes}.
+
+ \subsubsection{Microservices}
+ Microservices beschreibt einen Ansatz in der Softwareentwicklung, bei dem die Software in kleine, unabhängige
+ Services aufgeteilt ist, die über definierte APIs miteinander kommunizieren.
+ Diese Architektur machen Applikationen leichter skalierbar.
+ Diese Services werden oft als Docker Container realisiert.
+
+ Das Gegenteil der Microservice Architektur ist ein Monolith.
+ Dabei ist die gesamte Applikation ein einzelner Service.
+ Dieser enthält alle Komponenten, die eng miteinander verbunden sind.
+ Bei erhöhter Auslastung muss dann die gesamte Applikation skaliert werden.
+ Jede zusätzliche Komponente erhöht außerdem die Komplexität des gesamten Services.
+ Das macht es schwieriger, mit neuen Technologien zu experimentieren und neue Ideen einzubauen.
+ Durch die Abhängigkeit der Komponenten voneinander kann ein einzelner Fehler in einem Teil des Services eine
+ große Auswirkung auf die gesamte Applikation haben.
+
+ Microservices sollen diese Probleme lösen.
+ Die Komponenten funktionieren unabhängig von einander und so muss bei der erhöhten Auslastung eines Services nur
+ dieser skaliert werden.
+ Da die Services über eine definierte API miteinander kommunizieren kann die Technologie in den Services einfach
+ ausgetauscht werden.
+ Weiters beschränken sich die Ausmaße von Fehlern nur auf den Service, in dem sie auftreten.
+
+ Mit der steigenden Verbreitung von Cloud Computing werden Microservices immer beliebter, da die Skalierung
+ von Services dabei automatisiert werden kann~\cite{microservices}.
+
+ \begin{figure}[hbt!]
+     \centering
+     \includegraphics[scale=0.5]{pics/microservice.png}
+     \caption{Monolith vs. Microservices}
+     % Source: https://aws.amazon.com/microservices/, 25.03.
+ \end{figure}
+
+ \subsubsection{Docker Hub}
+ Docker Images können in sogenannte Registries hochgeladen und so verteilt werden~\cite{docker-registry}.
+ Das größte Registry ist der Docker Hub~\cite{docker-hub}.
+ Darin werden auch offizielle Images für Softwarepakete, wie Ubuntu, nginx oder Node.js zur Verfügung gestellt.
+ Diese Images werden immer auf dem neusten Stand gehalten, um die Sicherheit zu
+ gewährleisten~\cite{docker-official-images}.
 
 \subsection{Docker Compose}
+
+ Docker Compose ist ein Tool zur Orchestrierung von Docker Containern.
+ Es wird verwendet, um Applikationen mit mehreren Containern zu verwalten.
+ In einem \textit{YAML} File werden die Services der Applikation definiert, die dann alle mit einem einzelnen
+ Befehl gestartet werden können~\cite{docker-compose}.
+
+ \subsubsection{Networking}
+ Alle Services, die im gleichen File definiert werden, befinden sich automatisch im selben Docker Netzwerk.
+ Das bedeutet, dass die miteinander kommunizieren können, aber nicht von außen auf sie zugegriffen werden kann.
+ Jeder Service kann jedoch einzelne Ports definieren, die auch von außerhalb erreichbar sein sollen.
+ Diese Abstraktionsschicht erhöht die Sicherheit, da zum Beispiel nur Services innerhalb eines Docker Netzwerks auf eine
+ Datenbank zugreifen können, diese von Prozessen außerhalb nicht erreichbar ist.
+ Docker Compose erleichtert das Routing innerhalb der Docker Netzwerke außerdem, indem der Hostname eines Services
+ gleich seinem Namen ist~\cite{docker-network}.

@@ -178,9 +178,254 @@ Weiters befindet sich ein Array \emph{colors} in diesem Objekt, welches die HEX-
 
 \subsection{Navigation}
 
+
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=.6]{pics/frontend-architecture}
     \caption{Frontend Architektur}
     \label{fig:frontend-architecture}
 \end{figure}
+
+\section{Generator Implementierung}
+\setauthor{Sebastian Scholl}
+\subsection{JSON Schema}
+Da der Generator dynamisch aufgebaut sein sollte und die Möglichkeit bestehen sollte, das Format der generierten
+Daten zu verändern, wurde sich dazu entschieden, den Generator aufgrund des JSON Schemas, das die Daten beschreibt,
+aufzubauen.
+
+Das Format des Schemas wurde daher so angepasst, dass es die benötigten Daten möglichst genau beschreiben kann.
+
+Jede Property hat ein \textit{type} und \textit{description} Feld.
+\textit{type} ist erforderlich, während \textit{description} optional ist.
+Der Wert von \textit{type} kann "object", "array", "string", "number", "boolean" oder "file" sein.
+
+Ist die Property ein Object, hat es die Felder \textit{properties} und \textit{required}, die beide optional sind.
+\textit{properties} ist ein Object mit den Namen der Properties des zu beschreibenden Objects als Keys.
+Der Wert ist dabei wiederrum eine Property.
+Werden keine Properties definiert, kann im Generator an dieser Stelle ein beliebiges JSON-Object eingegeben werden.
+\textit{required} ist ein Array mit den Namen der Properties, die erforderlich sind.
+
+Ist die Property ein Object, hat es zusätzlich das erforderliche \textit{items} Feld.
+Der Wert beschreibt die Properties, die sich in diesem Array befinden.
+Im Gegensatz zur offiziellen Definition des JSON-Schemas kann hier nur eine Property definiert werden.
+
+Properties vom Typ "number" können optional die Felder \textit{minimum} und \textit{maximum} enthalten.
+
+Properties, die den Typ "file" haben, können im optionalen Feld \textit{fileExtensions} die erlaubten
+Dateiendungen als Array definieren.
+Im Generator wird an dieser Stelle ein File-Upload angezeigt.
+
+Properties vom Typ "string" und "boolean" haben keine zusätzlichen Felder.
+
+Das Schema befindet sich im \textit{src/assets/schema.json} File des Generators.
+
+\section{Backend Implementierung}
+\setauthor{Sebastian Scholl}
+\subsection{Static Site Generators}
+Da JSON als Format für die Daten ausgewählt wurde, mussten keine Static Site Generators zum Generieren der
+Websites verwendet werden.
+
+% TODO: evtl. weiter ausführen
+
+\subsection{Aufbau}
+Das Backend besteht aus zwei Teilen, die verschiedene Aufgaben übernehmen:
+
+\begin{itemize}
+    \item Eine REST-API für das Generieren eines Angular-Projekts aufgrund der im Generator erstellten Konfiguration
+    \item Das Hosten des Generators
+\end{itemize}
+
+\subsubsection{REST-API}
+Die API wurde in TypeScript geschrieben und läuft in der Laufzeitumgebung Node.js.
+Für die Implementierung der Endpoints wurde express.js verwendet.
+
+Das Template-Angular-Projekt, aus dem später mithilfe einer Konfigurationsdatei das Projekt generiert wird,
+befindet sich im \textit{template} Directory.
+Beim Start wird mithilfe des Node-Packages \textit{node-tar} daraus das Archiv \textit{template.tar} erzeugt.
+
+Die API enthält drei Endpoints:
+
+\begin{itemize}
+    \item GET /api/status
+    \item GET /api/configuration/:filename
+    \item POST /api/configuration
+\end{itemize}
+
+\paragraph{GET /api/status}
+Der Endpoint dient zur Überprüfung, ob die API erreichbar ist.
+Er sendet in diesem Fall \textit{Server is running} als Response.
+
+\paragraph{GET /api/configuration/:filename}
+Dieser Endpoint dient zum Download der generierten Projekte.
+Der Parameter \textit{filename} ist dabei der Name einer \textit{.tar.gz}-Datei, die sich im \textit{public}
+Directory befindet.
+
+\paragraph{POST /api/configuration}
+Ein Request zum diesem Endpoint enthält einen Request-Body des Typs
+\textit{multipart/form-data}.
+Darin sind die Konfigurationsdatei für das zu generierende Projekt, sowie alle weiteren benötigten Files enthalten.
+
+Zuerst wird ein temporäres Directory im Pfad für temporäre Dateien des jeweiligen Betriebssystems erstellt.
+Darin werden alle gesendeten Files gespeichert.
+Da das Directory mit der Methode \textit{mkdtemp} des Node-Packages \textit{fs} erstellt wird, erhält es einen
+zufälligen und eindeutigen Namen.
+Dadurch können mehrere Requests zur gleichen Zeit abgewickelt werden.
+Danach wird eine Kopie des \textit{template.tar} Archives in diesem Directory erstellt.
+Zu diesem werden die gesendeten Files hinzugefügt und es wird anschließend mit \textit{gzip} komprimiert.
+Das entstandene File wird dann in das \textit{public} Directory kopiert und das temporäre Directory wird wieder gelöscht.
+
+Waren alle diese Schritte erfolgreich, wird ein Response mit dem HTTP Status 201 (Created)
+gesendet.
+Der Response-Header \textit{Location} enthält dabei die URL zum Download des generierten Projekts.
+Nach 10 Minuten läuft dieser Downloadlink ab und das generierte Projekt wird gelöscht.
+
+\subsubsection{Webserver}
+Als Webserver und Reverse-Proxy wird nginx verwendet.
+Der Webserver stellt alle Files des Generators, die sich im \textit{/usr/share/nginx/html/generator} Directory
+befinden, zur Verfügung, während der Reverse-Proxy alle Requests zu \textit{/api} zur REST-API weiterleitet.
+Dieser läuft am Port 4000.
+
+Die Konfigurationsdatei dafür sieht folgendermaßen aus:
+
+\begin{lstlisting}[numbers=left]
+  events {}
+
+  http {
+    include mime.types;
+
+    server {
+      location /api {
+        proxy_pass http://server:4000/api/;
+      }
+
+      location / {
+        root /usr/share/nginx/html/generator;
+      }
+    }
+  }
+\end{lstlisting}
+
+\subsection{Containerization}
+Da beide Teile des Backends verschiedene Aufgaben übernehmen lag es nahe, dieses mit der Microservice
+Architektur umzusetzen.
+Daher laufen die beiden Teile in unterschiedlichen Docker Containern und werden mithilfe
+von Docker Compose orchestriert.
+
+% TODO: evtl. Dockerfiles
+
+Das \textit{docker-compose.yml} File dazu sieht folgendermaßen aus:
+
+\begin{lstlisting}[numbers=left]
+  version: '3.8'
+
+  services:
+    nginx:
+      build: .
+      ports:
+        - 80:80
+      restart: always
+      volumes:
+        - ./nginx:/etc/nginx:ro
+
+    server:
+      build: server
+      restart: always
+      environment:
+        NODE_PORT: 4000
+        NODE_ENV: production
+        TEMPLATE_DIR: template
+        PUBLIC_DIR: public
+      volumes:
+        - ./server:/usr/src/app
+        - /usr/src/app/node_modules
+        - /usr/src/app/dist
+\end{lstlisting}
+
+Das gesamte Backend kann somit mit dem Befehl \textit{docker-compose up -d} gestartet werden.
+
+\section{Deployment Pipeline}
+\setauthor{Sebastian Scholl}
+Mit der Deployment Pipeline sollen Benutzern und Benutzerinnen die Möglichkeit geben das generierte Projekt schnell
+und einfach zu deployen.
+Das Ziel des Deployments ist dabei entweder eine Linux Virtual Machine oder eine Firebase Hosting Instanz.
+
+\subsection{Jenkins}
+Um das Projekt mit Jenkins deployen zu können wurden zwei Files erstellt: \textit{Jenkinsfile.ssh} und
+\textit{Jenkinsfile.firebase}.
+Je nach Ziel des Deployments konnte eines der beiden beim Erstellen der Pipeline im Web-Interface von Jenkins
+angegeben werden.
+
+Um die Dateien zur Virtuellen Maschine zu senden, wurde das Jenkins-Plugin \textit{Publish Over SSH}
+verwendet.
+Für das Deployen zu \textit{Firebase Hosting} stand kein Plugin zur Verfügung.
+Stattdessen wurde auf die \textit{Firebase CLI} zurückgegriffen.
+
+Die SSH-Konfiguration der Virtuellen Maschine musste dabei nur einmal in Jenkins vorgenommen werden und konnte
+dann in jeder Pipeline verwendet werden.
+Auch für Firebase musste nur einmalig ein Token generiert werden, mit dem man sich dann in jeder Pipeline
+authentifizieren konnte.
+
+Ein großer Nachteil von Jenkins war jedoch, dass für jedes Projekt zuerst ein GitHub
+Repository und eine neue Pipeline im Web-Interface von Jenkins erstellt werden
+musste, bevor es automatisch deployed werden konnte.
+
+\subsection{GitHub Actions}
+Für den Ansatz mit GitHub Actions wurden die beiden Files \textit{deploy.yml} und \textit{firebase.yml} im
+\textit{.github/workflows} Directory des Projekts erstellt.
+
+Sowohl für das Deployen auf eine Virtual Machine, als auch zu \textit{Firebase Hosting}
+standen Plugins zur Verfügung, was die Konfiguration einfacher als bei Jenkins machte.
+Hostname, Username, Target Direcory und SSH Private Key der Virtual Machine und Informationen zur Firebase Instanz
+wurden als Secrets gespeichert und so in den Workflows verwendet.
+
+Wie auch bei einer Jenkins Pipeline musste für jedes Projekt jedoch auch beim
+Ansatz mit GitHub Actions ein GitHub Repository erstellt werden.
+
+\subsection{Node.js Skripts}
+Da für ein Deployment mithilfe von Skripts kein GitHub Repository für jedes Projekt erstellt werden muss,
+wurde sich für diesen Ansatz entschieden.
+Um das gesamte Projekt leichter wartbar zu machen wurden auch die Deployment Skripts in JavaScript geschrieben.
+Diese werden über den Package Manager \textit{npm} mit \textit{npm run deploy:ssh} bzw.
+\textit{npm run deploy:firebase} aufgerufen.
+Diese Befehle werden im \textit{package.json} File definiert:
+
+\begin{lstlisting}[numbers=left]
+{
+  "name": "webmap",
+  "version": "0.0.0",
+  "scripts": {
+    ...
+    "deploy:firebase": "node deploy/firebase.js",
+    "deploy:ssh": "node deploy/ssh.js"
+  },
+  ...
+}
+\end{lstlisting}
+
+\subsubsection{Firebase Skript}
+Das Firebase Skript führt folgende Schritte aus:
+
+\begin{itemize}
+  \item Installieren der Dependencies
+  \item Linten des Projekts
+  \item Builden des Projekts
+  \item Deployen mithilfe der Firebase CLI
+\end{itemize}
+
+Um die jeweiligen Konsolenbefehle in Node.js aufzurufen wurde die Methode \textit{spawn} des Node-Packages
+\textit{child_process} verwendet.
+Dieses wird standardmäßig mit Node.js mitgeliefert und benötigt daher keine zusätzliche Installation.
+
+Bevor zu Firebase deployed werden kann, muss der Benutzer oder die Benutzerin die Project ID des jeweiligen
+Firebase Projekts eingeben.
+Dieses wird im \textit{.firebaserc} File gespeichert, das dann von der Firebase CLI ausgelesen wird.
+
+% TODO: evtl. Windows Linux Unterschiede
+
+\subsubsection{SSH Skript}
+Das SSH Skript unterscheidet sich vom Firebase Skript nur im letzten Schritt.
+In diesem wird das Node-Package \textit{node-ssh} verwendet, um das gebuildete Projekt zu deployen.
+
+Auch hier werden wieder Informationen, die für das Deployment benötigt werden, von Benutzer oder Benutzerin über
+die Kommandozeile eingelesen.
+Diese werden im \textit{ssh-config.json} File gespeichert.
