@@ -3,9 +3,9 @@
 Um den Geschäftsprozess besser visualisieren zu können, wurde zu Beginn der webmap Workflow definiert.
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=.45]{pics/workflow}
-  \caption{webmap Workflow}
+    \centering
+    \includegraphics[scale=.45]{pics/workflow}
+    \caption{webmap Workflow}
 \end{figure}
 
 In diesem wurden die einzelnen Schritte festgelegt, die eine Benutzerin oder ein Benutzer von webmap von der Eingabe
@@ -28,6 +28,7 @@ Darin können noch Änderungen vorgenommen werden, um die Website perfekt auf di
 Zum Schluss besteht noch die Möglichkeit, die Website auf einen Server zu deployen.
 Dabei kann zwischen einer Firebase Hosting Instanz oder einer Linux Virtual Machine entschieden werden.
 
+
 \section{Frontend Implementierung}
 \setauthor{Jonas Dorfinger}
 
@@ -35,8 +36,8 @@ Die Anforderungen an das Frontend sind sehr vielseitig, einerseits soll es wie e
 andererseits soll das gesamte Projekt leicht wartbar und individualisierbar bleiben.
 Die Daten werden dynamisch aus einem Konfigurationsfile ausgelesen, welches durch einen eigenen Generator generiert werden kann.
 
-Um die UserExperience zu verbessern, wird auch auf wichtigen Dinge wie Angular Routing oder angemessenes styling Wert gelegt.
-Nicht zu vernachlässigen ist dabei, der Fakt, dass webmap interaktiv sein soll.
+Um die UserExperience zu verbessern, wird auch auf wichtige Dinge wie Angular Routing oder angemessenes styling Wert gelegt.
+Nicht zu vernachlässigen ist dabei der Fakt, dass webmap interaktiv sein soll.
 Das bedeutet, dass der Userin oder dem User die Möglichkeit geboten werden soll, durch Slider oder true/false Switches
 die Darstellung der aktuellen Daten auf der Page zu manipulieren.
 
@@ -131,33 +132,33 @@ Wird aktuell nicht angezeigt, kann aber durch Individualisierungen verwendet wer
 
 \subsubsection{Pages}
 \emph{Pages} ist ein Array, welches die Ansichten definiert.
-Jedes Element im Array, hat eine eigenen Map Ansicht, sowie eigene Daten, welche in der Sidebar angezeigt werden.
+Jedes Element im Array, hat eine eigene Map Ansicht, sowie eigene Daten, die in der Sidebar angezeigt werden.
 
 \textbf{Title}
 Der Title ist der Name der Seite und wird groß hervorgehoben angezeigt.
 
 \textbf{Subtitle}
-Der Subtitle beschreibt in wenigen Wörtern, etwas genauer worum es bei der ausgewählten Karte geht.
+Der Subtitle beschreibt in wenigen Wörtern und etwas genauer worum es bei der ausgewählten Karte geht.
 
 \textbf{Description}
 Description ist in diesem Fall ein Array von Strings, das bedeutet, es können mehrere Texteinträge angeführt werden,
-was wiederrum einen Designtechnischen Grund hat.
+was wiederrum einen designtechnischen Grund hat.
 Für jeden Eintrag wird ein eigener Absatz in der Sidebar generiert.
 
 \textbf{Map Options}
-Hier können in einem freien JSON Feld \href{https://leafletjs.com/SlavaUkraini/reference.html#map-option}{Leaflet-Map-Options}
+Hier ist es möglich in einem freien JSON Feld \href{https://leafletjs.com/SlavaUkraini/reference.html#map-option}{Leaflet-Map-Options}
 übergeben werden, um die Darstellung der Map gezielt zu verändern.
 Ein häufiger Anwendungsfall dafür ist es, den Ausrichtungspunkt zu ändern, um automatisch den richtigen Kartenausschnitt präsentiert zu bekommen.
 
 \textbf{Data Sources}
-Bei dem Array \emph{Data Sources} können Geo-Daten eingebunden werden, weiter unten werden diese Global definiert und hier
+Bei dem Array \emph{Data Sources} können Geo-Daten eingebunden werden, weiter unten werden diese global definiert und hier
 können diese referenziert werden.
-Zusätzlich können wieder \emph{options}, in Form von einem JSON Objekt übergeben werden.
+Zusätzlich können wieder \emph{options}, in Form von einem JSON Objekt, übergeben werden.
 
 \textbf{Controls}
-Hier können interaktive Elemente ausgewählt werden.
+Hier werden interaktive Elemente ausgewählt werden.
 Es gibt vordefinierte Controls, aus denen man wählen kann.
-Nach Absprache mit der triply, wurde entschieden, dass für diese Version ein Filter ausreichend ist.
+Nach Absprache mit triply wurde entschieden, dass für diese Version ein Filter ausreichend ist.
 Dieser Filter ist ein Slider, welcher auf eine bestimmte Property gebindet werden kann (\emph{filterValue}).
 Mit dem Attribut \emph{dataSource} wird die zutreffende Data Source ausgewählt.
 Zusätzlich kann noch eine Einheit (\emph{unit}) und auch ein Name für den Filter angegeben werden.
@@ -165,20 +166,20 @@ Zusätzlich kann noch eine Einheit (\emph{unit}) und auch ein Name für den Filt
 \subsubsection{Data Sources}
 Ist ein Array welches mehrere Data Sources beinhalten kann.
 Jedes JSON-Objekt hat mehrere Attribute die eine Data Source beschreiben.
-Diese werden global definiert und können in jeder Page, auch mehrmals referenziert werden.
+Diese werden global definiert und können in jeder Page auch mehrmals referenziert werden.
 
 \textbf{ID}
 Die ID wird benötigt, um eine Data Source referenzieren zu können, zum Beispiel bei der Erstellung von Pages.
 
 \textbf{Data}
-Data ist ein File-upload Feld, bei dem kann das Geo-JSON File hochgeladen werden, in welchem die Daten gespeichert sind.
+Data ist ein File-upload Feld, bei dem das Geo-JSON File hochgeladen werden kann, in welchem die Daten gespeichert sind.
 
 \textbf{Options}
 Hier können \href{https://leafletjs.com/SlavaUkraini/reference.html#map-option}{Leaflet-Map-Options} in einem freien JSON-Feld
 übergeben werden, um die Art der Darstellung oder das Verhalten der Map zu verändern.
 
 \textbf{Color Scheme}
-Dieses Feld referenziert auf die ID eines Color Schemes, entweder man gibt den Namen eines
+Dieses Feld referenziert auf die ID eines Color Schemes, entweder gibt man den Namen eines
 \href{https://carto.com/carto-colors/}{Carto-Color-Schemes} an oder man erstellt ein eigenes Custom-Color-Scheme.
 
 \textbf{Color Scheme Order Value}
@@ -186,10 +187,10 @@ Um das Color-Scheme richtig anzuwenden, braucht man einen Value, um eine angemes
 kann hier angegeben werden.
 
 \textbf{Tooltip}
-Der Tooltip ist ein Feature, welcher es ermöglicht Information beim hovern einer Data Source auf der Map anzuzeigen.
+Der Tooltip ist ein Feature, welcher es ermöglicht, Information beim hovern einer Data Source auf der Map anzuzeigen.
 Es ist deshalb ein Array, damit man unbegrenzt viele Informationen angeben kann.
 Jedes JSON-Objekt in diesem Array besitzt genau 2 Attribute, \emph{type} und \emph{name} oder \emph{content}.
-Der \emph{type} gibt an, ob es sich um einen Value oder einen Text handelt, bei einem Value, muss der Attributname, des
+Der \emph{type} gibt an, ob es sich um einen Value oder einen Text handelt, bei einem Value muss der Attributname des
 Values bei dem anderen Attribute (\emph{Name}) angegeben werden.
 Wird jedoch der Typ \emph{Text} ausgewählt, so muss lediglich ein String angegeben werden, welcher angezeigt wird (zum Beispiel
 eine Einheit für den Value zuvor).
@@ -200,9 +201,9 @@ Wichtig, dass auch hier jedes JSON-Objekt eine ID erhält, um das Scheme referen
 Weiters befindet sich ein Array \emph{colors} in diesem Objekt, welches die HEX-Codes der Farben beinhaltet.
 
 \subsection{Frontend Architektur und Aufbau}
-Auf der linken Seite gibt, es eine Sidebar in der alle Informationen angezeigt werden, welche für die aktuell ausgewählte Seite relevant sind.
+Auf der linken Seite gibt es eine Sidebar in der alle Informationen angezeigt werden, welche für die aktuell ausgewählte Seite relevant sind.
 Auf der rechten Seite, wird die Map dargestellt, auf dieser werden die Data Sources angezeigt, sowie die Map-Options angewandt.
-Die Services, verarbeiten und verteilen Daten zwischen den Components.
+Die Services verarbeiten und verteilen Daten zwischen den Components.
 
 \begin{figure}[hbt!]
     \centering
@@ -214,20 +215,21 @@ Die Services, verarbeiten und verteilen Daten zwischen den Components.
 \cleardoublepage
 
 \subsection{Services}
-Services sind Angular ein spezielles Konstrukt zur Datenverarbeitung, der Hauptanwendungsfall ist der Austausch von Daten
+Services sind bei Angular ein spezielles Konstrukt zur Datenverarbeitung, der Hauptanwendungsfall ist der Austausch von Daten
 zwischen mehreren Components.
-Der große Vorteil dabei ist, diese Singletons sind, das bedeutet, es gibt genau eine Instanz für alle Komponenten, somit
-ist es möglich, dass alle auf die gleichen Daten zugreifen.
+Der große Vorteil von Services ist, dass es dabei um Singletons handelt.
+Das bedeutet, es gibt genau eine Instanz für alle Komponenten, somit ist es möglich, dass alle auf die gleichen Daten zugreifen.
 
 \subsubsection{Config Service}
-Der Config Service liest, das Konfigurationsfile aus bietet diesen Inhalt an andere Components an.
-Über die App Component, wird die Konfiguration angefordert und weiterverarbeitet, so werden die Data Source Konfigurationsdaten
+Der Config Service liest das Konfigurationsfile aus und bietet diesen Inhalt an andere Components an.
+Über die App Component wird die Konfiguration angefordert und weiterverarbeitet, so werden die Data Source Konfigurationsdaten
 und die Custom Color Schemes herausgefiltert und an den ~\ref{subsubsec:data-source-service} weitergegeben.
 
 \subsubsection{Data Source Service}
 \label{subsubsec:data-source-service}
 Das Ziel mit diesem Service ist es, einen globalen Pool an Data Sources zu erstellen, aus der jede Component jederzeit die
-benötigten Data Sources anfordern und referenzieren kann, somit muss jede Data Source nur einmal erstellt werden und kann endlose Male weiterverwendet werden.
+benötigten Data Sources anfordern und referenzieren kann.
+Somit muss jede Data Source nur einmal erstellt und kann endlose Male weiterverwendet werden.
 
 Jede Data Source besteht aus mehreren Layern, dadurch ist eine Data Source eine Leaflet \emph{LayerGroup}.
 Der Service erhält zu Beginn die Informationen aus dem Konfigurationsfile, zuerst werden die Geo-Daten ausgelesen und entsprechend verarbeitet.
@@ -262,9 +264,9 @@ Dabei hat man eine kurze Übersicht über alle Pages und mit einem Klick auf die
 Color Schemes ermöglichen es, Bereiche auf Karten visuell besser darzustellen.
 Es werden standardmäßig die Schemes der CartoColor Library verwendet, welche exzellente Schemes für Karten bereitstellt.
 Ein Color Scheme besteht aus mehreren Farben, welche durch Abstufungen angeordnet sind (meistens von dunkel bis hell).
-Auch bei den Individuellen Schemes ist dies nicht anders, es werden ein eindeutiger Name vergeben und HEX-Codes zugeordnet.
+Auch bei den Individuellen Schemes ist dies nicht anders, es wird ein eindeutiger Name vergeben und HEX-Codes zugeordnet.
 
-Der ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color Schemes importiert und verwendet werden, wenn so konfiguriert.
+Der ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color Schemes importiert und verwendet werden, wenn sie so konfiguriert sind.
 
 \begin{figure}[hbt!]
     \centering
@@ -277,10 +279,11 @@ Der ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color S
 Die Sidebar auf der linken Seite bietet Platz, um Informationen anzuzeigen.
 Ganz oben ist der \emph{title} zu sehen, darunter der \emph{subtitle}, der zu sehende Textblock, ist die \emph{description},
 für welche für jeden Array Eintrag ein eigener Absatz erstellt wird.
-Am unterende Ende der Sidebar sind die Filter angeordnet, standardmäßig für jede Data Source wird ein Sichtbarkeits-Filter angelegt,
-mit diesem lässt sich die Data Source ein- oder ausblenden.
-Der zweite unterstütze Filter ist der "Slider", mit diesem kann man den Wertebereich der angezeigten Daten verändern,
-zum Beispiel, wenn man nur die Daten zwischen einer Anreise Dauer von 800 Sekunden bis 1000 Sekunden angezeigt haben möchte, kann man dies hier machen.
+Am unterende Ende der Sidebar sind die Filter angeordnet, für jede Data Source wird standardmäßig ein Sichtbarkeits-Filter angelegt,
+mit dem sich die Data Source ein- oder ausblenden lässt.
+Der zweite unterstütze Filter ist der \emph{Slider}.
+Mit diesem kann man den Wertebereich der angezeigten Daten verändern, zum Beispiel, wenn man nur die Daten zwischen
+einer Anreisedauer von 800 Sekunden bis 1000 Sekunden angezeigt haben möchte, kann das hier gemacht werden.
 Gelöst wird das ganze mit einem Value-Binding auf das Attribut, welches in der Konfiguration angegeben wird, auch
 die Skalierung des Slider wird automatisch berechnet.
 
@@ -293,12 +296,12 @@ die Skalierung des Slider wird automatisch berechnet.
 
 \subsection{Map}
 In der Map werden alle Daten auf der Karte visualisiert.
-In den hochgeladenen Geo-JSON Files sind unzählige Koordinaten enthalten, welche Punkteweise auf der Karte dargestellt werden,
-je nach Art der Darstellung, werden anschließend Linien zwischen Punkten berechnet, welche auch Formen ergeben können.
-Die Arten dieser Visualisierungen sind im RFC 7946~\cite{rfc7946} Standard genau beschrieben, diese werden auch bei webmap angewandt.
+In den hochgeladenen Geo-JSON Files sind unzählige Koordinaten enthalten, welche punkteweise auf der Karte dargestellt werden.
+Je nach Art der Darstellung werden anschließend Linien zwischen Punkten berechnet, welche auch Formen ergeben können.
+Die Arten dieser Visualisierungen sind im RFC 7946~\cite{rfc7946} Standard genau beschrieben, diese werden ebenso bei webmap angewandt.
 
-Durch den Data Source Service, gibt es bereits eine Sammlung an LayerGroups, welche nur noch angezeigt werden müssen,
-dass erhöht nicht nur die Performance, wenn die Page gewechselt wird, sondern macht die gesamte Applikation gut strukturiert.
+Durch den Data Source Service gibt es bereits eine Sammlung an LayerGroups, welche nur noch angezeigt werden müssen.
+Das erhöht nicht nur die Performance, wenn die Page gewechselt wird, sondern macht die gesamte Applikation gut strukturiert.
 
 Wenn alle Components eingebunden sind, kann das Frontend so ausschauen:
 \begin{figure}[hbt!]
@@ -314,7 +317,6 @@ Wenn alle Components eingebunden sind, kann das Frontend so ausschauen:
 Der Generator soll dazu dienen, ein Konfigurationsfile bzw. ein Angular Projekt basierend auf diesem Konfigurationsfile
 schnell und einfach in einer Benutzeroberfläche zu erstellen.
 
-
 \subsection{JSON Schema}
 Da der Generator dynamisch aufgebaut sein sollte und die Möglichkeit bestehen sollte, das Format der generierten
 Daten zu verändern, wurde sich dazu entschieden, den Generator aufgrund eines JSON Schemas, das die Daten beschreibt,
@@ -327,12 +329,12 @@ Jede Property hat ein \textit{type} und \textit{description} Feld.
 Der Wert von \textit{type} kann einer der folgenden Strings sein:
 
 \begin{itemize}
-  \item "object"
-  \item "array"
-  \item "string"
-  \item "number"
-  \item "boolean"
-  \item "file"
+    \item ''object''
+    \item ''array''
+    \item ''string''
+    \item ''number''
+    \item ''boolean''
+    \item ''file''
 \end{itemize}
 
 Ist die Property ein Object, hat es die Felder \textit{properties} und \textit{required}, die beide optional sind.
@@ -345,13 +347,14 @@ Ist die Property ein Array, hat es zusätzlich das erforderliche \textit{items} 
 Der Wert beschreibt die Properties, die sich in diesem Array befinden.
 Im Gegensatz zur offiziellen Definition des JSON-Schemas kann hier nur \textit{eine} Property definiert werden.
 
-Properties vom Typ "number" können optional die Felder \textit{minimum} und \textit{maximum} enthalten.
+Properties vom Typ ''number'' können optional die Felder \textit{minimum} und \textit{maximum} enthalten.
 
-Properties, die den Typ "file" haben, können im optionalen Feld \textit{fileExtensions} die erlaubten
+Properties, die den Typ ''file'' haben, können im optionalen Feld \textit{fileExtensions} die erlaubten
 Dateiendungen als Array definieren.
 Im Generator wird an dieser Stelle ein File-Upload angezeigt.
 
-Properties vom Typ "string" und "boolean" haben keine zusätzlichen Felder.
+Properties vom Typ ''string'' und ''boolean'' haben keine zusätzlichen Felder.
+
 
 \section{Angular Projekt}
 Da sich reaktive Formulare einfach in Angular umsetzen lassen, wurde sich für dieses Framework entschieden.
@@ -363,7 +366,7 @@ generierende Konfigurationsfile befindet.
 Aufgrund dessen werden Input-Felder generiert, in welchen Benutzerinnen und Benutzer die entsprechende
 Konfiguration eingeben können.
 
-Für jeden Typ, den eine Property haben kann wurde eine Angular-Komponente definiert.
+Für jeden Typ, der eine Property haben kann wurde eine Angular-Komponente definiert.
 Weiters wurde mit sogenannten \textit{FormControl} Objekten der Inhalt der Input-Felder auf die im Schema definierten
 Kriterien überprüft.
 So kann man zu jeder Zeit einfach überprüfen, ob alle eingegebenen Werte valide sind.
@@ -456,9 +459,9 @@ das Backend gesendet und man erhält das daraus generierte Projekt.
 Folgende Seite wird aufgrund obigem JSON-Schema angezeigt:
 
 \begin{figure}[hbt!]
-  \centering
-  \includegraphics[scale=.2]{pics/generator}
-  \caption{Generator}
+    \centering
+    \includegraphics[scale=.2]{pics/generator}
+    \caption{Generator}
 \end{figure}
 
 
@@ -615,13 +618,13 @@ COPY --from=builder /usr/src/app/dist /usr/share/nginx/html
 Im Dockerfile der REST-API werden folgende Schritte ausgeführt:
 
 \begin{itemize}
-  \item Das Base Image \textit{node} wird verwendet
-  \item \textit{/usr/src/app} wird als das Directory festgelegt, in dem alle folgenden Befehle ausgeführt werden
-  \item \textit{package.json} und \textit{package-lock.json} werden in das Image kopiert
-  \item Dependencies werden mit \textit{npm install} installiert
-  \item Alle weiteren Files aus dem Directory, in dem sich das \textit{Dockerfile} befindet, werden in das Image kopiert
-  \item Das Projekt wird gelintet und gebuildet
-  \item \textit{npm start} wird als Befehl definiert, der beim Start eines Containers ausgeführt wird
+    \item Das Base Image \textit{node} wird verwendet
+    \item \textit{/usr/src/app} wird als das Directory festgelegt, in dem alle folgenden Befehle ausgeführt werden
+    \item \textit{package.json} und \textit{package-lock.json} werden in das Image kopiert
+    \item Dependencies werden mit \textit{npm install} installiert
+    \item Alle weiteren Files aus dem Directory, in dem sich das \textit{Dockerfile} befindet, werden in das Image kopiert
+    \item Das Projekt wird gelintet und gebuildet
+    \item \textit{npm start} wird als Befehl definiert, der beim Start eines Containers ausgeführt wird
 \end{itemize}
 
 Das entsprechende \textit{Dockerfile} sieht wie folgt aus:
@@ -642,6 +645,7 @@ RUN npm run lint \
 
 CMD [ "npm", "start" ]
 \end{lstlisting}
+
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
