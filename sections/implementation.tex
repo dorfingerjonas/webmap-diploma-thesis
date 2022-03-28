@@ -688,7 +688,7 @@ Ansatz mit GitHub Actions ein GitHub Repository erstellt werden.
 \subsection{Node.js Skripts}
 Da für ein Deployment mithilfe von Skripts kein GitHub Repository für jedes Projekt erstellt werden muss,
 wurde sich für diesen Ansatz entschieden.
-Um das gesamte Projekt leichter wartbar zu machen wurden auch die Deployment Skripts in JavaScript geschrieben.
+Um das gesamte Projekt leichter wartbar zu machen, wurden auch die Deployment Skripts in JavaScript geschrieben.
 Diese werden über den Package Manager \textit{npm} mit \textit{npm run deploy:ssh} bzw.
 \textit{npm run deploy:firebase} aufgerufen.
 Diese Befehle werden im \textit{package.json} File definiert:
@@ -725,7 +725,7 @@ Firebase Projekts eingeben.
 Dieses wird im \textit{.firebaserc} File gespeichert, das dann von der Firebase CLI ausgelesen wird.
 
 Die Firebase CLI besteht aus einer ausführbaren Datei, die sich im \textit{node\_modules/.bin} Directory befindet.
-Der Name dieser Datei unterscheidet sich auf Windows jedoch von der auf anderen Betriebssystemen.
+Der Name dieser Datei unterscheidet sich auf Windows jedoch von dem auf anderen Betriebssystemen.
 Daher musste beim Aufrufen der CLI überprüft werden, auf welchem Betriebssystem das Skript ausgeführt wird.
 Diese Information stellt Node.js in der Variable \textit{process.platform} bereit.
 
