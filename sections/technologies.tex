@@ -325,7 +325,7 @@ Dabei wurde darauf geachtet, ob diese sich eignen, aufgrund von Geodaten eine Se
 \subsection{Next.js}
 Next.js ist eines der beliebtesten Frameworks, um statische Websites zu generieren.
 Die Templates für diese Seiten werden jedoch in React geschrieben.
-Vorteile von Next.js sind die einfache Installation und Flexibilität des Frameworks~\cite{nextjs}.
+Vorteile von Next.js sind die einfache Installation und die Flexibilität des Frameworks~\cite{nextjs}.
 
 \subsection{Jekyll}
 Jekyll ist ein Static Site Generator, der in Ruby geschrieben ist~\cite{jekyll-ruby}.
@@ -336,7 +336,7 @@ Da aber Liquid und Angular beide mit doppelten geschwungenen Klammern arbeiten, 
 dies in Angular geändert werden.
 Das ist zwar grundsätzlich möglich, kann aber eine Sicherheitslücke darstellen und es wird davon abgeraten~\cite{angular-interpolation}.
 
-Weiters wird Jekyll hauptsächlich für Blogs und Seite, die nur Text enthalten, verwendet.
+Weiters wird Jekyll hauptsächlich für Blogs und Seiten, die nur Text enthalten, verwendet.
 Dementsprechend wird wenig Funktionalität für Seiten mit anderem Inhalt bereitgestellt.
 
 \subsection{Scully}
@@ -477,7 +477,7 @@ verschiedene Actions unterteilt, die wiederrum mehrere Steps enthalten.
 auf den Runnern entweder Windows, Linux oder macOS als Betriebssystem.
 
 Ein Workflow, der bei jedem Push oder Pull Request auf den \textit{main} Branch die Steps
-\textit{Build}, \textit{Test} und \textit{Deploy} ausführt könnte beispielsweise folgendermaßen
+\textit{Build}, \textit{Test} und \textit{Deploy} ausführt, könnte beispielsweise folgendermaßen
 aussehen: ~\cite{github-actions}
 
 \begin{lstlisting}[label={lst:deploy.yml}]{deploy.yml}
@@ -595,26 +595,26 @@ Ein weiterer Einsatzbereich von JSON-Schemata ist das Validieren von Daten bei a
  Dieser kann einer der folgenden Strings sein:
 
 \begin{itemize}
-  \item "null"
-  \item "boolean"
-  \item "object"
-  \item "array"
-  \item "number"
-  \item "string"
+  \item ''null''
+  \item ''boolean''
+  \item ''object''
+  \item ''array''
+  \item ''number''
+  \item ''string''
 \end{itemize}
 
- Ist der Typ "object", muss dieses Object weiter beschrieben werden.
+ Ist der Typ ''object'', muss dieses Object weiter beschrieben werden.
  Dazu wird das \textit{properties} Keyword verwendet.
  Der Wert davon ist ein Object mit den Properties des zu beschreibenden Object als Keys.
  Die Werte dieser Keys sind wiederrum Objects, die die jeweilige Property beschreiben.
  Dazu wird wieder das \textit{type} Keyword verwendet.
  Mit dem \textit{description} Keyword kann man auch dieser Property wieder eine Beschreibung geben.
 
- Eine Property vom Typ "array" beschreibt mit dem \textit{items} Keyword den Typ der Werte, die das Array enthält.
+ Eine Property vom Typ ''array'' beschreibt mit dem \textit{items} Keyword den Typ der Werte, die das Array enthält.
 
  Für die meisten Typen gibt es noch zusätzliche Keywords, mit denen die Werte noch genauer beschrieben werden können.
- Dazu zählen beispielsweise \textit{required} für Werte vom Typ "object", das ein Array der Namen der erforderlichen
- Properties enthält oder \textit{maximum} und \textit{minimum} für Werte vom Typ "number" bzw. "integer".
+ Dazu zählen beispielsweise \textit{required} für Werte vom Typ ''object'', das ein Array der Namen der erforderlichen
+ Properties enthält oder \textit{maximum} und \textit{minimum} für Werte vom Typ ''number'' bzw. ''integer''.
 
  Ein JSON-Schema für das JSON-Object aus dem vorherigen Kapitel~\ref{json-example} könnte beispielsweise
  folgendermaßen aussehen:
@@ -669,7 +669,7 @@ Auch die Extensible Markup Language (XML) ist ein Format zum Datenaustausch.
 Wie auch JSON, ist XML einfach von Menschen sowie von Maschinen lesbar.
 
 XML ist auf sogenannten Tags aufgebaut.
-Ein Tag beginnt mit \textit{\<} und wird mit \textit{\>} beendet.
+Ein Tag beginnt mit \textit{<} und wird mit \textit{>} beendet.
 Zwischen diesen Zeichen steht der Name der Property.
 Bei Tags wird zwischen Start Tags und End Tags unterschieden.
 End Tags zeichnen sich dadurch aus, dass sie ein \textit{\/} Zeichen vor dem Namen enthalten.
@@ -714,8 +714,8 @@ XML Schema hat den Vorteil gegenüber anderen Sprachen, mit denen ein XML Dokume
 selbst in XML geschrieben ist.
 Es muss also keine weitere Sprache gelernt werden~\cite{xml-schema}.
 
-Ein XML Schema wird in einem \textit{\<xs:schema\>} Element beschrieben.
-Darin befinden sich \textit{\<xs:element\>} Elemente, die in Simple Types und Complex Types eingeteilt werden.
+Ein XML Schema wird in einem \textit{<xs:schema>} Element beschrieben.
+Darin befinden sich \textit{<xs:element>} Elemente, die in Simple Types und Complex Types eingeteilt werden.
 Complex Types enthalten weitere Elemente, Simple Types nicht.
 
 Auch wenn in der XML Syntax nicht zwischen Datentypen unterschieden wird, kann in einem XML Schema der Datentyp
@@ -956,7 +956,7 @@ http {
 
  \subsubsection{Networking}
  Alle Services, die im gleichen File definiert werden, befinden sich automatisch im selben Docker Netzwerk.
- Das bedeutet, dass die miteinander kommunizieren können, aber nicht von außen auf sie zugegriffen werden kann.
+ Das bedeutet, dass sie miteinander kommunizieren können, aber nicht von außen auf sie zugegriffen werden kann.
  Jeder Service kann jedoch einzelne Ports definieren, die auch von außerhalb erreichbar sein sollen.
  Diese Abstraktionsschicht erhöht die Sicherheit, da zum Beispiel nur Services innerhalb eines Docker Netzwerks auf eine
  Datenbank zugreifen können, diese von Prozessen außerhalb nicht erreichbar ist.
