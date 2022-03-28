@@ -1,18 +1,18 @@
 \section{Versionierung}
 \setauthor{Jonas Dorfinger}
-Der Begriff Versionierung beschreibt im Allgemeinen einen Prozess welcher zur Dokumentation von Änderungen an Dokumenten oder Dateien stattfindet.
+Der Begriff Versionierung beschreibt im Allgemeinen einen Prozess, welcher zur Dokumentation von Änderungen an Dokumenten oder Dateien stattfindet.
 Nach jeder Änderung wird im System eine aktuelle Version abgespeichert und mit einer eindeutigen Versionsnummer versehen.
-Die Versionsnummer wird meist automatisch durch das Versionierungstool vergeben.
+Diese wird meist automatisch durch das Versionierungstool vergeben.
 Zusätzlich wird auch gespeichert, wer welche Einträge wann und wo gemacht hat, so werden Änderungen transparent mitprotokolliert.
-Eine der wichtigsten Vorteile einer Versionierung ist jedoch die Funktion, dass man alte Ständ von Dateien wiederherstellen kann.
-Eine Versionsverwaltungssoftware kann auch die gleichzeitigen Zugriffe auf eine Datei von mehrere Personen koordinieren.
-Versionierung ist nicht nur in der Softwareentwicklungs Branche Standard, sondern auch in etlichen weiteren Bereichen stark
+Eine der wichtigsten Vorteile einer Versionierung ist jedoch die Funktion, dass man alte Stände von Dateien wiederherstellen kann.
+Eine Versionsverwaltungssoftware kann auch die gleichzeitigen Zugriffe auf eine Datei von mehreren Personen koordinieren.
+Versionierung ist nicht nur Standard in der Softwareentwicklungs Branche, sondern auch in etlichen weiteren Bereichen stark
 verbreitet.
 
 \subsection{automatische vs. manuelle Versionierung}
 \setauthor{Jonas Dorfinger}
-Wenn während dem Schreiben einer Arbeit Sicherheitskopien anlegt und diese mit zum Beispiel "arbeit-neu",
-"arbeit-fertig" oder "arbeit-fertig2" benennt werden, dann ist das nichts anderes als eine manuelle Versionierung, weil auch hier
+Wenn während dem Schreiben einer Arbeit Sicherheitskopien angelegt und diese mit zum Beispiel "arbeit-neu",
+"arbeit-fertig" oder "arbeit-fertig2" benannt werden, dann ist das nichts anderes als eine manuelle Versionierung, weil auch hier
 eine eindeutige Versionsnummer für jede Datei vergeben wurde.
 Das birgt aber auch große Risiken, da eine manuelle Versionierung viel Zeit und Disziplin erfordert und immer die Gefahr
 besteht, dass man eine wichtige Version überschreibt.
@@ -44,7 +44,7 @@ diesem Repository gesammelt werden und erst durch den Befehl \emph{git push} wie
 
 \paragraph{3. Staging Area}
 In der Staging Area sind alle lokal modifizierten Files, welche für den nächsten Commit auserwählt sind, gesammelt.
-Durch den Befehl \emph{git commit -m <message>} gelangen ausgewählte Änderungen in des lokale Repository.
+Durch den Befehl \emph{git commit -m <message>} gelangen ausgewählte Änderungen in das lokale Repository.
 Ein Commit repräsentiert dabei eine Version des Programmes, welche mit einer eindeutigen Nummer im System gespeichert wird.
 
 \paragraph{4. Working Directory}
@@ -69,7 +69,7 @@ Eine semantische Versionsnummer besteht aus drei Teilen:
     \centering{MAJOR.MINOR.PATCH}
 \end{center}
 
-Und sollen nach Änderungen in der entsprechenden Kategorie in einser Schritten erhöht werden.
+Jeder Teil soll nach Änderungen in der entsprechenden Kategorie in Einserschritten erhöht werden.
 
 \textbf{MAJOR}
 Wenn API Änderungen durchgeführt werden, welche die API mit der Vorgängerversion inkompatibel machen
@@ -95,27 +95,28 @@ Zusätzlich können auch labels für \emph{pre-release} oder \emph{build metadat
 GitHub Inc. ist ein amerikanisches gewinnorientiertes Softwareunternehmen, welches git Repositories in der Cloud anbietet,
 also das Remote Repository.
 Dadurch können Privatpersonen aber auch große Unternehmen und Konzerne ganz leicht git als Versionierungstool verwenden.
-Durch viele Features von GitHub wird das arbeiten mit git so stark erleichtert, dass auch Anfänger bereits sehr profesionell
+Durch viele Features von GitHub wird das Arbeiten mit git so stark erleichtert, dass auch Anfänger bereits sehr profesionell
 mit git arbeiten und lernen können.
 Normalerweise verwendet man git mit der Kommandozeile des jeweiligen Betriebssystemes, was hohes technisches Verständnis voraussetzt.
 Man kann einen kostenlosen Account erstellen und gratis Repositories anlegen und verwenden,
 deshalb ist Github in der Open-Source Community sehr stark verbreitet.
-Doch mittlerweile kann diese Software mehr als "nur" Projekte zu versionieren.
+Doch mittlerweile kann diese Software mehr als "nur" Projekte versionieren.
 Es gibt project-tracking-tools (GitHub Projects, Issues, Milestones, Labels, etc.), Pipelines für Continues Integration and Delivery,
 gratis Website Hosting und noch vieles mehr~\cite{github-features}.
 
-Es gibt aber auch andere Programme welche zu GitHub gehören, zum einen ist es \emph{Atom}, ein kostenloser und Open-Source Editor für Entwickler.
-Weiters gibt es zum Beispiel auch \emph{Electron}, das ist ebenfalls ein Open-Source JavaScript Framework um Web-Anwendungen zu Desktopanwendungen zu machen.
+Zusätzlich gibt es aber auch andere Programme welche zu GitHub gehören.
+Zum einen ist es \emph{Atom}, ein kostenloser und Open-Source Editor für Entwickler, weiters gibt es noch \emph{Electron},
+ebenfalls ein Open-Source JavaScript Framework, es wird verwendet um Web-Anwendungen zu Desktopanwendungen zu machen.
 
 Unternehmen können kostenpflichtige Organisationen anlegen, um alle Repositories einer Firma gesammelt an einem Ort zu verwalten.
-Dazu gibt es wieder etliche Features welche die Sicherheit, Rollen und vieles mehr betreffen.
+Dazu gibt es wieder etliche Features, welche die Sicherheit, Rollen und vieles mehr betreffen.
 
-Seit 2018 gehört GitHub zu Microsoft, welche für die Übernahme \$7,5 Milliarden US-Dollar auf den Tisch gelegt haben~\cite{microsoft-acquires-github}.
+Seit 2018 gehört GitHub zu Microsoft, welche für die Übernahme \$7,5 Milliarden US-Dollar bezahlt haben~\cite{microsoft-acquires-github}.
 
 
 \section{Projektkoordination}
 \setauthor{Jonas Dorfinger}
-Da Triply über eine GitHub Organisation verfügt, ist es naheliegend, dass für webmap ein eigenes Repository angelegt wird.
+Triply verfügt über eine GitHub Organisation, daher ist es naheliegend, dass für webmap ein eigenes Repository angelegt wird.
 
 Um Übersicht über den Projektverlauf zu behalten, ist die Entscheidung aufgrund von internen Vereinbarungen von triply sowie die
 Erfahrung des Teams auf GitHub Projects gefallen.
@@ -155,7 +156,7 @@ Issues haben die Möglichkeit, die anstehende Arbeit zu dokumentieren und planen
 \subsection{Automatisierung}
 Durch die Verwendung spezieller Keywords in Commit messages oder in einem Kommentar bei einem Issue, kann der Zustand dieses
 Issues verändert werden.
-Dies geht einher mit der Automatisierung von Project Boards.
+Dies geht mit der Automatisierung von Project Boards einher.
 
 \textbf{Keywords:}
 
