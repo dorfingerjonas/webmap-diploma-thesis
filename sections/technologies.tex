@@ -390,17 +390,17 @@ Das Protokoll arbeitet mit dem Client-Server-Modell.
 Dateiübertragung über SSH wird mithilfe des SSH File Transfer Protocols (SFTP) realisiert.
 
 \subsubsection{SSH Keys}
-Benutzer und Benutzerinnen können zwischen verschiedenen Formen der Authentifizierung wählen.
+Benutzerinnen und Benutzer können zwischen verschiedenen Formen der Authentifizierung wählen.
 Die beliebtesten Methoden sind Passwort-basierte Authentifizierung und Public Key Authentifizierung.
 Letztere wird vor allem bei automatisierten Prozessen eingesetzt.
-Dabei haben der Benutzer oder die Benutzerin ein kryptografisches Schlüsselpaar.
+Dabei haben die Benutzerin oder der Benutzer ein kryptografisches Schlüsselpaar.
 Dieses besteht aus Public Key und Private Key.
 Der Public Key wird am Server hinterlegt und jeder mit einer Kopie des dazu passenden Private Keys kann
 auf diesen Server zugreifen~\cite{ssh-keys}.
 
 \subsection{Firebase Hosting}
 Firebase ist ein Backend-as-a-Service (BaaS), das von Google angeboten wird.
- Es besteht aus verschiedenen Produkten, die Softwareentwicklern und Softwareentwicklerinnen das Entwickeln
+ Es besteht aus verschiedenen Produkten, die Softwareentwicklerinnen und Softwareentwicklern das Entwickeln
 von Backends ermöglicht, ohne sich um Server kümmern zu müssen.
  Beispiele für Produkte sind Firebase Authentication, das eine einfache Authentifizierung von Usern ermöglicht,
 Realtime Database, eine NoSQL Datenbank oder Firebase Hosting, das das Hosten von Webanwendungen,
@@ -433,7 +433,7 @@ definierten Reihenfolge ausgeführt werden.
 Eine Pipeline mit den Stages \textit{Build}, \textit{Test} und \textit{Deploy} würde
 zum Beispiel folgendermaßen aussehen: ~\cite{jenkins-jenkinsfile}
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:Jenkinsfile}]{Jenkinsfile}
 pipeline {
     agent any
 
@@ -480,7 +480,7 @@ Ein Workflow, der bei jedem Push oder Pull Request auf den \textit{main} Branch 
 \textit{Build}, \textit{Test} und \textit{Deploy} ausführt könnte beispielsweise folgendermaßen
 aussehen: ~\cite{github-actions}
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:deploy.yml}]{deploy.yml}
 name: Build & Deploy
 
 on:
@@ -518,7 +518,7 @@ und verschlüsselt bleiben, bis sie in einem Workflow verwendet werden~\cite{git
 
 In folgendem Step eines Workflows werden diese Secrets dann referenziert:
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:secrets.yml}]{secrets.yml}
 - name: Deploy to Server
   uses: easingthemes/ssh-deploy@v2
   env:
@@ -535,7 +535,8 @@ dass dafür kein GitHub Repository erstellt werden muss und nur die Kommandozeil
 Da Node.js plattformunabhängig ist, können diese Skripts in sowohl auf Windows als auch auf
 Linux und macOS ausgeführt werden.
 
- \section{JSON}
+\section{Formate für die Konfigurationsdatei}
+ \subsection{JSON}
  JavaScript Object Notation (JSON) ist ein Format zum Datenaustausch.
  Es wurde entworfen, um für Menschen einfach zu lesen und zu schreiben zu sein.
  Außerdem ist es auch für Maschinen einfach zu parsen oder zu generieren.
@@ -552,7 +553,7 @@ Linux und macOS ausgeführt werden.
  \end{itemize}
 
  Ein Object ist ein ungeordnetes Set an Key/Value Paaren.
- Es beginnt mit \textit{{} und endet mit \textit{}}.
+ Es beginnt mit \textit{\{} und endet mit \textit{\}}.
  Die darin enthaltenen Werte haben das Format \textit{key: value} und werden mit Beistrichen voneinander getrennt.
  Der Key ist immer ein String und muss deshalb in Anführungszeichen stehen.
 
@@ -566,7 +567,7 @@ Linux und macOS ausgeführt werden.
  Ein valides JSON-Object könnte also folgendermaßen aussehen:
 
  \label{json-example}
- \begin{lstlisting}[numbers=left]
+ \begin{lstlisting}[label={lst:example.jsom}]{example.json}
 {
   "string": "Hello World",
   "number": 69,
@@ -581,7 +582,7 @@ Linux und macOS ausgeführt werden.
 }
  \end{lstlisting}
 
- \subsection{JSON-Schema}
+ \subsubsection{JSON-Schema}
 Ein JSON Schema wird dazu verwendet, JSON Strukturen zu beschreiben und zu validieren.
 Damit kann beispielsweise eine Dokumentation für eine Schnittstelle, die über JSON kommuniziert, definiert werden.
 Diese Dokumentation ist dabei sowohl für Menschen, als auch für Maschinen einfach lesbar.
@@ -591,7 +592,16 @@ Ein weiterer Einsatzbereich von JSON-Schemata ist das Validieren von Daten bei a
  Dieses besitzt meistens einen \textit{title} und eine \textit{description}, die das definierte JSON beschreiben,
  aber keine Auswirkung auf die Struktur haben.
  Das \textit{type} Keyword definiert den Typ einer Property.
- Dieser kann entweder "null", "boolean", "object", "array", "number", oder "string" sein.
+ Dieser kann einer der folgenden Strings sein:
+
+\begin{itemize}
+  \item "null"
+  \item "boolean"
+  \item "object"
+  \item "array"
+  \item "number"
+  \item "string"
+\end{itemize}
 
  Ist der Typ "object", muss dieses Object weiter beschrieben werden.
  Dazu wird das \textit{properties} Keyword verwendet.
@@ -609,7 +619,7 @@ Ein weiterer Einsatzbereich von JSON-Schemata ist das Validieren von Daten bei a
  Ein JSON-Schema für das JSON-Object aus dem vorherigen Kapitel~\ref{json-example} könnte beispielsweise
  folgendermaßen aussehen:
 
- \begin{lstlisting}[numbers=left]
+ \begin{lstlisting}[label={lst:example-schema.json}]{example-schema.json}
     {
       "title": "Example JSON Object",
       "description": "A JSON Object to demonstrate JSON Syntax",
@@ -653,6 +663,102 @@ Ein weiterer Einsatzbereich von JSON-Schemata ist das Validieren von Daten bei a
       "required": [ "string", "number", "array" ]
     }
  \end{lstlisting}
+
+\subsection{XML}
+Auch die Extensible Markup Language (XML) ist ein Format zum Datenaustausch.
+Wie auch JSON, ist XML einfach von Menschen sowie von Maschinen lesbar.
+
+XML ist auf sogenannten Tags aufgebaut.
+Ein Tag beginnt mit \textit{\<} und wird mit \textit{\>} beendet.
+Zwischen diesen Zeichen steht der Name der Property.
+Bei Tags wird zwischen Start Tags und End Tags unterschieden.
+End Tags zeichnen sich dadurch aus, dass sie ein \textit{\/} Zeichen vor dem Namen enthalten.
+Ein XML Element beginnt mit einem Start Tag und wird mit einem äquivalenten End Tag beendet.
+Diese Elemente können einen Wert oder eines oder mehrere Unterelemente enthalten~\cite{xml}.
+
+Die meisten XML Dokumenten enthalten außerdem eine sogenannte XML Declaration.
+Darin sind Metadaten des Dokuments enthalten.
+Meistens sieht diese XML Declaration folgendermaßen aus:
+
+\begin{lstlisting}
+<?xml version="1.0" encoding="UTF-8"?>
+\end{lstlisting}
+
+Hier wird die Version des verwendeten XML Standards und die Codierung des Dokuments festgelegt.
+
+Ein zu dem JSON-Objekt aus dem vorherigen Kapitel äquivalentes XML-Element könnte wie folgt aussehen:
+
+\begin{lstlisting}[label={lst:example.xml}]{example.xml}
+  <?xml version="1.0" encoding="UTF-8"?>
+  <example>
+    <string>Hello World</string>
+    <number>69</number>
+    <boolean>false</boolean>
+    <null>null</null>
+    <array>
+      <element>419</element>
+      <element>420</element>
+      <element>421</element>
+      <element>null</element>
+    </array>
+  </example>
+\end{lstlisting}
+
+Auch wenn dies hier aufgrund der Namen der Elemente angenommen werden könnte, wird im Gegensatz zu JSON bei XML
+nicht zwischen verschiedenen Datentypen unterschieden.
+
+\subsubsection{XML Schema}
+Mit einem XML Schema kann man die Struktur eines XML Dokuments beschreiben und validieren.
+Dies kann beispielsweise dazu verwendet werden, Schnittstellen zu dokumentieren.
+XML Schema hat den Vorteil gegenüber anderen Sprachen, mit denen ein XML Dokument beschrieben werden kann, dass es
+selbst in XML geschrieben ist.
+Es muss also keine weitere Sprache gelernt werden~\cite{xml-schema}.
+
+Ein XML Schema wird in einem \textit{\<xs:schema\>} Element beschrieben.
+Darin befinden sich \textit{\<xs:element\>} Elemente, die in Simple Types und Complex Types eingeteilt werden.
+Complex Types enthalten weitere Elemente, Simple Types nicht.
+
+Auch wenn in der XML Syntax nicht zwischen Datentypen unterschieden wird, kann in einem XML Schema der Datentyp
+eines Elements angegeben werden.
+
+Obiges XML Dokument könnte beispielsweise mit folgendem XML Schema beschrieben werden:
+
+\begin{lstlisting}[label={lst:schema.xml}]{schema.xml}
+  <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="example">
+      <xs:complexType>
+        <xs:sequence>
+          <xs:element type="xs:string" name="string"/>
+          <xs:element type="xs:integer" name="number"/>
+          <xs:element type="xs:boolean" name="boolean"/>
+          <xs:element type="xs:string" name="null"/>
+          <xs:element name="array">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element type="xs:string" name="element" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+\end{lstlisting}
+
+\subsubsection{Valid und Well-Formed}
+XML Dokumente können den Status Valid und Well-Formed haben.
+
+Well-Formed bedeutet, dass das Dokument der XML Syntax entspricht~\cite{xml-schema}.
+Dazu zählen folgende Kriterien:
+
+\begin{itemize}
+  \item Das Dokument beginnt mit einer XML Declaration
+  \item Start Tags haben passende End Tags
+  \item Es gibt ein eindeutiges Root Element
+\end{itemize}
+
+Weiters kann ein Dokument Well-Formed sein.
+Das bedeutet, dass es außerdem der in einem XML Schema definierten Struktur entspricht~\cite{xml}.
 
 \section{Backend}
 \setauthor{Sebastian Scholl}
@@ -713,7 +819,7 @@ nginx kann mit folgendem \textit{nginx.conf} File als Proxy Server konfiguriert 
 an einen anderen Server weiterleitet.
 Bei allen anderen Requests wird eine Datei aus dem \textit{/data} Directory als Response gesendet.
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:example.conf}]{example.conf}
 events {}
 
 http {
@@ -734,7 +840,7 @@ http {
 \section{Containerization}
 \setauthor{Sebastian Scholl}
 \subsection{Docker}
- Docker ist eine Softwareplattform, die Benutzern und Benutzerinnen erlaubt, Applikationen schnell zu
+ Docker ist eine Softwareplattform, die Benutzerinnen und Benutzern erlaubt, Applikationen schnell zu
  Builden, Testen und Deployen.
  Dabei wird die Software in standardisierte Pakete, die Container genannt werden, verpackt~\cite{docker-aws}.
 
@@ -783,7 +889,7 @@ http {
  Darin wird der \textit{make} Befehl ausgeführt, um die Applikation zu builden.
  Als Befehl, der beim Start ausgeführt wird, wird \textit{python /app/app.py} definiert~\cite{dockerfile}.
 
- \begin{lstlisting}[numbers=left]
+ \begin{lstlisting}[label={lst:Dockerfile}]{Dockerfile}
   FROM ubuntu:18.04
   COPY . /app
   RUN make /app

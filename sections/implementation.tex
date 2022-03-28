@@ -1,3 +1,33 @@
+\section{webmap Workflow}
+\setauthor{Sebastian Scholl}
+Um den Geschäftsprozess besser visualisieren zu können, wurde zu Beginn der webmap Workflow definiert.
+
+\begin{figure}[hbt!]
+  \centering
+  \includegraphics[scale=.6]{pics/workflow}
+  \caption{webmap Workflow}
+\end{figure}
+
+In diesem wurden die einzelnen Schritte festgelegt, die eine Benutzerin oder ein Benutzer von webmap von der Eingabe
+der Daten bis zu einer fertigen Website durchläuft.
+
+\subsection{Generator}
+Der Generator ist der erste Schritt des webmap Workflows.
+Darin werden die Daten eingegeben, die später mithilfe der generierten Website visualisiert werden.
+Realisiert wurde dies mit einer Webanwendung.
+
+\subsection{Download Project}
+Mit dem Klick auf einen Button im Generator wird ein Angular-Projekt, das die zuvor eingegebenen Daten enthält,
+heruntergeladen.
+
+\subsection{Tweak}
+Danach kann dieses Projekt in einem Editor oder einer IDE geöffnet werden.
+Darin können noch Änderungen vorgenommen werden, um die Website perfekt auf die Kundin oder den Kunden anzupassen.
+
+\subsection{Deploy}
+Zum Schluss besteht noch die Möglichkeit, die Website auf einen Server zu deployen.
+Dabei kann zwischen einer Firebase Hosting Instanz oder einer Linux Virtual Machine entschieden werden.
+
 \section{Frontend Implementierung}
 \setauthor{Jonas Dorfinger}
 
@@ -330,7 +360,7 @@ Wartung des gesamten Projekts erleichtert.
 
 Das Kernstück des Generators ist das \textit{src/assets/schema.json} File, in dem sich das Schema für das zu
 generierende Konfigurationsfile befindet.
-Aufgrund dessen werden Input-Felder generiert, in welchen Benutzer und Benutzerinnen die entsprechende
+Aufgrund dessen werden Input-Felder generiert, in welchen Benutzerinnen und Benutzer die entsprechende
 Konfiguration eingeben können.
 
 Für jeden Typ, den eine Property haben kann wurde eine Angular-Komponente definiert.
@@ -388,7 +418,7 @@ Mit einem Klick auf den Button \textit{Download config.json} kann die Konfigurat
 Klickt man auf \textit{Create project} wird diese Konfigurationsdatei, sowie alle weiteren hochgeladenen Dateien, an
 das Backend gesendet und man erhält das daraus generierte Projekt.
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:schema.json}]{schema.json}
 {
   "title": "Example JSON Object",
   "type": "object",
@@ -436,8 +466,10 @@ Folgende Seite wird aufgrund obigem JSON-Schema angezeigt:
 \setauthor{Sebastian Scholl}
 
 \subsection{Static Site Generators}
-Da JSON als Format für die Daten ausgewählt wurde und Angular dieses zur Laufzeit einlesen kann, wurden
+Da JSON als Format für die Daten und Angular als Framework für die Visualisierung ausgewählt wurde, wurden
 keine Static Site Generators zum Generieren der Websites verwendet.
+In Angular können JSON Files zur Laufzeit eingelesen werden, aus denen dann mithilfe von Angular Komponenten diese
+Daten visualisiert werden können.
 
 \subsection{Aufbau}
 Das Backend besteht aus zwei Teilen, die verschiedene Aufgaben übernehmen:
@@ -499,7 +531,7 @@ Dieser läuft am Port 4000.
 
 Die Konfigurationsdatei dafür sieht folgendermaßen aus:
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:nginx.conf}]{nginx.conf}
   events {}
 
   http {
@@ -527,7 +559,7 @@ Die Images dafür werden in \textit{Dockerfiles} definiert.
 
 Das \textit{docker-compose.yml} File sieht folgendermaßen aus:
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:docker-compose.yml}]{docker-compose.yml}
   version: '3.8'
 
   services:
@@ -566,7 +598,7 @@ Die entstehenden Files werden dann in das \textit{nginx} Image kopiert, wo sie v
 
 Das \textit{Dockerfile} dazu sieht folgendermaßen aus:
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:Dockerfile.nginx}]{Dockerfile.nginx}
 FROM node:16-alpine AS builder
 WORKDIR /usr/src/app
 COPY client/package*.json ./
@@ -594,7 +626,7 @@ Im Dockerfile der REST-API werden folgende Schritte ausgeführt:
 
 Das entsprechende \textit{Dockerfile} sieht wie folgt aus:
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:Dockerfile.server}]{Dockerfile.server}
 FROM node:16-alpine
 
 WORKDIR /usr/src/app
@@ -613,7 +645,7 @@ CMD [ "npm", "start" ]
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
-Mit der Deployment Pipeline sollen Benutzern und Benutzerinnen die Möglichkeit haben, das generierte Projekt schnell
+Mit der Deployment Pipeline sollen Benutzerinnen und Benutzern die Möglichkeit haben, das generierte Projekt schnell
 und einfach zu deployen.
 Das Ziel des Deployments ist dabei entweder eine Linux Virtual Machine oder eine Firebase Hosting Instanz.
 
@@ -657,7 +689,7 @@ Diese werden über den Package Manager \textit{npm} mit \textit{npm run deploy:s
 \textit{npm run deploy:firebase} aufgerufen.
 Diese Befehle werden im \textit{package.json} File definiert:
 
-\begin{lstlisting}[numbers=left]
+\begin{lstlisting}[label={lst:package.json}]{package.json}
 {
   "name": "webmap",
   "version": "0.0.0",
@@ -684,7 +716,7 @@ Um die jeweiligen Konsolenbefehle in Node.js aufzurufen wurde die Methode \texti
 \textit{child\_process} verwendet.
 Dieses wird standardmäßig mit Node.js mitgeliefert und benötigt daher keine zusätzliche Installation.
 
-Bevor zu Firebase deployed werden kann, muss der Benutzer oder die Benutzerin die Project ID des jeweiligen
+Bevor zu Firebase deployed werden kann, muss die Benutzerin oder der Benutzer die Project ID des jeweiligen
 Firebase Projekts eingeben.
 Dieses wird im \textit{.firebaserc} File gespeichert, das dann von der Firebase CLI ausgelesen wird.
 
@@ -697,6 +729,6 @@ Diese Information stellt Node.js in der Variable \textit{process.platform} berei
 Das SSH Skript unterscheidet sich vom Firebase Skript nur im letzten Schritt.
 In diesem wird das Node-Package \textit{node-ssh} verwendet, um das gebuildete Projekt zu deployen.
 
-Auch hier werden wieder Informationen, die für das Deployment benötigt werden, von Benutzer oder Benutzerin über
+Auch hier werden wieder Informationen, die für das Deployment benötigt werden, von Benutzerin oder Benutzer über
 die Kommandozeile eingelesen.
 Diese werden im \textit{ssh-config.json} File gespeichert.
