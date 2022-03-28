@@ -1,9 +1,9 @@
 \setauthor{Jonas Dorfinger}
-Webmap ist als Webanwendung konzeptioniert, deshalb ist es wichtig für das Frontend eine Technologie zu wählen, welche
+Webmap ist als Webanwendung konzeptioniert, deshalb ist es für das Frontend wichtig, eine Technologie zu wählen, welche
 nicht nur langlebig ist, sondern auch eine gute Übersicht bietet.
 Das beinhaltet unter anderem, dass eine große Community hinter dem Framework oder der Library steht,
 aber auch die Anforderungen des Auftraggebers dürfen nicht unbeachtet bleiben.
-Anhand dieser definierten Kriterien wurden die in 2021 beliebtesten Frameworks beziehungsweise Libraries verglichen und für eines entschieden.
+Anhand dieser definierten Kriterien wurden die in 2021 beliebtesten Frameworks beziehungsweise Libraries verglichen.
 
 \subsection{Framework vs. Library}
 \label{subsec:framework-versus-library}
@@ -17,7 +17,7 @@ Einen Tisch selbst zu zimmern wäre zu aufwendig, deswegen wählt man einen Tisc
 
 Das Verwenden eines Frameworks ist wie der Bau eines Hauses, man hat ein paar Blaupausen und Vorgaben zum Design und zur
 Architektur des neuen Gebäudes.
-Man bekommt ein Grundgerüst zur Verfügung gestellt und darin kann man den Regelkonform frei agieren.
+Es wird also ein Grundgerüst zur Verfügung gestellt, in welchem man den Regeln konform frei agieren kann.
 
 Zusammengefasst sind Frameworks Gerüste, welche durch Entwickler projektspezifisch erweitert werden müssen und Libraries
 fertige Pakete, mit denen Programmierer Anwendungen um spezielle Funktionen erweitern.
@@ -31,24 +31,25 @@ Ideen zur Performance Optimierung.
 Die Entwicklerplattform bietet etliche Services und Features an, dazu gehören nicht nur der Cross-Platform Support,
 sondern auch eine built-in Geschwindigkeits- und Performanceoptimierung.
 Auch für Unternehmen mit sehr hohen Nutzerzahlen ist Angular ein gern gewähltes Tool.
-Ein großer Vorteil von Angular ist zudem, dass Angular unter einer Open-Source-Lizenz veröffentlicht
+Ein großer Vorteil von Angular ist zudem, dass es unter einer Open-Source-Lizenz veröffentlicht
 ist und somit nicht von dem Angular-Google Team, sondern auch von der Community betreut und erweitert wird.
 Angular hat mit dem Two-Way-Binding einen großen Vorteil gegenüber React~\ref{subsec:react}.
 Dieses Feature stellt sicher, dass die View und das Model in Echtzeit miteinander synchronisiert werden.
-Das bedeutet, dass eine Änderung im Model direkt in der View angezeigt wird und umgekehrt auch.
+Das bedeutet, dass eine Änderung im Model direkt in der View angezeigt wird, aber auch eine Änderung in der View direkt
+ins Model übertragen wird.
 ~\cite{angular-features,what-is-angular}
 
 \paragraph{Vorteile}
 \begin{itemize}
     \item Features und Funktionalität wie das Two-Way-Binding sind direkt inkludiert
-    \item Direkt eingebaute Features zum Updaten der View oder des Models.
+    \item Direkt eingebaute Features zum Updaten der View oder des Models
     \item Komfortable Wiederverwendung von Components durch Dependency Injection
     \item Große Community zum Lernen und zur Fehlersuche
 \end{itemize}
 
 \paragraph{Nachteile}
 \begin{itemize}
-    \item Schwieriger zu lernen, da Angular so groß ist und es viele mögliche Lösungen gibt
+    \item Schwieriger zu lernen, da Angular sehr umfangreich ist und es viele mögliche Lösungen gibt
     \item Durch die riesigen und komplexen Strukturen kann es sein, dass bei großen dynamischen Applikationen Performance Probleme auftreten
     \item Angular ist ein full-package Framework, weshalb es für kleine Applikationen ungeeignet ist
 \end{itemize}
@@ -82,8 +83,8 @@ Komponenten kann man in kurzer Zeit gute und interaktive User Interfaces entwick
 \paragraph{Vorteile}
 \begin{itemize}
     \item Durch das virtuelle DOM ist die Performance sehr optimiert und kann gut mit vielen gleichzeitigen Zugriffen zurechtkommen
-    \item Unabhängige Components sind leicht zu implementieren und zu wiederverwenden
-    \item React Developer Tools sind sehr ausgereift mit einer großen Nutzbarkeit
+    \item Unabhängige Components sind leicht zu implementieren und wiederzuverwenden
+    \item React Developer Tools sind mit einer großen Nutzbarkeit sehr ausgereift
 \end{itemize}
 
 \paragraph{Nachteile}
@@ -99,13 +100,13 @@ Komponenten kann man in kurzer Zeit gute und interaktive User Interfaces entwick
 \setauthor{Jonas Dorfinger}
 Vue.js ist ein kleines, aber sehr einfach funktionierendes Frontend System und wird immer beliebter.
 Es ist gut sehr darin, Probleme mit denen Angular Developer umgehen müssen zu vermindern oder gar zu lösen.
-Vue.JS ist außerdem sehr leichtgewichtig und klein, hat aber trotzdem viele nützlich Features wie das Two-Way-Binding
+Vue.JS ist außerdem sehr leichtgewichtig und klein, hat aber trotzdem viele nützliche Features wie das Two-Way-Binding
 out-of-the-box dabei, auch die Verwendung als PWA (Progressive Web Apps) ist möglich.
 Der wohl größte Nachteil ist die niedrige Trucknumber~\cite{truck-factor-of-popular-github-projects, what-is-the-bus-factor}.
-Die Trucknumber bei Projekten beschreibt, wie viele Personen ausfallen müssen, dass das Projekt weiterlaufen kann.
-Je höher die Trucknumber, desto mehr Personen könnten ausfallen und das Projekt würde also weiterlaufen.
-Im Gegensatz dazu, je kleiner die Trucknumber, desto weniger Personen können ausfallen, das geht so weit, dass das gesamte
-Projekt an einer einzigen Person hängt.
+Bei Projekten beschreibt dies, wie viele Personen ausfallen können, damit das Projekt weiterlaufen kann.
+Je höher die Trucknumber, desto mehr Personen könnten ausfallen und das Projekt würde trotzdem weiterlaufen.
+Im Gegensatz dazu, je kleiner die Trucknumber, desto weniger Personen können ausfallen.
+Das geht so weit, dass das gesamte Projekt an einer einzigen Person hängt.
 Das letzte Beispiel ist fast bei Vue.js gegeben, in das Core Repository von Vue committed regelmäßig nur der Gründer
 von Vue, Evan You.
 VueJS kann in beiden, TypeScript und JavaScript geschrieben werden.
@@ -140,9 +141,9 @@ VueJS kann in beiden, TypeScript und JavaScript geschrieben werden.
 \setauthor{Jonas Dorfinger}
 Einer der Entwickler hat bereits mehr als zweieinhalb Jahre Erfahrung in der Entwicklung von UserInterfaces und Web-Oberflächen mit Angular.
 Zusätzlich dazu wird Angular in der HTL Leonding ab dem 4. Jahrgang in der Abteilung Medientechnik unterrichtet, wodurch
-die Wahl auf Angular naheliegend war.
-Unabhängig von der Schule und den Entwicklern ist es außerdem eine Anforderung der Betreuerfirma triply Angular zu verwenden,
-weil triply bei allen Frontend Projekten auf Angular vertraut und um diese Konsistenz zu bewahren ist Angular die logische Wahl.
+die Wahl auf dieses Framework naheliegend war.
+Unabhängig von der Schule und den Entwicklern ist es außerdem eine Anforderung der Betreuerfirma triply Angular zu verwenden.
+Triply vertraute bisher bei allen Frontend Projekten auf Angular.
 
 \subsubsection{Angular installieren und verwenden}
 \setauthor{Jonas Dorfinger}
@@ -191,7 +192,7 @@ npm ist ein Produkt von Github, Github wiederum gehört seit 2018 zu Microsoft~\
 \label{TypeScript}
 TypeScript ist eine typisierte Programmiersprache welche auf JavaScript aufbaut.
 TypeScript ist außerdem eine Übermenge von JavaScript.
-Das bedeutet, dass TypeScript alle Eigenschaften von JavaScript hat und aber noch eigene Funktionalität mitbringt.
+Das bedeutet, dass TypeScript alle Eigenschaften von JavaScript hat und zusätzlich noch eigene Funktionalität mitbringt.
 Folgende Features werden im Gegensatz zu JavaScript unterstützt:
 
 \begin{itemize}
@@ -213,7 +214,7 @@ Folgende Features werden im Gegensatz zu JavaScript unterstützt:
 Wenn man ein TypeScript Programm ausführt, dann wird der Quellcode von TypeScript Code in JavaScript Code transpiled.
 Dies wird erzielt, indem eine von mehreren möglichen Optionen ausgewählt wird.
 Die Auswahl beschränkt sich dennoch auf den TypeScript Checker oder Babel, beide Varianten sind stark verbreitet.
-TypeScript kann sowohl Clientseitig, als auch Serverseitig (zum Beispiel in Kombination mit Node.js) eingesetzt werden.
+TypeScript kann sowohl clientseitig, als auch serverseitig (zum Beispiel in Kombination mit Node.js) eingesetzt werden.
 
 \paragraph{Beispiel: Funktionen mit und ohne Types} \
 
@@ -310,7 +311,7 @@ vom bundle entfernt, was wiederrum die \emph{bundle size} beträchtlich verringe
 \subsubsection{Angular Material}
 \setauthor{Jonas Dorfinger}
 Angular Material ist eine Component-Library von Angular, diese beinhaltet stylistisch aufeinander abgestimmte Elemente.
-Diese Komponenten können ganz einfach importiert werden, durch das Responsive Design der Inhalte, eignen sich diese sehr gut
+Diese Komponenten können ganz einfach importiert werden. Durch das Responsive Design der Inhalte, eignen sich diese sehr gut
 für die Umsetzung einer Web-Oberfläche, da nicht viel Zeit für das Design verloren geht, sondern der Fokus voll und ganz
 auf die Funktionalität gelegt werden kann.
 
@@ -332,7 +333,7 @@ zwei Dark- und zwei Lighttheme Varianten~\cite{angular-material-predefined-theme
 Weiters hat man die Möglichkeit eigene Themes zu erstellen.
 Mithilfe von Custom Themes können die von Angular bereitgestellten Komponenten für jedes Projekt individuell eingefärbt werden.
 Um das zu erreichen, wählt man beim Installieren die fünfte Auswahlmöglichkeit \emph{Custom} aus.
-Dies erstellt, den dafür benötigten Code in dem \emph{styles.scss} File.
+Dies erstellt den dafür benötigten Code in dem \emph{styles.scss} File.
 Man kann sich über diverse Internet Seiten Farbpaletten generieren lassen, diese werden benötigt, um ein eigenes Theme zu gestalten.
 Ein Angular Theme hat genau "drei" verschieden Farben, wobei es eher Farbpaletten sind.
 
@@ -351,7 +352,7 @@ Die Warn Palette besteht meist aus einem Rot, welcher für Fehlermeldungen verwe
 \linebreak
 \linebreak
 
-Eine Farbpalette besteht aus einer Basisfarbe und mehrere abstufungen dieser Farbe, um auch hier unterschiedliche Töne für
+Eine Farbpalette besteht aus einer Basisfarbe und mehreren Abstufungen dieser Farbe, um auch hier unterschiedliche Töne für
 Hervorhebungen zu haben.
 
 Ein Beispiel einer Farbpalette für eine primary-palette:
@@ -397,11 +398,11 @@ Die Komponenten werden ganz einfach über einen Custom HTML Tag eingebunden.
 
 \subsubsection{triply Material Library}
 \setauthor{Jonas Dorfinger}
-Triply hat in den letzten Monaten einige eigene Angular Komponenten erstellt und in einer internen Bibliothek
-gesammelt, vor allem auf diese Inhalte wurde zurückgegriffen, um zum Beispiel einen Slider oder einen true/false Switch
+Triply hat in den letzten Monaten einige eigene Angular Komponenten erstellt und in einer internen Bibliothek gesammelt.
+Auf diese Inhalte wurde besonders zurückgegriffen, um zum Beispiel einen Slider oder einen true/false Switch
 zu verwenden.
 Der Unterschied zu Angular Material liegt darin, dass die Firmeninterne Library aus Files besteht, welche in das Projekt
-kopiert werden, vereinfach gesagt, man verwendet dabei Custom-Components.
+kopiert werden, vereinfach gesagt, dass dabei Custom-Components verwendet werden.
 
 \begin{figure}[hbt!]
     \centering
@@ -414,7 +415,7 @@ kopiert werden, vereinfach gesagt, man verwendet dabei Custom-Components.
 \setauthor{Jonas Dorfinger}
 Dieses Pattern wird oft für die Entwicklung von User Interfaces verwendet,
 dabei wird die Logik in drei verschiedenen Elementen (Files) aufgeteilt.
-Das wird gemacht, um interne Abbildungen und Referenzen von Daten beziehungsweise Informationen
+Das hat zum Ziel, interne Abbildungen und Referenzen von Daten beziehungsweise Informationen
 in einer Art und Weise aufzuteilen.
 Das Model ist von der restlichen Anwendung komplett
 unabhängig.
@@ -437,9 +438,9 @@ Balkendiagramm für den Manager oder eine Tabelle für die Buchhaltung.
 
 \paragraph{Controller}
 Der Controller ist das Gehirn einer Component, er ist das Verbindungsstück zwischen View und Model.
-Dabei werden die Daten mittels Getter-Funktionen aus dem Model geladen und so verändert beziehungsweise so manipuliert, sodass die View diese richtig
+Dabei werden die Daten mittels Getter-Funktionen aus dem Model geladen und so verändert beziehungsweise manipuliert, dass die View diese richtig
 anzeigen kann.
-Wenn Änderungen der Daten durch die gemacht werden, speichert der Controller diese Änderung mittels Setter-Funktionen im Model.
+Wenn dadurch Änderungen der Daten gemacht werden, speichert der Controller diese Änderung mittels Setter-Funktionen im Model.
 
 \begin{figure}[hbt!]
     \centering
