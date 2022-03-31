@@ -319,7 +319,7 @@ schnell und einfach in einer Benutzeroberfläche zu erstellen.
 
 \subsection{JSON Schema}
 Da der Generator dynamisch aufgebaut sein sollte und die Möglichkeit bestehen sollte, das Format der generierten
-Daten zu verändern, wurde sich dazu entschieden, den Generator aufgrund eines JSON Schemas, das die Daten beschreibt,
+Daten zu verändern, fiel die Entscheidung darauf, den Generator aufgrund eines JSON Schemas, das die Daten beschreibt,
 aufzubauen.
 
 Das Format des Schemas wurde daher so angepasst, dass es die benötigten Daten möglichst genau beschreiben kann.
@@ -357,9 +357,9 @@ Properties vom Typ ''string'' und ''boolean'' haben keine zusätzlichen Felder.
 
 
 \section{Angular Projekt}
-Da sich reaktive Formulare einfach in Angular umsetzen lassen, wurde sich für dieses Framework entschieden.
-Ein weiterer Vorteil ist, dass damit der Generator und das Frontend beide in Angular umgesetzt sind, was die
-Wartung des gesamten Projekts erleichtert.
+Da sich reaktive Formulare einfach in Angular umsetzen lassen, fiel die Entscheidung auf dieses Framework.
+Ein weiterer Vorteil ist, dass damit der Generator und das Frontend beide in Angular umgesetzt sind.
+Das erleichtert die Wartung des gesamten Projekts.
 
 Das Kernstück des Generators ist das \textit{src/assets/schema.json} File, in dem sich das Schema für das zu
 generierende Konfigurationsfile befindet.
@@ -382,7 +382,7 @@ Ein Object Component dient lediglich zur Visualisierung, welche Properties zu we
 Die Funktionalität befindet sich hauptsächlich in den anderen Komponenten.
 
 Eine Ausnahme bildet ein Objekt, bei dem im Schema keine \textit{properties} definiert sind.
-In diesem Fall wird ein Textfeld angezeigt, in welches ein beliebiges JSON-Objekt eingegeben werden kann.
+In diesem Fall wird ein Textfeld angezeigt, in welchem ein beliebiges JSON-Objekt eingegeben werden kann.
 Mittels \textit{FormControl} wird laufend überprüft, ob der eingegebene Wert ein valides JSON-Objekt ist.
 
 Dazu wird die in JavaScript standardmäßig vorhandene Funktion \textit{JSON.parse} verwendet.
@@ -418,8 +418,8 @@ Der Boolean Component wurde mit einem Schieberegler realisiert, der zwei Zustän
 
 \subsection{Generieren des Konfigurationsfiles}
 Mit einem Klick auf den Button \textit{Download config.json} kann die Konfigurationsdatei heruntergeladen werden.
-Klickt man auf \textit{Create project} wird diese Konfigurationsdatei, sowie alle weiteren hochgeladenen Dateien, an
-das Backend gesendet und man erhält das daraus generierte Projekt.
+Wird auf \textit{Create project} geklickt, wird diese Konfigurationsdatei, sowie alle weiteren hochgeladenen Dateien, an
+das Backend gesendet und das daraus generierte Projekt wird zurückgegeben.
 
 \begin{lstlisting}[label={lst:schema.json}]{schema.json}
 {
@@ -488,7 +488,7 @@ Für die Implementierung der Endpoints wurde express.js verwendet.
 
 Das Template-Angular-Projekt, aus dem später mithilfe einer Konfigurationsdatei das Projekt generiert wird,
 befindet sich im \textit{template} Directory.
-Beim Start wird mithilfe des Node-Packages \textit{node-tar} daraus das Archiv \textit{template.tar} erzeugt.
+Aus diesem wird beim Start mithilfe des Node-Packages \textit{node-tar} das Archiv \textit{template.tar} erzeugt.
 
 Die API enthält drei Endpoints:
 
@@ -529,7 +529,7 @@ Nach 10 Minuten läuft dieser Downloadlink ab und das generierte Projekt wird ge
 \subsubsection{Webserver}
 Als Webserver und Reverse-Proxy wird nginx verwendet.
 Der Webserver stellt alle Files des Generators, die sich im \textit{/usr/share/nginx/html/generator} Directory
-befinden, zur Verfügung, während der Reverse-Proxy alle Requests zu \textit{/api} zur REST-API weiterleitet.
+befinden, zur Verfügung, während der Reverse-Proxy alle Requests an die Route \textit{/api} zur REST-API weiterleitet.
 Dieser läuft am Port 4000.
 
 Die Konfigurationsdatei dafür sieht folgendermaßen aus:
@@ -649,7 +649,7 @@ CMD [ "npm", "start" ]
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
-Mit der Deployment Pipeline sollen Benutzerinnen und Benutzern die Möglichkeit haben, das generierte Projekt schnell
+Mit der Deployment Pipeline sollen Benutzerinnen und Benutzer die Möglichkeit haben, das generierte Projekt schnell
 und einfach zu deployen.
 Das Ziel des Deployments ist dabei entweder eine Linux Virtual Machine oder eine Firebase Hosting Instanz.
 
@@ -666,8 +666,8 @@ Stattdessen wurde auf die \textit{Firebase CLI} zurückgegriffen.
 
 Die SSH-Konfiguration der Virtuellen Maschine musste dabei nur einmal in Jenkins vorgenommen werden und konnte
 dann in jeder Pipeline verwendet werden.
-Auch für Firebase musste nur einmalig ein Token generiert werden, mit dem man sich dann in jeder Pipeline
-authentifizieren konnte.
+Auch für Firebase musste nur einmalig ein Token generiert werden, mit dem sich dann in jeder Pipeline
+authentifiziert werden konnte.
 
 Ein großer Nachteil von Jenkins war jedoch, dass für jedes Projekt zuerst ein GitHub
 Repository und eine neue Pipeline im Web-Interface von Jenkins erstellt werden
@@ -678,7 +678,8 @@ Für den Ansatz mit GitHub Actions wurden die beiden Files \textit{deploy.yml} u
 \textit{.github/workflows} Directory des Projekts erstellt.
 
 Sowohl für das Deployen auf eine Virtual Machine, als auch zu \textit{Firebase Hosting}
-standen Plugins zur Verfügung, was die Konfiguration einfacher als bei Jenkins machte.
+standen Plugins zur Verfügung.
+Das machte die Konfiguration einfacher als bei Jenkins.
 Hostname, Username, Target Direcory und SSH Private Key der Virtual Machine und Informationen zur Firebase Instanz
 wurden als Secrets gespeichert und so in den Workflows verwendet.
 
@@ -687,7 +688,7 @@ Ansatz mit GitHub Actions ein GitHub Repository erstellt werden.
 
 \subsection{Node.js Skripts}
 Da für ein Deployment mithilfe von Skripts kein GitHub Repository für jedes Projekt erstellt werden muss,
-wurde sich für diesen Ansatz entschieden.
+fiel die Entscheidung auf diesen Ansatz.
 Um das gesamte Projekt leichter wartbar zu machen, wurden auch die Deployment Skripts in JavaScript geschrieben.
 Diese werden über den Package Manager \textit{npm} mit \textit{npm run deploy:ssh} bzw.
 \textit{npm run deploy:firebase} aufgerufen.
