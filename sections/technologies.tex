@@ -334,7 +334,7 @@ auf \textit{Liquid}~\cite{jekyll-liquid}.
 Es besteht zwar die Möglichkeit, es mit Angular zu verknüpfen.
 Da aber Liquid und Angular beide mit doppelten geschwungenen Klammern arbeiten, um auf Variablen zuzugreifen, muss
 dies in Angular geändert werden.
-Das ist zwar grundsätzlich möglich, kann aber eine Sicherheitslücke darstellen und es wird davon abgeraten~\cite{angular-interpolation}.
+Das ist grundsätzlich möglich, kann aber eine Sicherheitslücke darstellen und es wird davon abgeraten~\cite{angular-interpolation}.
 
 Weiters wird Jekyll hauptsächlich für Blogs und Seiten, die nur Text enthalten, verwendet.
 Dementsprechend wird wenig Funktionalität für Seiten mit anderem Inhalt bereitgestellt.
@@ -356,7 +356,7 @@ Ein weiterer Einsatzbereich ist das automatisierte Testen von Webapplikationen.
 Scully benützt einen Headless Browser, um die Website einmal zu rendern und die entstehenden Dateien zu speichern.
 
 Weiters ist die Community von Scully um einiges kleiner, als die von anderen Static Site Generators.
-Bei Problemen und Fragen gibt es daher weniger Ressourcen, auf die man zugreifen kann.
+Bei Problemen und Fragen gibt es daher weniger Ressourcen, auf die zugegriffen werden kann.
 
 \section{Deployment Pipeline}
 \setauthor{Sebastian Scholl}
@@ -532,7 +532,7 @@ In folgendem Step eines Workflows werden diese Secrets dann referenziert:
 \subsection{Node.js Skripts}
 Node.js~\ref{Node.js} Skripts haben den Vorteil gegenüber dem Ansatz mit einer Automatisierungssoftware,
 dass dafür kein GitHub Repository erstellt werden muss und nur die Kommandozeile benötigt wird.
-Da Node.js plattformunabhängig ist, können diese Skripts in sowohl auf Windows als auch auf
+Da Node.js plattformunabhängig ist, können diese in Skripts sowohl auf Windows als auch auf
 Linux und macOS ausgeführt werden.
 
 \section{Formate für die Konfigurationsdatei}
@@ -676,7 +676,7 @@ End Tags zeichnen sich dadurch aus, dass sie ein \textit{/} Zeichen vor dem Name
 Ein XML Element beginnt mit einem Start Tag und wird mit einem äquivalenten End Tag beendet.
 Diese Elemente können einen Wert oder eines oder mehrere Unterelemente enthalten~\cite{xml}.
 
-Die meisten XML Dokumenten enthalten außerdem eine sogenannte XML Declaration.
+Die meisten XML Dokumente enthalten außerdem eine sogenannte XML Declaration.
 Darin sind Metadaten des Dokuments enthalten.
 Meistens sieht diese XML Declaration folgendermaßen aus:
 
@@ -796,7 +796,7 @@ Symbolic Links.
  ESLint ist ein Open-Source Linting Tool für JavaScript und TypeScript.
  Es wird verwendet, um geschriebenen Code zu analysieren, um Muster zu finden, von denen man weiß, dass sie
  problematisch und anfällig für Bugs sind.
- Weiters kann man damit einen bestimmten Code Style definieren, um den Code konsistent und lesbar zu machen.
+ Weiters kann damit ein bestimmter Code Style definiert werden, um den Code konsistent und lesbar zu machen.
  Alle diese Aspekte werden als sogenannte Rules definiert.
  Die Library stellt eine Menge an vorgefertigten Rules zur Verfügung, es können aber auch sehr einfach eigene
  Rules erstellt werden~\cite{eslint}.
@@ -870,7 +870,7 @@ http {
  Container werden aus sogenannten Images erstellt.
  Diese Images erhalten alles, was ein Container benötigt, um zu laufen.
  Dazu gehören das Filesystem mit allen Dependencies und Konfigurationen, Umgebungsvariablen
- und einen Befehl, um die Software im Container zu starten.
+ und ein Befehl, um die Software im Container zu starten.
  Beim Start des Containers wird der Inhalt des Images kopiert und darin der Befehl ausgeführt, der die Software
  startet.
  Dafür wird der Docker CLI Befehl \textit{docker run [image name]} verwendet~\cite{docker-image}.
@@ -956,6 +956,6 @@ http {
  Das bedeutet, dass sie miteinander kommunizieren können, aber nicht von außen auf sie zugegriffen werden kann.
  Jeder Service kann jedoch einzelne Ports definieren, die auch von außerhalb erreichbar sein sollen.
  Diese Abstraktionsschicht erhöht die Sicherheit, da zum Beispiel nur Services innerhalb eines Docker Netzwerks auf eine
- Datenbank zugreifen können, diese von Prozessen außerhalb nicht erreichbar ist.
+ Datenbank zugreifen können, diese aber von Prozessen außerhalb nicht erreichbar ist.
  Docker Compose erleichtert das Routing innerhalb der Docker Netzwerke außerdem, indem der Hostname eines Services
  gleich seinem Namen ist~\cite{docker-network}.
