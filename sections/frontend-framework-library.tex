@@ -2,22 +2,22 @@
 Webmap ist als Webanwendung konzeptioniert, deshalb ist es für das Frontend wichtig, eine Technologie zu wählen, welche
 nicht nur langlebig ist, sondern auch eine gute Übersicht bietet.
 Das beinhaltet unter anderem, dass eine große Community hinter dem Framework oder der Library steht,
-aber auch die Anforderungen des Auftraggebers dürfen nicht unbeachtet bleiben.
+speziell bei der Zusammenarbeit mit einem Unternehmen sind auch interne Erfahrungen und Vereinbarungen ausschlaggebend.
 Anhand dieser definierten Kriterien wurden die in 2021 beliebtesten Frameworks beziehungsweise Libraries verglichen.
 
 \subsection{Framework vs. Library}
 \label{subsec:framework-versus-library}
 \setauthor{Jonas Dorfinger}
 Sowohl Frameworks als auch Libraries sind Codes, welche oft auftretende Probleme einfach lösen sollen.
-Um das konkret zu veranschaulichen, kann man dies mit einer Metapher besser beschreiben.
+Um das konkret zu veranschaulichen, können diese mit einer Metapher besser beschreiben werden.
 
-Eine Library ist wie der Besuch in einem Möbelhaus, man hat zwar grundsätzlich ein Haus aber keine Einrichtung, man
-braucht also eine leichte Lösung um das Haus zu möblieren.
-Einen Tisch selbst zu zimmern wäre zu aufwendig, deswegen wählt man einen Tisch aus der großen Auswahl in dem besuchten Geschäft.
+Eine Library ist wie der Besuch in einem Möbelhaus, es existiert grundsätzlich ein Haus, jedoch ohne Einrichtung, deshalb
+wird eine einfache Lösung, um das Haus zu möblieren benötigt.
+Einen Tisch selbst zu zimmern wäre zu aufwendig, deswegen wird ein Tisch aus der großen Auswahl in dem besuchten Geschäft gewählt.
 
-Das Verwenden eines Frameworks ist wie der Bau eines Hauses, man hat ein paar Blaupausen und Vorgaben zum Design und zur
+Das Verwenden eines Frameworks ist wie der Bau eines Hauses, es gibt Blaupausen und Vorgaben zum Design und zur
 Architektur des neuen Gebäudes.
-Es wird also ein Grundgerüst zur Verfügung gestellt, in welchem man den Regeln konform frei agieren kann.
+Es wird also ein Grundgerüst zur Verfügung gestellt, in welchem den Regeln konform frei agiert werden kann.
 
 Zusammengefasst sind Frameworks Gerüste, welche durch Entwickler projektspezifisch erweitert werden müssen und Libraries
 fertige Pakete, mit denen Programmierer Anwendungen um spezielle Funktionen erweitern.
@@ -58,14 +58,14 @@ ins Model übertragen wird.
 \label{subsec:react}
 \setauthor{Jonas Dorfinger}
 ReactJS ist die größte Konkurrenz von Angular, mit einem Vielfachen an Marktanteilen.
-Im Gegensatz zu Angular wird React von Facebook gewartet und betreut und verfügt über die Funktionalität des virtuellen
+Im Gegensatz zu Angular wird React von Facebook gewartet und verfügt außerdem über die Funktionalität des virtuellen
 Document Object Models (DOM).
 Das virtuelle DOM verbessert die Performance und verringert die Dauer von Render Prozessen, da nur die Inhalte verwendet werden,
 welche sich auch tatsächlich verändert haben und nicht die gesamte View neu gerendert wird.
 Durch dieses Feature wird eine Plattform geschaffen, welche sich sehr gut für Applikationen mit großem Traffic eignet.
-Ein Alleinstellungsmerkmal ist dazu auch noch, dass React Server-Side Rendering unterstützt.
-Für SPAs, also Single Page Applications ist es empfehlenswert sich für React zu entscheiden, durch das Wiederverwenden der
-Komponenten kann man in kurzer Zeit gute und interaktive User Interfaces entwickeln.
+Ein Alleinstellungsmerkmal ist, dass React Server-Side Rendering unterstützt.
+Für SPAs, also Single Page Applications kann es empfehlenswert sein sich für React zu entscheiden.
+Durch das Wiederverwenden der Komponenten können in kurzer Zeit gute und interaktive User Interfaces entwickelt werden.
 
 \begin{figure}[hbt!]
     \centering
@@ -82,17 +82,17 @@ Komponenten kann man in kurzer Zeit gute und interaktive User Interfaces entwick
 
 \paragraph{Vorteile}
 \begin{itemize}
-    \item Durch das virtuelle DOM ist die Performance sehr optimiert und kann gut mit vielen gleichzeitigen Zugriffen zurechtkommen
-    \item Unabhängige Components sind leicht zu implementieren und wiederzuverwenden
-    \item React Developer Tools sind mit einer großen Nutzbarkeit sehr ausgereift
+    \item Durch das virtuelle DOM ist die Performance sehr gut optimiert und kann ausgezeichnet mit vielen gleichzeitigen Zugriffen zurechtkommen
+    \item Unabhängige Components sind einfach zu implementieren und wiederzuverwenden
+    \item React Developer Tools sind mit einer hohen Nutzbarkeit auch sehr ausgereift
 \end{itemize}
 
 \paragraph{Nachteile}
 \begin{itemize}
     \item Durch etliche Updates ist die Dokumentation lückenhaft
-    \item Schnelle Änderungen in kurzer Zeit, neu gelerntes ist in naher Zukunft bereits wieder "alt"
-    \item Inhalte wie JSX sind komplex und schwer zu lernen
-    \item ReactJS setzt einiges an Erfahrung in JavaScript oder TypeScript voraus
+    \item Viele Änderungen in kurzer Zeit, neu Gelerntes ist in naher Zukunft bereits wieder ''alt''
+    \item Inhalte wie JSX sind komplex und schwierig zu lernen
+    \item ReactJS setzt Erfahrung in JavaScript oder TypeScript voraus
 \end{itemize}
 
 \subsection{Vue}
@@ -100,8 +100,9 @@ Komponenten kann man in kurzer Zeit gute und interaktive User Interfaces entwick
 \setauthor{Jonas Dorfinger}
 Vue.js ist ein kleines, aber sehr einfach funktionierendes Frontend System und wird immer beliebter.
 Es ist gut sehr darin, Probleme mit denen Angular Developer umgehen müssen zu vermindern oder gar zu lösen.
-Vue.JS ist außerdem sehr leichtgewichtig und klein, hat aber trotzdem viele nützliche Features wie das Two-Way-Binding
-out-of-the-box dabei, auch die Verwendung als PWA (Progressive Web Apps) ist möglich.
+Vue.JS ist außerdem sehr leichtgewichtig, hat aber trotzdem viele nützliche Features wie das Two-Way-Binding
+out-of-the-box dabei.
+Auch die Verwendung als PWA (Progressive Web Apps) ist möglich.
 Der wohl größte Nachteil ist die niedrige Trucknumber~\cite{truck-factor-of-popular-github-projects, what-is-the-bus-factor}.
 Bei Projekten beschreibt dies, wie viele Personen ausfallen können, damit das Projekt weiterlaufen kann.
 Je höher die Trucknumber, desto mehr Personen könnten ausfallen und das Projekt würde trotzdem weiterlaufen.
@@ -109,11 +110,11 @@ Im Gegensatz dazu, je kleiner die Trucknumber, desto weniger Personen können au
 Das geht so weit, dass das gesamte Projekt an einer einzigen Person hängt.
 Das letzte Beispiel ist fast bei Vue.js gegeben, in das Core Repository von Vue committed regelmäßig nur der Gründer
 von Vue, Evan You.
-VueJS kann in beiden, TypeScript und JavaScript geschrieben werden.
+VueJS kann in beiden, TypeScript und JavaScript geschrieben werden~\cite{best-frontend-frameworks, best-frontend-framework-2022, angular-vs-react-vs-vue}.
 
 \paragraph{Vorteile}
 \begin{itemize}
-    \item Sehr leicht zu lernen, vor allem mit basis JavaScript Wissen
+    \item Sehr leicht zu lernen, vor allem mit JavaScript Erfahrung
     \item Flexibles App Layout
     \item Umfangreiche und ausführliche Dokumentation
 \end{itemize}
@@ -132,8 +133,6 @@ VueJS kann in beiden, TypeScript und JavaScript geschrieben werden.
     \label{fig:vue_contributions}
 \end{figure}
 
-~\cite{best-frontend-frameworks, best-frontend-framework-2022, angular-vs-react-vs-vue}
-
 \subsection{Verwendung von Angular}
 \setauthor{Jonas Dorfinger}
 
@@ -141,7 +140,7 @@ VueJS kann in beiden, TypeScript und JavaScript geschrieben werden.
 \setauthor{Jonas Dorfinger}
 Einer der Entwickler hat bereits mehr als zweieinhalb Jahre Erfahrung in der Entwicklung von UserInterfaces und Web-Oberflächen mit Angular.
 Zusätzlich dazu wird Angular in der HTL Leonding ab dem 4. Jahrgang in der Abteilung Medientechnik unterrichtet, wodurch
-die Wahl auf dieses Framework naheliegend war.
+die Wahl für dieses Framework naheliegend war.
 Unabhängig von der Schule und den Entwicklern ist es außerdem eine Anforderung der Betreuerfirma triply Angular zu verwenden.
 Triply vertraute bisher bei allen Frontend Projekten auf Angular.
 
@@ -150,16 +149,16 @@ Triply vertraute bisher bei allen Frontend Projekten auf Angular.
 
 \paragraph{Node.js}
 \label{Node.js}
-Node.js ist eine asynchrone open-source Event gesteuerte JavaScript Entwicklerumgebung.
+Node.js ist eine asynchrone open-source event gesteuerte JavaScript Entwicklerumgebung.
 Node.js ist Plattformunabhängig, das heißt, dass in node geschriebene Anwendungen sowohl auf Windows oder Linux als auch auf macOS problemlos funktionieren.
 JavaScript wird grundsätzlich im Browser ausgeführt, durch node kann JavaScript jedoch auch serverseitig ausgeführt werden.
 Dabei erhält man durch die Node.js API umfangreiche Funktionen, um mit dem lokalen Betriebssystem zu interagieren.
 Node.js wird verwendet, um skalierbare Netzwerk Applikationen zu designen.
-Im folgenden Beispiel wird gezeigt, wie man einen einfachen Node.js Webserver implementiert.
+Im folgenden Beispiel wird gezeigt, wie ein einfacher Webserver Node.js in implementiert werden kann.
 Durch diese Implementierung können etliche Verbindungen gleichzeitig behandelt werden.
 Bei jeder Verbindung wird die Callback Funktion ausgeführt.
 Werden keine Verbindungen aufgebaut, so geht Node.js in den Wartezustand.
-Wenn man Node.js verwendet, muss man sich keine Sorgen über dead-locks machen, weil es durch die Asynchronität keine locks gibt.
+Wenn Node.js verwendet wird, können durch die Asynchronität keine dead-locks entstehen.
 Node.js Funktionen führen kaum I/O Prozesse durch,
 dadurch kann ein Prozess nie blockieren außer es wird die I/O Funktion synchron über die Node.js Library aufgerufen.
 Weil keine Prozesse blockieren, ist es naheliegend skalierende Systeme in Node.js zu entwickeln~\cite{about-node-js}.
@@ -183,8 +182,8 @@ server.listen(port, hostname, () => {
 
 \paragraph{npm}
 npm oder auch ausgeschrieben der Node-Package-Manager ist eine Software um Packages zu Node.js Applikationen hinzuzufügen.
-npm wird standardmäßig mit Node.js mitinstalliert, es handelt sich um eine CLI (Command-Line-Interface) welche auf die online registry zugreift.
-Die npm-registry ist eine Online-Datenbank welche public (open-source) und private (auch kostenpflichtige) Packages zur Verfügung stellt.
+npm wird standardmäßig mit Node.js mitinstalliert, es handelt sich um ein CLI (Command-Line-Interface), welches auf die online registry zugreift.
+Die npm-registry ist eine Online-Datenbank, welche public (open-source) und private (auch kostenpflichtige) Packages zur Verfügung stellt.
 Die Packages werden über die CLI installiert und können über die \href{https://npmjs.com}{npm Website} gesucht werden.
 npm ist ein Produkt von Github, Github wiederum gehört seit 2018 zu Microsoft~\cite{microsoft-acquires-github}.
 
@@ -211,7 +210,8 @@ Folgende Features werden im Gegensatz zu JavaScript unterstützt:
     \item Optionale Parameter and Defaultwerte für Parameter
 \end{itemize}
 
-Wenn man ein TypeScript Programm ausführt, dann wird der Quellcode von TypeScript Code in JavaScript Code transpiled.
+Wenn ein TypeScript Programm ausführt wird, dann wird der Quellcode von TypeScript Code in JavaScript Code transpiled
+(Siehe Transpiling~\ref{subsubsec:transpiling}).
 Dies wird erzielt, indem eine von mehreren möglichen Optionen ausgewählt wird.
 Die Auswahl beschränkt sich dennoch auf den TypeScript Checker oder Babel, beide Varianten sind stark verbreitet.
 TypeScript kann sowohl clientseitig, als auch serverseitig (zum Beispiel in Kombination mit Node.js) eingesetzt werden.
@@ -250,18 +250,23 @@ Deshalb tritt beim zweiten Aufruf ein Error auf, weil ein String nicht als Numme
 
 \cite{typescript-landing-page, what-is-typescript}
 
+\subsubsection{Transpiling}
+\setauthor{Jonas Dorfinger}
+\label{subsubsec:transpiling}
+cooles transpiling
+
 \subsubsection{Wie funktioniert Angular?}
 \setauthor{Jonas Dorfinger}
 \emph{Ivy} ist die neue Compilation und Rendering Pipeline für Angular.
-Seit der Angular Version 9 wird standardmäßig die neue Pipeline verwendet und ersetzt damit die Alter Pipeline,
+Seit der Angular Version 9 wird standardmäßig die neue Pipeline verwendet und ersetzt damit die alte Pipeline,
 welche unter dem Namen \emph{View Engine} bekannt ist.
 
-Da \emph{Ivy} nicht nur eine Rendering Engine, sondern auch eine Compile Engine ist, öffnen sich ganz neue Türen was die
-Optimierung für und über das gesamte Framework angeht.
+Da \emph{Ivy} nicht nur eine Rendering Engine, sondern auch eine Compile Engine ist, öffnen sich ganz neue Türen für zum
+Beispiel die Optimierungen der Gesamtperformance.
 
 Anstatt Template Daten zu generieren, diese in einen Interpreter zu geben, der wiederrum entscheidet, welche Operationen
 ausgeführt werden, wird direkt eine Sammlung an \emph{Template Instructions} generiert.
-Die \emph{Template Instructions} beinhalten die Logik, welche Components instanziiert, DOM Nodes erstellt und Change Detection in Echtzeit ausführt.
+Die \emph{Template Instructions} beinhalten die Logik, welche Components instanziiert, DOM Nodes erstellt und Change Detection in Echtzeit ausgeführt werden.
 
 \begin{figure}[hbt!]
     \centering
@@ -271,8 +276,8 @@ Die \emph{Template Instructions} beinhalten die Logik, welche Components instanz
 \end{figure}
 
 \paragraph{Incremental DOM}
-Jede Component wird in eine eigene Sammlung an Instructions compiled, diese erstellen DOM Trees und aktualisieren die
-Daten an Ort und Stelle, wenn diese sich ändern.
+Jede Component wird in eine eigene Sammlung an Instructions compiled.
+Diese erstellen DOM Trees und aktualisieren die Daten an Ort und Stelle, wenn diese sich ändern.
 Zum Erstellen des \emph{Document Object Models} gibt es drei verschieden Funktionen:
 
 \begin{itemize}
@@ -282,12 +287,12 @@ Zum Erstellen des \emph{Document Object Models} gibt es drei verschieden Funktio
 \end{itemize}
 
 Beim Aktualisieren des DOMs wird nicht automatisch jedes Mal ein komplett neuer Tree erstellt, sondern es werden alle
-Nodes verglichen und nur jene verändert, welche auch tatsächlich verändert wurden.
+Nodes miteinander verglichen, um nur die tatsächlichen Änderungen zu modifizieren.
 Das spart nicht nur Arbeitsspeicher, sondern auch Zeit.
 
-Der Grund warum Incremental DOM verwendet sind die Ziele welche erreicht werden möchten.
+Der Grund warum Incremental DOM verwendet wird, sind die Ziele, welche erreicht werden möchten.
 Der Fokus liegt auf einer besseren Performance von Web-Applikationen auf Mobilen Endgeräten (Handys, Tablets).
-Um dies zu erreichen, ist es erforderlich zwei Dinge zu optimieren, \emph{bundle size} und \emph{memory footprint}.
+Um dies zu erreichen, ist es erforderlich zwei Dinge zu optimieren, nämlich die \emph{bundle size} und den \emph{memory footprint}.
 
 
 \paragraph{Shakable Tree}
@@ -295,7 +300,7 @@ Bei Verwendung der Incremental DOM Strategie wird nicht die Component interpreti
 verschiedene Instructions.
 Wenn kein Verweis auf eine Instruction zu finden ist, dann wird dieser Teil nicht verwendet und ist somit überflüssig.
 Durch die Vorteile von Incremental DOM ist dies bereits zur Compile Zeit bekannt, weshalb alle nicht benützten Instructions
-vom bundle entfernt, was wiederrum die \emph{bundle size} beträchtlich verringern kann.
+vom bundle entfernt werden, was wiederrum die \emph{bundle size} beträchtlich verringern kann.
 
 \begin{figure}[hbt!]
     \centering
@@ -330,33 +335,27 @@ zwei Dark- und zwei Lighttheme Varianten~\cite{angular-material-predefined-theme
     \item Purple \& Green (Dark)
 \end{itemize}
 
-Weiters hat man die Möglichkeit eigene Themes zu erstellen.
+Weiters können eigene Themes erstellt werden.
 Mithilfe von Custom Themes können die von Angular bereitgestellten Komponenten für jedes Projekt individuell eingefärbt werden.
 Um das zu erreichen, wählt man beim Installieren die fünfte Auswahlmöglichkeit \emph{Custom} aus.
 Dies erstellt den dafür benötigten Code in dem \emph{styles.scss} File.
-Man kann sich über diverse Internet Seiten Farbpaletten generieren lassen, diese werden benötigt, um ein eigenes Theme zu gestalten.
-Ein Angular Theme hat genau "drei" verschieden Farben, wobei es eher Farbpaletten sind.
+Diverse Internetseiten (zum Beispiel \href{https://mcg.mbitson.com/#!?primary=%2300b27a&themename=webmap-theme}{https://mbitson.com})
+können Farbpaletten generieren.
+Diese werden benötigt, um ein eigenes Theme zu gestalten.
+Ein Angular Theme besteht aus genau ''drei'' verschiedenen Farben, wobei jede Farbe aus einer eigenen Farbpalette besteht.
+Diese Paletten beinhalten die Basisfarbe und mehreren Abstufungen davon, um unterschiedliche Töne für Hervorhebungen zu haben.
 
 \paragraph{primary-palette}
 Die Primary Palette legt die Hauptfarbe fest, welche in fast allen Komponenten standardmäßig verwendet wird.
-Man kann allerdings auch bei den meisten Komponenten individuell als Parameter angeben, welche der drei Paletten verwendet werden soll.
-
+Es kann allerdings auch bei den meisten Komponenten die gewünschte Farbe als Parameter angegeben werden.
 \paragraph{accent-palette}
 Die Accent Palette definiert eine Akzentfarbe, welche einen hohen Kontrast zur Hauptfarbe haben soll, um bestimmte Elemente
 besser hervorheben zu können.
-
 \paragraph{warn-palette}
 Die Warn Palette besteht meist aus einem Rot, welcher für Fehlermeldungen verwendet wird.
 
-~
-\linebreak ~
-\linebreak ~
-\linebreak ~
 
-Eine Farbpalette besteht aus einer Basisfarbe und mehreren Abstufungen dieser Farbe, um auch hier unterschiedliche Töne für
-Hervorhebungen zu haben.
-
-Ein Beispiel einer Farbpalette für eine primary-palette:
+Ein Beispiel einer Farbpalette:
 
 \begin{lstlisting}[label={lst:custom-primary-color-palette}]{style.scss}
 $primary-palette: (
@@ -393,22 +392,30 @@ $primary-palette: (
 );
 \end{lstlisting}
 
-Insgesamt hat man die Auswahl aus 36 verschiedenen Komponenten~\cite{angular-material-component-overview,angular-material-description,angular-material-with-angular}.
+Insgesamt kann aus 36 verschiedenen Komponenten gewählt werden~\cite{angular-material-component-overview,angular-material-description,angular-material-with-angular}.
 
-Die Komponenten werden ganz einfach über einen Custom HTML Tag eingebunden.
+Die Komponenten werden ganz einfach über einen Custom HTML Tag eingebunden, zum Beispiel ein Angular Material Select.
+
+\begin{lstlisting}[label={lst:custom-html-tag}]
+    <mat-select>
+        <mat-option value="1">Option 1</mat-option>
+        <mat-option value="2">Option 2</mat-option>
+        <mat-option value="3">Option 3</mat-option>
+    </mat-select>
+\end{lstlisting}
 
 \subsubsection{triply Material Library}
 \setauthor{Jonas Dorfinger}
-Triply hat in den letzten Monaten einige eigene Angular Komponenten erstellt und in einer internen Bibliothek gesammelt.
+Triply hat in den letzten Monaten eigene Angular Komponenten erstellt und in einer internen Bibliothek gesammelt.
 Auf diese Inhalte wurde besonders zurückgegriffen, um zum Beispiel einen Slider oder einen true/false Switch
 zu verwenden.
-Der Unterschied zu Angular Material liegt darin, dass die Firmeninterne Library aus Files besteht, welche in das Projekt
+Der Unterschied zu Angular Material liegt darin, dass die firmeninterne Library aus Files besteht, welche in das Projekt
 kopiert werden, vereinfach gesagt, dass dabei Custom-Components verwendet werden.
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=1]{pics/triply-material-library}
-    \caption{Triply Slider und Triply Switch}
+    \caption{triply Slider und triply Switch}
     \label{fig:triply-material-library}
 \end{figure}
 
@@ -445,7 +452,7 @@ Wenn dadurch Änderungen der Daten gemacht werden, speichert der Controller dies
 
 \begin{figure}[hbt!]
     \centering
-    \includegraphics[scale=0.1]{pics/mvc_design_pattern}
+    \includegraphics[scale=0.5]{pics/mvc_design_pattern}
     \caption{Model-View-Controller-Pattern}
     \label{fig:mvc_design_pattern}
 \end{figure}

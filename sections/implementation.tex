@@ -46,7 +46,8 @@ die Darstellung der aktuellen Daten auf der Page zu manipulieren.
 
 \subsection{Konfigurationsfile}
 Das Konfigurationsfile ist ein JSON File, welches festlegt welche Slides (Pages) existieren, aber auch die zu darstellenden Daten definiert.
-Hinweis: Grafische Darstellungen der Konfiguration sind weiter unten, bei anderen Kapiteln angeführt.
+
+\textbf{Hinweis:} Grafische Darstellungen der Konfiguration sind weiter unten, bei den Kapiteln~\ref{subsec:sidebar, subsec:map} angeführt.
 
 \begin{lstlisting}[label={lst:config.json}]{config.json}
 {
@@ -179,16 +180,16 @@ Hier können \href{https://leafletjs.com/SlavaUkraini/reference.html#map-option}
 übergeben werden, um die Art der Darstellung oder das Verhalten der Map zu verändern.
 
 \textbf{Color Scheme}
-Dieses Feld referenziert auf die ID eines Color Schemes, entweder gibt man den Namen eines
-\href{https://carto.com/carto-colors/}{Carto-Color-Schemes} an oder man erstellt ein eigenes Custom-Color-Scheme.
+Dieses Feld referenziert auf die ID eines Color Schemes, entweder es wird der Name eines
+\href{https://carto.com/carto-colors/}{Carto-Color-Schemes} oder eines Custom-Color-Schemes angegeben.
 
 \textbf{Color Scheme Order Value}
-Um das Color-Scheme richtig anzuwenden, braucht man einen Value, um eine angemessene Skalierung zu berechnen, dieser Attributname
+Um das Color-Scheme richtig anzuwenden, wird ein Value benötigt, um eine angemessene Skalierung zu berechnen, dieser Attributname
 kann hier angegeben werden.
 
 \textbf{Tooltip}
 Der Tooltip ist ein Feature, welcher es ermöglicht, Information beim hovern einer Data Source auf der Map anzuzeigen.
-Es ist deshalb ein Array, damit man unbegrenzt viele Informationen angeben kann.
+Es ist deshalb ein Array, damit unbegrenzt viele Informationen angeben werden können.
 Jedes JSON-Objekt in diesem Array besitzt genau 2 Attribute, \emph{type} und \emph{name} oder \emph{content}.
 Der \emph{type} gibt an, ob es sich um einen Value oder einen Text handelt, bei einem Value muss der Attributname des
 Values bei dem anderen Attribute (\emph{Name}) angegeben werden.
@@ -217,13 +218,13 @@ Die Services verarbeiten und verteilen Daten zwischen den Components.
 \subsection{Services}
 Services sind bei Angular ein spezielles Konstrukt zur Datenverarbeitung, der Hauptanwendungsfall ist der Austausch von Daten
 zwischen mehreren Components.
-Der große Vorteil von Services ist, dass es dabei um Singletons handelt.
+Der große Vorteil von Services ist, dass es sich dabei um Singletons handelt.
 Das bedeutet, es gibt genau eine Instanz für alle Komponenten, somit ist es möglich, dass alle auf die gleichen Daten zugreifen.
 
 \subsubsection{Config Service}
-Der Config Service liest das Konfigurationsfile aus und bietet diesen Inhalt an andere Components an.
+Der Config Service liest das Konfigurationsfile aus und bietet diesen Inhalt anderen Components an.
 Über die App Component wird die Konfiguration angefordert und weiterverarbeitet, so werden die Data Source Konfigurationsdaten
-und die Custom Color Schemes herausgefiltert und an den ~\ref{subsubsec:data-source-service} weitergegeben.
+und die Custom Color Schemes herausgefiltert und an den Data Source Service ~\ref{subsubsec:data-source-service} weitergegeben.
 
 \subsubsection{Data Source Service}
 \label{subsubsec:data-source-service}
@@ -232,8 +233,10 @@ benötigten Data Sources anfordern und referenzieren kann.
 Somit muss jede Data Source nur einmal erstellt und kann endlose Male weiterverwendet werden.
 
 Jede Data Source besteht aus mehreren Layern, dadurch ist eine Data Source eine Leaflet \emph{LayerGroup}.
-Der Service erhält zu Beginn die Informationen aus dem Konfigurationsfile, zuerst werden die Geo-Daten ausgelesen und entsprechend verarbeitet.
-Es werden die verschiedenen Layer entsprechend der Daten erstellt und eingefärbt, wenn angegeben, wird hier auch der Tooltip zum Layer hinzugefügt.
+Der Service erhält zu Beginn die Informationen aus dem Konfigurationsfile.
+Zuerst werden die Geo-Daten ausgelesen und entsprechend verarbeitet.
+Es werden die verschiedenen Layer entsprechend der Daten erstellt und eingefärbt.
+Wenn angegeben, wird hier auch der Tooltip zum Layer hinzugefügt.
 
 Es werden alle \emph{Geometry Types} laut der \emph{GeoJSON Specification (RFC 7946)}~\cite{rfc7946} unterstützt:
 
@@ -249,9 +252,10 @@ Es werden alle \emph{Geometry Types} laut der \emph{GeoJSON Specification (RFC 7
 \end{itemize}
 
 \subsubsection{Menu Service}
-Um die Navigation zu erleichtern, kann man mit den Pfeiltasten zwischen den Pages wechseln, aber auch ein globales Menü
+Um die Navigation zu erleichtern, kann mit den Pfeiltasten zwischen den Pages wechseln werden, aber auch ein globales Menü
 steht zur Verfügung, um direkt zur gewünschten Page zu gelangen.
-Dabei hat man eine kurze Übersicht über alle Pages und mit einem Klick auf die entsprechende Seite gelangt man auch dorthin.
+Dabei hat wird eine kurze Übersicht über alle Pages angezeigt.
+Mit einem Klick auf die entsprechende Seite gelangt wird diese auch angezeigt.
 
 \begin{figure}[hbt!]
     \centering
@@ -266,7 +270,7 @@ Es werden standardmäßig die Schemes der CartoColor Library verwendet, welche e
 Ein Color Scheme besteht aus mehreren Farben, welche durch Abstufungen angeordnet sind (meistens von dunkel bis hell).
 Auch bei den Individuellen Schemes ist dies nicht anders, es wird ein eindeutiger Name vergeben und HEX-Codes zugeordnet.
 
-Der ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color Schemes importiert und verwendet werden, wenn sie so konfiguriert sind.
+Der Data Source Service ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color Schemes importiert und verwendet werden, wenn sie so konfiguriert sind.
 
 \begin{figure}[hbt!]
     \centering
@@ -275,7 +279,7 @@ Der ~\ref{subsubsec:data-source-service} stellt sicher, dass alle Custom Color S
     \label{fig:color-scheme-example}
 \end{figure}
 
-\subsection{Sidebar}
+\subsection{Sidebar}\label{subsec:sidebar}
 Die Sidebar auf der linken Seite bietet Platz, um Informationen anzuzeigen.
 Ganz oben ist der \emph{title} zu sehen, darunter der \emph{subtitle}, der zu sehende Textblock, ist die \emph{description},
 für welche für jeden Array Eintrag ein eigener Absatz erstellt wird.
@@ -294,7 +298,7 @@ die Skalierung des Slider wird automatisch berechnet.
     \label{fig:sidebar}
 \end{figure}
 
-\subsection{Map}
+\subsection{Map}\label{subsec:map}
 In der Map werden alle Daten auf der Karte visualisiert.
 In den hochgeladenen Geo-JSON Files sind unzählige Koordinaten enthalten, welche punkteweise auf der Karte dargestellt werden.
 Je nach Art der Darstellung werden anschließend Linien zwischen Punkten berechnet, welche auch Formen ergeben können.
@@ -303,7 +307,7 @@ Die Arten dieser Visualisierungen sind im RFC 7946~\cite{rfc7946} Standard genau
 Durch den Data Source Service gibt es bereits eine Sammlung an LayerGroups, welche nur noch angezeigt werden müssen.
 Das erhöht nicht nur die Performance, wenn die Page gewechselt wird, sondern macht die gesamte Applikation gut strukturiert.
 
-Wenn alle Components eingebunden sind, kann das Frontend so ausschauen:
+Wenn alle Components eingebunden sind, kann das Frontend so aussehen:
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=.3]{pics/webmap-frontend}

@@ -4,22 +4,22 @@ Der Begriff Versionierung beschreibt im Allgemeinen einen Prozess, welcher zur D
 Nach jeder Änderung wird im System eine aktuelle Version abgespeichert und mit einer eindeutigen Versionsnummer versehen.
 Diese wird meist automatisch durch das Versionierungstool vergeben.
 Zusätzlich wird auch gespeichert, wer welche Einträge wann und wo gemacht hat, so werden Änderungen transparent mitprotokolliert.
-Eine der wichtigsten Vorteile einer Versionierung ist jedoch die Funktion, dass man alte Stände von Dateien wiederherstellen kann.
+Eine der wichtigsten Vorteile einer Versionierung ist jedoch die Funktion, dass alte Stände von Dateien wiederhergestellen werden können.
 Eine Versionsverwaltungssoftware kann auch die gleichzeitigen Zugriffe auf eine Datei von mehreren Personen koordinieren.
 Versionierung ist nicht nur Standard in der Softwareentwicklungs Branche, sondern auch in etlichen weiteren Bereichen stark
 verbreitet.
 
 \subsection{automatische vs. manuelle Versionierung}
 \setauthor{Jonas Dorfinger}
-Wenn während dem Schreiben einer Arbeit Sicherheitskopien angelegt und diese mit zum Beispiel "arbeit-neu",
-"arbeit-fertig" oder "arbeit-fertig2" benannt werden, dann ist das nichts anderes als eine manuelle Versionierung, weil auch hier
+Wenn während dem Schreiben einer Arbeit Sicherheitskopien angelegt und diese mit zum Beispiel ''arbeit-neu'',
+''arbeit-fertig'' oder ''arbeit-fertig2'' benannt werden, dann ist das nichts anderes als eine manuelle Versionierung, weil auch hier
 eine eindeutige Versionsnummer für jede Datei vergeben wurde.
 Das birgt aber auch große Risiken, da eine manuelle Versionierung viel Zeit und Disziplin erfordert und immer die Gefahr
-besteht, dass man eine wichtige Version überschreibt.
+besteht, dass eine wichtige Version überschreibt wird.
 Die meisten Probleme werden von der automatischen Versionierung gelöst.
-Bei dieser Variante werden automatisch, wenn man einen Stand als "fertig" markiert, diese mit einer Versionsnummer versehen
+Bei dieser Variante werden automatisch, die als "fertig" markierte Stände, mit einer Versionsnummer versehen
 und im Archiv schreibgeschützt abgelegt.
-Dadurch hat man die Risiken der manuellen Versionierung auf ein Minimum reduziert~\cite{versionierung}.
+Dadurch hat werden die Risiken der manuellen Versionierung auf ein Minimum reduziert~\cite{versionierung}.
 
 \subsection{git}
 \setauthor{Jonas Dorfinger}
@@ -31,11 +31,11 @@ Laut einer Umfrage von Stackoverflow nutzen mehr als 87\% der Entwickler weltwei
 
 \subsubsection{Der git Workflow}
 Der git Workflow beschreibt die effizienteste Arbeitsweise mit git.
-Dabei gibt es vier Stufen zwischen denen mit verschiedenen Konsolen Befehlen gewechselt werden kann.
+Dabei gibt es vier Stufen zwischen denen gewechselt werden kann.
 
 \paragraph{1. Remote Repository}
 Das Remote Repository befindet sich auf einem externen Server (zum Beispiel Github Server~\ref{subsec:github}).
-Mit einem einfache \emph{git clone} Befehl in der Konsole, kann man das Repository klonen und somit ein lokales Repository erstellen.
+Mit einem einfachen \emph{git clone} Befehl in der Konsole, kann das Repository geklont und somit ein lokales Repository erstellt werden.
 Auf dieses Archiv können mehrere Personen zugreifen und so gemeinsam an einem Projekt arbeiten.
 
 \paragraph{2. Lokales Repository}
@@ -43,13 +43,13 @@ Das Lokale Repository ist eine Kopie der Version im Remote Repository, mit dem U
 diesem Repository gesammelt werden und erst durch den Befehl \emph{git push} wieder zurück ins Remote Repository gelangen.
 
 \paragraph{3. Staging Area}
-In der Staging Area sind alle lokal modifizierten Files, welche für den nächsten Commit auserwählt sind, gesammelt.
+In der Staging Area sind alle lokal modifizierten Files, welche für den nächsten Commit ausgewählt sind, gesammelt.
 Durch den Befehl \emph{git commit -m <message>} gelangen ausgewählte Änderungen in das lokale Repository.
 Ein Commit repräsentiert dabei eine Version des Programmes, welche mit einer eindeutigen Nummer im System gespeichert wird.
 
 \paragraph{4. Working Directory}
 Im Working Directory wird tatsächlich programmiert, alle Änderungen der Files werden hier durchgeführt.
-Mit dem Befehl \emph{git add <filename>} können einzelne Files gezielt in die Staging Area verschoben werden um diese
+Mit dem Befehl \emph{git add <filename>} können einzelne Files gezielt in die Staging Area verschoben werden, um diese
 dann anschließend ins lokale Repository zu committen.
 
 \begin{figure}[hbt!]
@@ -63,7 +63,7 @@ dann anschließend ins lokale Repository zu committen.
 
 \subsection{Semantische Versionierung}
 \label{subsec:semantic-versioning}
-Eine semantische Versionsnummer besteht aus drei Teilen:
+Eine semantische Versionsnummer besteht aus drei Teilen~\cite{semantische-versionierung}:
 
 \begin{center}
     \centering{MAJOR.MINOR.PATCH}
@@ -80,33 +80,32 @@ Wenn Funktionalität hinzugefügt wird, welche mit älteren Versionen noch kompa
 \textbf{PATCH}
 Wenn kleine Bug fixes durchgeführt werden, welche auch mit älteren Versionen kompatibel sind
 
-Zusätzlich können auch labels für \emph{pre-release} oder \emph{build metadata} angegeben werden:
+Zusätzlich können auch Labels für \emph{pre-release} oder \emph{build metadata} angegeben werden:
 
 \begin{center}
     \centering{MAJOR.MINOR.PATCH format}
 \end{center}
 
-\cite{semantische-versionierung}
-
 \subsection{GitHub}\label{subsec:github}
 GitHub Inc. ist ein amerikanisches gewinnorientiertes Softwareunternehmen, welches git Repositories in der Cloud anbietet,
 also das Remote Repository.
 Dadurch können Privatpersonen aber auch große Unternehmen und Konzerne ganz leicht git als Versionierungstool verwenden.
-Durch viele Features von GitHub wird das Arbeiten mit git so stark erleichtert, dass auch Anfänger bereits sehr profesionell
-mit git arbeiten und lernen können.
-Normalerweise verwendet man git mit der Kommandozeile des jeweiligen Betriebssystemes, was hohes technisches Verständnis voraussetzt.
-Man kann einen kostenlosen Account erstellen und gratis Repositories anlegen und verwenden,
+Durch viele Features von GitHub wird das Arbeiten mit git so stark erleichtert, dass auch Anfängerinnen und Anfänger
+git in einer professionellen Umgebung kennenlernen und ausprobieren können.
+Normalerweise wird git mit der Kommandozeile des jeweiligen Betriebssystemes verwendet, was hohes technisches Verständnis voraussetzt.
+Mit einem kostenlosen Account können gratis Repositories angelegt und verwendet werden,
 deshalb ist Github in der Open-Source Community sehr stark verbreitet.
-Doch mittlerweile kann diese Software mehr als "nur" Projekte versionieren.
+Mittlerweile kann diese Software mehr als ''nur'' Projekte versionieren.
 Es gibt project-tracking-tools (GitHub Projects, Issues, Milestones, Labels, etc.), Pipelines für Continues Integration and Delivery,
-gratis Website Hosting und noch vieles mehr~\cite{github-features}.
+gratis Website Hosting und unter anderem die Möglichkeit die Dokumentation der geschriebenen Software besser zu bearbeiten~\cite{github-features}.
 
-Zusätzlich gibt es aber auch andere Programme welche zu GitHub gehören.
-Zum einen ist es \emph{Atom}, ein kostenloser und Open-Source Editor für Entwickler, weiters gibt es noch \emph{Electron},
-ebenfalls ein Open-Source JavaScript Framework, es wird verwendet um Web-Anwendungen zu Desktopanwendungen zu machen.
+Zusätzlich gibt es auch andere Programme welche zu GitHub gehören.
+2014 wurde \emph{Atom} vorgestellt, ein kostenloser Open-Source Editor für Entwicklerinnen und Entwickler, weiters gibt es noch \emph{Electron},
+ebenfalls ein Open-Source JavaScript Framework.
+Es wird verwendet um Web-Anwendungen zu Desktopanwendungen zu machen.
 
 Unternehmen können kostenpflichtige Organisationen anlegen, um alle Repositories einer Firma gesammelt an einem Ort zu verwalten.
-Dazu gibt es wieder etliche Features, welche die Sicherheit, Rollen und vieles mehr betreffen.
+Dazu gibt es etliche Features, welche die Sicherheit, Rollen und zum Beispiel Berechtigungen betreffen.
 
 Seit 2018 gehört GitHub zu Microsoft, welche für die Übernahme \$7,5 Milliarden US-Dollar bezahlt haben~\cite{microsoft-acquires-github}.
 
@@ -115,9 +114,9 @@ Seit 2018 gehört GitHub zu Microsoft, welche für die Übernahme \$7,5 Milliard
 \setauthor{Jonas Dorfinger}
 Triply verfügt über eine GitHub Organisation, daher ist es naheliegend, dass für webmap ein eigenes Repository angelegt wird.
 
-Um Übersicht über den Projektverlauf zu behalten, ist die Entscheidung aufgrund von internen Vereinbarungen von triply sowie die
-Erfahrung des Teams auf GitHub Projects gefallen.
-Man kann ein Project Board ganz einfach über die GitHub Website erstellen und dabei auswählen, ob eine Vorlage ausgewählt werden soll.
+Um Übersicht über den Projektverlauf zu behalten, ist die Entscheidung aufgrund interner Vereinbarungen von triply sowie
+Erfahrungen des Teams auf GitHub Projects gefallen.
+Ein Project Board kann ganz einfach über die GitHub Website erstellt werden, dabei gibt es die Auswahl ein vordefiniertes Template zu verwenden.
 
 Es gibt folgende Templates zur Auswahl: ~\cite{github-create-project}
 
@@ -139,10 +138,10 @@ Das Template \emph{Automated Kanban with Reviews} erweitert das Automated Kanban
 Dieses Template wird verwendet, um Bugs zu priorisieren und diese geordnet anzusehen, dabei gibt es folgende Spalten:
 
 \begin{itemize}
-    \item To do
-    \item High priority
-    \item Low priority
-    \item Closed
+    \item \textbf{To do:} einfache To dos, ohne großer Dringlichkeit
+    \item \textbf{High priority:} Bugs welche möglichst schnell behoben werden müssen
+    \item \textbf{Low priority:} Bugs welche in naher Zukunft behandelt werden müssen, jedoch nicht allzu dringend sind
+    \item \textbf{Closed:} Wenn eine Aufgabe fertiggestellt ist, kommt diese in diese Spalte
 \end{itemize}
 
 \subsection{Issues}
@@ -151,23 +150,11 @@ Issues haben die Möglichkeit, die anstehende Arbeit zu dokumentieren und planen
 \cite{github-issues}
 
 \subsection{Automatisierung}
-Durch die Verwendung spezieller Keywords in Commit messages oder in einem Kommentar bei einem Issue, kann der Zustand dieses
+Durch die Verwendung spezieller Keywords in \emph{commit messages} oder in einem Kommentar bei einem Issue, kann der Zustand dieses
 Issues verändert werden.
 Dies geht mit der Automatisierung von Project Boards einher.
 
-\textbf{Keywords:}
-
-\begin{itemize}
-    \item close
-    \item closes
-    \item closed
-    \item fix
-    \item fixes
-    \item fixed
-    \item resolve
-    \item resolves
-    \item resolved
-\end{itemize}
+\textbf{Keywords:} close, closes, closed, fix, fixes, fixed, resolve, resolves und resolved.
 
 \textbf{Verwendung}
 
@@ -186,7 +173,7 @@ Dies geht mit der Automatisierung von Project Boards einher.
 \section{Map Frameworks}
 \setauthor{Jonas Dorfinger}
 Geo-Daten sind sehr komplexe Daten, welche nur sehr schwer und mit viel Erfahrung ohne Visualisierung interpretiert werden können.
-Um solche Daten visualiseren zu können werden Map Frameworks benötigt.
+Um solche Daten visualiseren zu können, werden Map Frameworks benötigt.
 Diese können auf digitalen Karten die Koordinaten grafisch darstellen, jedoch sind auch interaktive Darstellungen möglich.
 Drei der bekanntesten Frameworks sind:
 
@@ -204,13 +191,6 @@ für den gesamten Globus.
 Große Konzerne wie Amazon, Facebook oder Snapchat setzen auf OpenStreetMap, um ihre eigenen Angebote und Services den Kundinnen und Kunden anzubieten.
 Unternehmen wie Tesla, mit einer eigenen Navigationssoftware, verwenden die OSM-Datenbank ebenfalls für ihre eigenen Zwecke~\cite{osm-customers-1, osm-customers-2}.
 
-\begin{figure}[hbt!]
-    \centering
-    \includegraphics[scale=0.25]{pics/austria-mapbox}
-    \caption{Österreich mit Bundesländern in Mapbox}
-    \label{fig:austria-mapbox}
-\end{figure}
-
 \paragraph{Vorteile}
 \begin{itemize}
     \item OpenSource (bis Version 2.0.0)~\cite{mapbox-open-source}
@@ -225,21 +205,30 @@ Unternehmen wie Tesla, mit einer eigenen Navigationssoftware, verwenden die OSM-
     \item Kein ausgereifter Angular Wrapper
 \end{itemize}
 
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[scale=0.35]{pics/austria-mapbox}
+    \caption{Österreichische Staatsgrenzen mit Landesgrenzen dargestellt mit Mapbox}
+    \label{fig:austria-mapbox}
+\end{figure}
+
 \subsection{Leaflet}
-Leaflet ist das laut eigenen Angaben führende Open-Source JavaScript Library, wenn mobile und interaktive Karten gefordert sind.
+Leaflet ist laut eigenen Angaben führende Open-Source JavaScript Library, wenn mobile und interaktive Karten gefordert sind.
 Durch die sehr gute API Dokumentation können ganz leicht Geo-Daten auf Karten dargestellt und interaktive Elemente eingebaut werden.
 Der Fokus liegt dabei auf den Grundfunktionalitäten, das beinhaltet auch eine Performance Optimierung für fast alle Geräte und Plattformen.
-Dank einer leichten Anbindungsmöglichkeit für Plugins, gibt es etliche davon im Internet, die man einfach verwenden kann,
+Dank einer leichten Anbindungsmöglichkeit für Plugins, gibt es etliche davon im Internet, die ganz einfach verwendet werden können,
 um die Funktionalitäten zu erweitern.
-Leaflet wird auch von den ganz großen Anbietern verwendet: GitHub, Pinterest, Facebook, European Commission, The Washington Post und noch viele mehr.
+Leaflet wird auch von den ganz großen Anbietern verwendet, zum Beispiel: GitHub, Pinterest, Facebook, European Commission und The Washington Post.
 ~\cite{leaflet-doc}
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.4]{pics/austria-leaflet}
-    \caption{Österreich mit Bundesländern in Leaflet}
+    \caption{Österreichische Staatsgrenzen mit Landesgrenzen dargestellt mit Leaflet}
     \label{fig:austria-leaflet}
 \end{figure}
+
+
 
 \paragraph{Vorteile}
 \begin{itemize}
@@ -254,22 +243,22 @@ Leaflet wird auch von den ganz großen Anbietern verwendet: GitHub, Pinterest, F
 \paragraph{Nachteile}
 \begin{itemize}
     \item Offizielle Dokumentation beinhaltet nur grundlegende Beispiele
-    \item Möglicherweise ist das Verwenden von GIS Programmen (zum Beispiel QGIS) notwendig, um Informationen aufzubereiten
+    \item keine Unterstützung von Vektor Tiles, nur mit Plugins Dritter möglich
 \end{itemize}
 
 \subsection{Google Maps}
 Google Maps ist der Kartendienst von Google und der Kartenprovider mit den meisten Daten, welche zur Verfügung stehen.
-OpenStreetMap ist vergleichsweise auf dem Globus nicht überall verfügbar, jeder kann aber an der Vergrößerung der Daten oder Informationen mitwirken.
+OpenStreetMap ist auf dem Globus nicht überall verfügbar, jeder kann aber an der Vergrößerung der Daten oder Informationen mitwirken.
 Google Maps hingegen hat Daten bis in jede noch so kleine Straße, wodurch eine sehr gute Informationslage ermöglicht wird.
-In Kombination mit Places API und der Maps images API kann niemand mit Google mithalten.
-Das liegt auch daran, dass Google mehr als Maps betreut und deshalb viel mehr Möglichkeiten als zum Beispiel OpenStreetMap hat.
+In Kombination mit PlacesAPI und der MapsImagesAPI können weder Leaflet noch Mapbox mit Google mithalten.
+Das liegt auch daran, dass Google durch die hohen Marktanteile im gesamten digitalen Bereich, ein vielfaches an Daten zur Verfügung hat, als OpenStreetMap.
 Der wohl größte Nachteil liegt an der kostenpflichtigen Nutzung ab einer gewissen Nutzerzahl.
-Ab 1000 Anfragen pro Monat ist Google Maps nicht mehr gratis und daher frei zu nutzen~\cite{google-maps-vs-osm}.
+Ab 1000 Anfragen pro Monat ist Google Maps nicht mehr gratis~\cite{google-maps-vs-osm}.
 
 \begin{figure}[hbt!]
     \centering
     \includegraphics[scale=0.2]{pics/austria-googlemaps}
-    \caption{Österreich mit Bundesländern in Google Maps}
+    \caption{Österreichische Staatsgrenzen mit Landesgrenzen dargestellt mit Google Maps}
     \label{fig:austria-googlemaps}
 \end{figure}
 
@@ -285,7 +274,7 @@ Ab 1000 Anfragen pro Monat ist Google Maps nicht mehr gratis und daher frei zu n
     \item Kann kostenpflichtig werden
     \item Terms of Use und Restriktionen
     \item Google Logo immer sichtbar
-    \item Farbschema kann kaum verändert werden.
+    \item Farbschema kann nur geringfügig verändert werden.
 \end{itemize}
 
 \cleardoublepage
@@ -310,7 +299,7 @@ Folgende Ergebnisse wurden bei dem Versuch erhalten:
 
 Aufgrund der oben genannten Vor- und Nachteilen, sowie persönlichen Erfahrungen der Entwickler und nach Absprache mit der
 Betreuerfirma ist die Wahl schlussendlich auf Leaflet in Kombination mit einer Mapbox Tile-layer gefallen.
-Tile-layers bestimmen die Darstellung der Karte an sich und werden von externen Servern direkt für den aktuell zu sehenden Bereich angefordert.
+Tile-layers bestimmen die Darstellung der Karte und werden von externen Servern direkt für den aktuell zu sehenden Bereich angefordert.
 
 \cleardoublepage
 
